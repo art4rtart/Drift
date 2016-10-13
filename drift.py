@@ -1,5 +1,4 @@
 from pico2d import *
-import random
 
 #자동차 위치
 carX, carY = 450, 250
@@ -9,6 +8,17 @@ roadX = 500
 roadY = 1300
 
 #class------------------------------------------------------
+class Car:
+    def __init__(self):
+        self.image = load_image('car.png')
+        self.y = 600
+
+    def update(self):
+        pass
+
+    def draw(self):
+        self.image.draw(carX, carY)
+
 class Road1:
     def __init__(self):
         self.y = 100
@@ -20,16 +30,14 @@ class Road1:
     def draw(self):
         for i in range(0, 6):
             self.image.draw(roadX, self.y + (200 * i))
-            self.image.draw(roadX + 201, self.y + 1201 + (200 * i))
+            self.image.draw(roadX + 201, self.y + 1201 + (200 * i)) # 1번째 직선도로
 
         for i in range(0, 3):
-            self.image.draw(roadX + 600, self.y + 2700 + (200 * i)) # 3300
-            self.image.draw(roadX + 800, self.y + 3500 + (200 * i)) # 4100 + 100
+            self.image.draw(roadX + 600, self.y + 2700 + (200 * i)) # 1번째 직선도로 3300
+            self.image.draw(roadX + 800, self.y + 3500 + (200 * i)) # 3번째 직선도로 4100 + 100
 
         for i in range(0,10):
-            self.image.draw(roadX + 800, self.y + 3500 + (200 * i)) # 3번째 직선
-            #self.image.draw(roadX + 1200, self.y + 4500 + (200 * i))
-            pass
+            self.image.draw(roadX + 800, self.y + 3500 + (200 * i)) # 4번째 직선도로
 
 class Road2:
     def __init__(self):
@@ -41,8 +49,9 @@ class Road2:
 
     def draw(self):
         self.image.draw(roadX, self.y)
-        self.image.draw(roadX + 201, self.y + 1201)
-        self.image.draw(roadX + 401, self.y + 1400)
+
+        for i in range (0, 2):
+            self.image.draw(roadX + 200 + (200 * i), self.y + 1200 + (200 * i))
 
         self.image.draw(roadX + 600, self.y + 2200)
         #self.image.draw(roadX + 800, self.y + 3000)
@@ -50,7 +59,7 @@ class Road2:
 
 class Road3:
      def __init__(self):
-         self.y = 1201
+         self.y = 1200
          self.image = load_image('road3.png')
 
      def update(self):
@@ -58,32 +67,35 @@ class Road3:
 
      def draw(self):
          self.image.draw(roadX + 200, self.y)
-         self.image.draw(roadX + 400, self.y + 1201)
+         self.image.draw(roadX + 400, self.y + 1200)
          self.image.draw(roadX + 600, self.y + 1400)
          self.image.draw(roadX + 800, self.y + 2200) # 더하기 1300
+
          #self.image.draw(roadX + 1000, self.y + 3000)
          #self.image.draw(roadX + 1200, self.y + 3200)
 
-class Car:
+class Road4:
     def __init__(self):
-        self.image = load_image('car.png')
+        self.image = load_image('speedboost.png')
+        self.y = 600
 
     def update(self):
-        pass
+        self.y -= curSpeedY
 
     def draw(self):
-        self.image.draw(carX, carY)
+        self.image.draw(roadX, self.y)
+        self.image.draw(roadX + 200, self.y + 1200)
+        self.image.draw(roadX + 600, self.y + 2400)
+        self.image.draw(roadX + 800, self.y + 3600)
 
-#class------------------------------------------------------
 
-def handle_events(): #키 값
+def handle_events():
     global running
     global carX, carY
     global carCurrentStatus, carCurrentImage
-    global frame
-    global curSpeedX, curSpeedY
+    global carSpeed, curSpeedX, curSpeedY
     global carMoveStatus, moveLine, carMoveCount
-    global frame1
+    global driftframe
     global life
 
     events = get_events()
@@ -97,18 +109,18 @@ def handle_events(): #키 값
             if event.type == SDL_MOUSEBUTTONDOWN: # 드리프트
                 carCurrentStatus = 2
                 carCurrentImage = 2
-                frame = 0
-                frame1 = 0
-                curSpeedX = 30
+                driftframe = 0
+
+                curSpeedX = carSpeed
                 curSpeedY = 0
 
             if event.type == SDL_MOUSEBUTTONUP: # 직진
                 carCurrentStatus = 1
                 carCurrentImage = 3
-                frame = 0
-                frame1 = 0
-                curSpeedX = 5
-                curSpeedY = 30
+                driftframe = 0
+
+                curSpeedX = 0
+                curSpeedY = carSpeed
 
             if event.type == SDL_KEYDOWN:
                 if event.key == SDLK_z: # 왼쪽 칼치기
@@ -125,70 +137,87 @@ def handle_events(): #키 값
                 running = False
 
 #------------------------------------------------------------------------------------
+
 open_canvas(1000,800)
-#이미지로딩---------------------------------------------
+
+#image load -------------------------------------------------------------------------
 car = load_image('car.png') # 자동차
 carDriftRight = load_image('driftR.png') #오른쪽 드리프트
 carDriftBack = load_image('driftB.png') #직진 드리프트
 carCrash = load_image('explode.png') #폭팔 이미지
-background = load_image('back.png') #배경
-# -------------------------------------------------------
+background = load_image('back2.png') #배경
+#------------------------------------------------------------------------------------
 
 running = True
 
-#배경 위치
-Width, Height = 1700, 2500
+#배경 정보
+Width, Height = 500, 400
+count = 1
 
 #자동차 현재 속도
-curSpeedY = 30
+carSpeed = 4
+curSpeedX = carSpeed
+curSpeedY = carSpeed
 
-#자동차 현재 상태
+#자동차 정보
 carCurrentStatus = 1
 carCurrentImage = 1
-carCrashImage = 0
 
-#칼치기 변수
+#차선변경
 carMoveStatus = 0
 carMoveCount = 0
-moveLine = 15
+moveLine = 0
 
-#class--------------------------
+#프레임 변수
+driftframe = 0
+crashframe = 0
+
+#목숨상태
+life = 1
+
+#도로, 자동차 클래스
+car = Car()
+
 road1 = Road1()
 road2 = Road2()
 road3 = Road3()
-car = Car()
+road4 = Road4()
 
-roads1 = [Road1() for i in range(100)]
+
+
+
+roads1 = [Road1() for i in range(1)]
 roads2 = [Road2() for i in range(1)]
 roads3 = [Road3() for i in range(1)]
 
-#임시 변수----------------------
-tempcount = 1
-tempz = 0
-frame = 0
-frame1 = 0
-life = 1
-#-------------------------------
+
+
 
 while ( running ):
     clear_canvas()
 
-    background.draw(600, 400 - tempcount)
-    tempcount += 1
+    for i in range (0,10):
+        background.draw(Width, Height + (i * Height * 2) - count)
+    if(life == 1):
+        count += 1
 
-    for road in roads1:
-        road.update()
-        road.draw()
+    for road1 in roads1:
+        road1.draw()
+        road1.update()
 
-    for road in roads2:
-        road.update()
-        road.draw()
+    for road2 in roads2:
+        road2.draw()
+        road2.update()
 
-    for road in roads3:
-        road.update()
-        road.draw()
+    for road3 in roads3:
+        road3.draw()
+        road3.update()
 
-        roadY -= curSpeedY
+    road4.draw()
+    road4.update()
+
+    roadY -= curSpeedY
+
 
 #충돌체크---------------------------------------------------------------------
     if( carCurrentStatus == 1): # 차가 직진할때
@@ -223,10 +252,18 @@ while ( running ):
                 curSpeedY = 0
                 carCurrentImage = 4
 
-
         if carY + 40 > roadY + 4200:
             curSpeedY = 0
             carCurrentImage = 4
+
+
+
+
+
+
+            #self.image.draw(roadX + 200, self.y + 1200)
+            #self.image.draw(roadX + 600, self.y + 2400)
+            #self.image.draw(roadX + 800, self.y + 3600)
 
 
 # 칼치기-----------------------------------------------------------------------
@@ -263,19 +300,19 @@ while ( running ):
         car.draw()
 
     if(carCurrentImage == 2): # car drift right animation
-        carDriftRight.clip_draw(frame * 100, 0, 100, 100, carX, carY)
-        if(frame < 5):
-            frame = frame + 1
+        carDriftRight.clip_draw(driftframe * 100, 0, 100, 100, carX, carY)
+        if(driftframe < 5):
+            driftframe = driftframe + 1
 
     if(carCurrentImage == 3): # car drift left animation
-        carDriftBack.clip_draw(frame * 100, 0, 100, 100, carX, carY)
-        if(frame < 5):
-            frame = frame + 1
+        carDriftBack.clip_draw(driftframe * 100, 0, 100, 100, carX, carY)
+        if(driftframe < 5):
+            driftframe = driftframe + 1
 
     if carCurrentImage == 4: # car crash animation
-        carCrash.clip_draw(frame1 * 100, 0, 100, 100, carX, carY + 50)
-        if(frame1 < 7):
-            frame1 = frame1 + 1
+        carCrash.clip_draw(crashframe * 100, 0, 100, 100, carX, carY + 50)
+        if(crashframe < 7):
+            crashframe = crashframe + 1
         life = 0
 #----------------------------------------------------------------------------
 
