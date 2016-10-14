@@ -108,21 +108,21 @@ class BoostRoad:
 
 class Obstacle:
     def __init__(self):
-        self.image1 = load_image('wall.png')
+        self.image1 = load_image('control.png')
         self.image2 = load_image('cone.png')
         self.image3 = load_image('stone.png')
-        self.image4 = load_image('back3.png')
+        self.image4 = load_image('one.png')
+        self.image5 = load_image('back3.png')
 
     def update(self):
         pass
 
     def draw(self):
-        self.image1.draw(roadX + 250, roadY + 300)
-        self.image2.draw(roadX + 150, roadY + 800)
-
+        self.image4.draw(roadX + 245, roadY + 300)
+        self.image1.draw(roadX + 150, roadY + 800)
 
         self.image2.draw(roadX + 550, roadY + 1600)
-        self.image1.draw(roadX + 650, roadY + 1900)
+        self.image4.draw(roadX + 645, roadY + 1900)
 
         self.image3.draw(roadX + 1350, roadY + 7000)
         self.image3.draw(roadX + 1450, roadY + 7400)
@@ -131,7 +131,7 @@ class Obstacle:
 
 
 
-        self.image4.draw(roadX + 1455, roadY + 8500)
+        self.image5.draw(roadX + 1455, roadY + 8500)
 
 #key--------------------------------------------------------------------------------
 def handle_events():
@@ -161,7 +161,7 @@ def handle_events():
                 b = 270
                 curSpeedX = curSpeedY
                 curSpeedY = 0
-                z = 0.004
+                z = 0.01
                 carY = carY + 10
 
             if event.type == SDL_MOUSEBUTTONUP: # 직진
@@ -172,7 +172,7 @@ def handle_events():
                 b = 270
                 curSpeedX = 0
                 curSpeedY = carSpeed
-                z = 0.003
+                z = 0.01
 
             if event.type == SDL_KEYDOWN:
                 if event.key == SDLK_z: # 왼쪽 칼치기
@@ -212,7 +212,7 @@ roadX, roadY = 450, 1300
 Width, Height, count = 500, 400, 1
 
 #자동차 현재 속도
-carSpeed, driftSpeed = 4, 5
+carSpeed, driftSpeed = 3, 5
 curSpeedX = carSpeed
 curSpeedY = carSpeed
 
@@ -220,7 +220,7 @@ curSpeedY = carSpeed
 carCurrentStatus, carCurrentImage = 1, 1
 
 #차선변경
-carMoveStatus, carMoveCount, moveLine = 0, 0, 1
+carMoveStatus, carMoveCount, moveLine = 0, 0, 0
 
 #프레임 변수
 driftframe, crashframe = 0, 0
@@ -271,7 +271,7 @@ while ( running ):
     if carY > roadY + 11500:
         count += 0
         life = 0
-        carY += carSpeed
+        carY += carSpeed + 5
 
 #충돌체크---------------------------------------------------------------------
     if( carCurrentStatus == 1): # 차가 직진할때
@@ -292,7 +292,7 @@ while ( running ):
                 or (carY + 40 > roadY + 4000 and carX + 25 < roadX + 900) \
                 or (carY + 40 > roadY + 4200 and carX + 25 < roadX + 1100) \
                 or (carY + 40 > roadY + 4400 and carX + 25 < roadX + 1300) \
-                or (carY + 40 < roadY + 10300 and carX + 25 > roadX + 1500)\
+                or (carY + 40 < roadY + 10300 and carX + 50 > roadX + 1500)\
                 or (carY + 40 > roadY + 10500 and carX > roadX + 1300 and carX < roadX + 1500)\
                 or (carY + 40 > roadY + 10700 and carX > roadX + 1500 and carX < roadX + 1700)\
                 or (carY + 40 > roadY + 10900 and carX > roadX + 1700 and carX < roadX + 1900)\
@@ -302,10 +302,10 @@ while ( running ):
 #장애물
         if (carY + 40 > roadY + 7950 and carY + 40 < roadY + 8100 and carX - 25 < roadX + 1350) \
             or (carY + 40 > roadY + 6950 and carY + 40 < roadY + 7100 and carX - 25 < roadX + 1350) \
-            or (carY + 40 > roadY + 7350 and carY + 40 < roadY + 7500 and carX + 25 > roadX + 1400) \
+            or (carY + 40 > roadY + 7350 and carY + 40 < roadY + 7500 and carX + 40 > roadX + 1400) \
             or (carY + 40 > roadY + 250 and carY + 40 < roadY + 400 and carX + 25 > roadX + 180) \
             or (carY + 40 > roadY + 750  and carY + 40 < roadY + 900 and carX - 25 < roadX + 150)\
-            or (carY + 40 > roadY + 8250 and carY + 40 < roadY + 8750 and carX + 25 > roadX + 1400)\
+            or (carY + 40 > roadY + 8250 and carY + 40 < roadY + 8750 and carX + 40 > roadX + 1400)\
             or (carY + 40 > roadY + 1550 and carY + 40 < roadY + 1750 and carX + 25 < roadX + 550)\
             or (carY + 40 > roadY + 1850 and carY + 40 < roadY + 1900 and carX + 25 > roadX + 600):
             curSpeedY = 0
@@ -314,33 +314,33 @@ while ( running ):
         upgradeY -= carSpeed
 
         if carY + 40 > upgradeY:
-            curSpeedY = 8
-            curSpeedX = 0
-            driftSpeed = 5
-            z = 0.004
-
-        if carY + 40 > upgradeY + 1800:
             curSpeedY = 10
             curSpeedX = 0
-            driftSpeed = 7
-            z = 0.004
+            driftSpeed = 5
+            z = 0.01
 
-        if carY + 40 > upgradeY + 2700:
-            curSpeedY = 13
+        if carY + 40 > upgradeY + 1100:
+            curSpeedY = 15
             curSpeedX = 0
             driftSpeed = 7
-            z = 0.002
+            z = 0.01
+
+        if carY + 40 > upgradeY + 1600:
+            curSpeedY = 19
+            curSpeedX = 0
+            driftSpeed = 7
+            z = 0.01
 # 칼치기-----------------------------------------------------------------------
         if carMoveStatus == 1:
-            carX -= moveLine
+            roadX += moveLine
             carMoveCount = carMoveCount + 1
-            if(carMoveCount > 4):
+            if(carMoveCount > 5):
                 moveLine = 0
 
         if carMoveStatus == 2:
-            carX += moveLine
+            roadX -= moveLine
             carMoveCount = carMoveCount + 1
-            if(carMoveCount > 4):
+            if(carMoveCount > 5):
                 moveLine = 0
 
 #------------------------------------------------------------------------------
@@ -358,8 +358,7 @@ while ( running ):
             or (carY + 40 < roadY + 4200 and carX + 50 > roadX + 1500)\
             or(carY + 40 < roadY + 10500 and carX + 50 > roadX + 1700)\
             or(carY + 40 < roadY + 10700 and carX + 50 > roadX + 1900)\
-            or(carY + 40 < roadY + 10900 and carX + 50 > roadX + 2100)\
-                :
+            or(carY + 40 < roadY + 10900 and carX + 50 > roadX + 2100):
             curSpeedX = 0
             carCurrentImage = 4
 
@@ -369,7 +368,7 @@ while ( running ):
         car.draw()
 
     if(carCurrentImage == 2): # car drift right animation
-        carDriftRight.clip_draw(driftframe * 100, 0, 100, 100, (driftX + cos(a * (math.pi / 180)) * 20), driftY + sin(a * (math.pi / 180)) * 20)
+        carDriftRight.clip_draw(driftframe * 100, 0, 100, 100, ((carX + 50) + cos(a * (math.pi / 180)) * 10), carY + 20 + sin(a * (math.pi / 180)) * 10)
         if(driftframe < 5):
             driftframe = driftframe + 1
         a = a - 15
@@ -377,7 +376,7 @@ while ( running ):
             a = 0
 
     if(carCurrentImage == 3): # car drift left animation
-        carDriftBack.clip_draw(driftframe * 100, 0, 100, 100, (carX + cos(b * (math.pi / 180)) * 20) + 30, driftY + sin(b * (math.pi / 180)) * 20)
+        carDriftBack.clip_draw(driftframe * 100, 0, 100, 100, (carX + cos(b * (math.pi / 180)) * 20) + 30, carY + sin(b * (math.pi / 180)) * 20)
         if (driftframe < 5):
             driftframe = driftframe + 1
         if b < 390:
@@ -391,6 +390,7 @@ while ( running ):
         carSpeed = 0
         curSpeedY = 0
         upgradeY = 0
+
 #----------------------------------------------------------------------------
 
     delay(z)
