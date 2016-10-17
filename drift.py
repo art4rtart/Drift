@@ -307,7 +307,7 @@ while ( running ):
             or (carY + 40 > roadY + 750  and carY + 40 < roadY + 900 and carX - 25 < roadX + 150)\
             or (carY + 40 > roadY + 8250 and carY + 40 < roadY + 8750 and carX + 40 > roadX + 1400)\
             or (carY + 40 > roadY + 1550 and carY + 40 < roadY + 1750 and carX + 25 < roadX + 550)\
-            or (carY + 40 > roadY + 1850 and carY + 40 < roadY + 1900 and carX + 25 > roadX + 600):
+            or (carY + 40 > roadY + 1850 and carY + 40 < roadY + 2000 and carX + 25 > roadX + 600):
             curSpeedY = 0
             carCurrentImage = 4
 #속도 가속---------------------------------------------------------------------
@@ -334,13 +334,13 @@ while ( running ):
         if carMoveStatus == 1:
             roadX += moveLine
             carMoveCount = carMoveCount + 1
-            if(carMoveCount > 5):
+            if(carMoveCount > 6.5):
                 moveLine = 0
 
         if carMoveStatus == 2:
             roadX -= moveLine
             carMoveCount = carMoveCount + 1
-            if(carMoveCount > 5):
+            if(carMoveCount > 6.5):
                 moveLine = 0
 
 #------------------------------------------------------------------------------
@@ -362,13 +362,15 @@ while ( running ):
             curSpeedX = 0
             carCurrentImage = 4
 
+
+
 #animation------------------------------------------------------------------
 
     if(carCurrentImage == 1): # car driving image
         car.draw()
 
     if(carCurrentImage == 2): # car drift right animation
-        carDriftRight.clip_draw(driftframe * 100, 0, 100, 100, ((carX + 50) + cos(a * (math.pi / 180)) * 10), carY + 20 + sin(a * (math.pi / 180)) * 10)
+        carDriftRight.clip_draw(driftframe * 100, 0, 100, 100, ((carX + 20)+ cos(a * (math.pi / 180)) * 10), carY + 20 + sin(a * (math.pi / 180)) * 10)
         if(driftframe < 5):
             driftframe = driftframe + 1
         a = a - 15
