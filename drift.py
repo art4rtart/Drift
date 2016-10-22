@@ -12,6 +12,45 @@ class Car:
     def draw(self):
         self.image.draw(carX, carY)
 
+class Smoke:
+    def __init__(self):
+        self.image = load_image('smoke.png')
+        self.frame = 0
+        self.x = 400
+        self.count = 1
+
+    def update(self):
+        global counter
+        self.count += 1
+        if self.count > 5:
+            self.frame = (self.frame + 1) % 10
+            self.count = 0
+        if(counter == 1):
+            self.x = carX + 50
+
+    def draw(self):
+        self.image.clip_draw(self.frame * 100, 0, 100, 100, self.x, carY - 100)
+
+class Smoke2:
+    def __init__(self):
+        self.image = load_image('smoke.png')
+        self.frame = 0
+        self.x = 350
+        self.count = 1
+
+    def update(self):
+        global counter
+        self.count += 1
+        if self.count > 5:
+            self.frame = (self.frame + 1) % 10
+            self.count = 0
+        if(counter == 1):
+            self.x = carX + 50
+
+    def draw(self):
+        pass
+        #self.image.clip_draw(0, self.frame * 100, 100, 100, self.x, carY)
+
 class Road1:
     def __init__(self):
         self.y = 100
@@ -108,30 +147,60 @@ class BoostRoad:
 
 class Obstacle:
     def __init__(self):
-        self.image1 = load_image('control.png')
         self.image2 = load_image('cone.png')
         self.image3 = load_image('stone.png')
         self.image4 = load_image('one.png')
         self.image5 = load_image('back3.png')
+        self.image6 = load_image('back4.png')
+
 
     def update(self):
         pass
 
     def draw(self):
-        self.image4.draw(roadX + 245, roadY + 300)
-        self.image1.draw(roadX + 150, roadY + 800)
+        self.image2.draw(roadX + 250, roadY + 300)
+        self.image2.draw(roadX + 150, roadY + 800)
 
         self.image2.draw(roadX + 550, roadY + 1600)
-        self.image4.draw(roadX + 645, roadY + 1900)
+        self.image2.draw(roadX + 650, roadY + 1900)
 
-        self.image3.draw(roadX + 1350, roadY + 7000)
-        self.image3.draw(roadX + 1450, roadY + 7400)
-        self.image1.draw(roadX + 1350, roadY + 8000)
+
+#장애물 충돌체크 필요 ------------------------------------------
+        self.image2.draw(roadX + 850, roadY + 2400)
+        self.image2.draw(roadX + 850, roadY + 2500)
+        self.image6.draw(roadX + 750, roadY + 3400)
+
+        self.image2.draw(roadX + 1350, roadY + 4500)
+        self.image2.draw(roadX + 1350, roadY + 4600)
+
+        self.image2.draw(roadX + 1450, roadY + 5000)
+
+
+        self.image6.draw(roadX + 1350, roadY + 5800)
+
+
+        self.image2.draw(roadX + 1350, roadY + 9200)
+
+
+
+
+
+
+
+
+#장애물 충돌체크 필요 ------------------------------------------
+
+
+        self.image2.draw(roadX + 1350, roadY + 7000)
+        self.image2.draw(roadX + 1450, roadY + 7400)
+        self.image2.draw(roadX + 1350, roadY + 8000)
 
 
 
 
         self.image5.draw(roadX + 1455, roadY + 8500)
+
+counter = 0
 
 #key--------------------------------------------------------------------------------
 def handle_events():
@@ -139,10 +208,11 @@ def handle_events():
     global carX, carY
     global carCurrentStatus, carCurrentImage
     global carSpeed, curSpeedX, curSpeedY, upgradeY
-    global carMoveStatus, moveLine, carMoveCount
+    global carMoveStatus, moveLine
     global driftframe
     global life
     global a, b, z
+    global counter
 
     events = get_events()
     for event in events:
@@ -173,17 +243,22 @@ def handle_events():
                 curSpeedX = 0
                 curSpeedY = carSpeed
                 z = 0.01
+                counter = 1
 
-            if event.type == SDL_KEYDOWN:
-                if event.key == SDLK_z: # 왼쪽 칼치기
-                    carMoveStatus = 1
-                    moveLine = 10
-                    carMoveCount = 0
 
-                elif event.key == SDLK_x: # 오른쪽 칼치기
-                    carMoveStatus = 2
-                    moveLine = 10
-                    carMoveCount = 0
+            if event.type == SDL_KEYDOWN and event.key == SDLK_z: # 왼쪽 칼치기
+                carMoveStatus = 1
+                moveLine = 5
+
+            elif event.type == SDL_KEYUP and event.key == SDLK_z: # 왼쪽 칼치기
+                carMoveStatus = 3
+
+            elif event.type == SDL_KEYDOWN and event.key == SDLK_x: # 오른쪽 칼치기
+                carMoveStatus = 1
+                moveLine = -5
+
+            elif event.type == SDL_KEYUP and event.key == SDLK_x: # 왼쪽 칼치기
+                carMoveStatus = 2
 
             elif event.key == SDLK_ESCAPE:
                 running = False
@@ -193,7 +268,6 @@ def handle_events():
 #------------------------------------------------------------------------------------
 open_canvas(1000,800)
 #image load -------------------------------------------------------------------------
-car = load_image('car.png') # 자동차
 carDriftRight = load_image('lamboRight.png') #오른쪽 드리프트
 carDriftBack = load_image('lamboLeft.png') #직진 드리프트
 carCrash = load_image('explode1.png') #폭팔 이미지
@@ -220,7 +294,7 @@ curSpeedY = carSpeed
 carCurrentStatus, carCurrentImage = 1, 1
 
 #차선변경
-carMoveStatus, carMoveCount, moveLine = 0, 0, 0
+carMoveStatus, moveLine = 0, 0
 
 #프레임 변수
 driftframe, crashframe = 0, 0
@@ -234,6 +308,7 @@ a, b, drifX, driftY, z = 180, 270, 0, 0, 0.003
 #임시변수----------------------
 upgradeY = 600
 temp = 20
+tempcount = 0
 
 #도로, 자동차 클래스
 car = Car()
@@ -242,6 +317,8 @@ road2 = Road2()
 road3 = Road3()
 boost = BoostRoad()
 obstacle = Obstacle()
+smoke = Smoke()
+smoke2 = Smoke2()
 
 while ( running ):
     clear_canvas()
@@ -267,11 +344,14 @@ while ( running ):
     road3.update()
     boost.update()
     obstacle.update()
+    smoke.update()
+
 
     if carY > roadY + 11500:
         count += 0
         life = 0
         carY += carSpeed + 5
+        moveLine = 0
 
 #충돌체크---------------------------------------------------------------------
     if( carCurrentStatus == 1): # 차가 직진할때
@@ -314,39 +394,33 @@ while ( running ):
         upgradeY -= carSpeed
 
         if carY + 40 > upgradeY:
-            curSpeedY = 10
+            curSpeedY = 8
             curSpeedX = 0
-            driftSpeed = 5
+            driftSpeed = 6
             z = 0.01
 
-        if carY + 40 > upgradeY + 1100:
-            curSpeedY = 15
+        if carY + 40 > upgradeY + 1400:
+            curSpeedY = 10
             curSpeedX = 0
             driftSpeed = 7
             z = 0.01
 
-        if carY + 40 > upgradeY + 1600:
-            curSpeedY = 19
+        if carY + 40 > upgradeY + 2100:
+            curSpeedY = 17
             curSpeedX = 0
             driftSpeed = 7
             z = 0.01
 # 칼치기-----------------------------------------------------------------------
         if carMoveStatus == 1:
             roadX += moveLine
-            carMoveCount = carMoveCount + 1
-            if(carMoveCount > 6.5):
-                moveLine = 0
 
         if carMoveStatus == 2:
-            roadX -= moveLine
-            carMoveCount = carMoveCount + 1
-            if(carMoveCount > 6.5):
-                moveLine = 0
+            pass
 
 #------------------------------------------------------------------------------
 
     elif(carCurrentStatus == 2): # car driving right
-        roadX = roadX - curSpeedX
+        roadX = roadX - curSpeedX - 1
 
         if (carY + 40 < roadY - 200 and carX + 25 > roadX + 100) \
             or (carY + 40 < roadY + 1000 and carX + 50 > roadX + 300) \
@@ -368,6 +442,7 @@ while ( running ):
 
     if(carCurrentImage == 1): # car driving image
         car.draw()
+        smoke.draw()
 
     if(carCurrentImage == 2): # car drift right animation
         carDriftRight.clip_draw(driftframe * 100, 0, 100, 100, ((carX + 20)+ cos(a * (math.pi / 180)) * 10), carY + 20 + sin(a * (math.pi / 180)) * 10)
@@ -376,6 +451,8 @@ while ( running ):
         a = a - 15
         if a < 90:
             a = 0
+        smoke2.draw()
+
 
     if(carCurrentImage == 3): # car drift left animation
         carDriftBack.clip_draw(driftframe * 100, 0, 100, 100, (carX + cos(b * (math.pi / 180)) * 20) + 30, carY + sin(b * (math.pi / 180)) * 20)
@@ -383,8 +460,10 @@ while ( running ):
             driftframe = driftframe + 1
         if b < 390:
             b += 15
+        smoke.draw()
 
     if carCurrentImage == 4: # car crash animation
+        z = 0.01
         carCrash.clip_draw(crashframe * 100, 0, 100, 100, carX, carY + 50)
         if(crashframe < 15):
             crashframe = crashframe + 1
@@ -392,6 +471,8 @@ while ( running ):
         carSpeed = 0
         curSpeedY = 0
         upgradeY = 0
+        moveLine = 0
+        z = 0.04
 
 #----------------------------------------------------------------------------
 
