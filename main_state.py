@@ -24,7 +24,7 @@ class Smoke:
         self.image = load_image('smoke.png')
         self.frame = 0
         self.x = 400
-        self.count = 1
+        self.count = 1 
 
     def update(self):
         global counter
