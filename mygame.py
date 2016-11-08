@@ -1,6 +1,5 @@
 import game_framework
 import start_state
-import pause_state
 
 import pico2d
 

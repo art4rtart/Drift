@@ -1,18 +1,34 @@
 import game_framework
 from pico2d import *
 
-import main_state
+import title_state
+import DF_state # drift
+import AT_state # autobhan
+import TA_state # time attack
+import ranking_state
 
-name = "TitleState"
+name = "PauseState"
 image = None
-back = None
+r1, r2 = None, None
+rk1, rk2 = None, None
+q1, q2 = None, None
+select_status = 0
 
 def enter():
     global image
-    global back
+    global r1, r2, rk1, rk2, q1, q2
 
-    back = load_image('background_image.png')
     image = load_image('puase_image.png')
+
+    r1 = load_image('r1.png')
+    r2 = load_image('r2.png')
+
+    rk1 = load_image('rk1.png')
+    rk2 = load_image('rk2.png')
+
+    q1 = load_image('q1.png')
+    q2 = load_image('q2.png')
+
 
 def exit():
     global image
@@ -27,6 +43,8 @@ def resume():
 
 
 def handle_events(frame_time):
+    global select_status
+
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
@@ -34,9 +52,39 @@ def handle_events(frame_time):
         else:
             if (event.type, event.key) == (SDL_KEYDOWN, SDLK_ESCAPE):
                 game_framework.quit()
-            elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_SPACE):
-                game_framework.change_state(main_state)
 
+        if event.type == SDL_MOUSEMOTION:
+
+            if event.x > 102 and event.x < 237 and event.y > 63 and event.y < 125:
+                select_status = 1
+
+            elif event.x > 103 and event.x < 221 and event.y > 165 and event.y < 221:
+                select_status = 2
+
+            elif event.x > 100 and event.x < 183 and event.y > 259 and event.y < 320:
+                select_status = 3
+
+            else:
+                select_status = 0
+
+        if select_status == 1:
+            if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):
+                if title_state.game_mode == 1:
+                    game_framework.push_state(DF_state)
+                elif title_state.game_mode == 2:
+                    game_framework.push_state(AT_state)
+                elif title_state.game_mode == 3:
+                    game_framework.push_state(TA_state)
+
+        elif select_status == 2:
+            if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):
+                game_framework.push_state(ranking_state)
+
+        elif select_status == 3:
+            if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):
+                game_framework.push_state(title_state)
+                DF_state.roadY = 0
+                DF_state.distance = 0
 
 
 def update(frame_time):
@@ -47,8 +95,29 @@ def draw(frame_time):
     global image
     global back
     clear_canvas()
-    back.draw(500,300)
+
     image.draw(500, 300)
+
+    if select_status == 0:
+        r1.draw(170, 500)
+        rk1.draw(172, 400)
+        q1.draw(144, 300)
+
+    elif select_status == 1:
+        r2.draw(170, 500)
+        rk1.draw(172, 400)
+        q1.draw(144, 300)
+
+    elif select_status == 2:
+        r1.draw(170, 500)
+        rk2.draw(172, 400)
+        q1.draw(144, 300)
+
+    elif select_status == 3:
+        r1.draw(170, 500)
+        rk1.draw(172, 400)
+        q2.draw(144, 300)
+
     update_canvas()
 
 
