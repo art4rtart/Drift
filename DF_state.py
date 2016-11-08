@@ -8,16 +8,17 @@ import game_framework
 import title_state
 import pause_state
 
-
 name = "DriftState"
 
-boy = None
-grass = None
+
 font = None
-car = None
-road = None
-roadY = 0
+car, road = None, None
+
+carX, carY = 315, 100
+roadX, roadY = 350, 0
 distance = 0
+carMoveStatus, carMoveLine = 0, 0
+rightWall, leftWall = 277, 350
 
 class Road:
     image = None
@@ -36,8 +37,8 @@ class Road:
         roadY += distance
 
     def draw(self):
-        for i in range(10):
-            self.image.draw(350, 75 + (i * 150) - roadY)
+        for i in range(100):
+            self.image.draw(roadX, 75 + (i * 150) - roadY)
 
 class Car:
     def __init__(self):
@@ -47,7 +48,7 @@ class Car:
         pass
 
     def draw(self):
-        self.image.draw(315, 100)
+        self.image.draw(carX, carY)
 
 
 def enter():
@@ -75,6 +76,8 @@ def resume():
 
 
 def handle_events(frame_time):
+    global roadX, carMoveStatus, carMoveLine
+
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
@@ -85,11 +88,43 @@ def handle_events(frame_time):
             elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_p):
                 game_framework.change_state(pause_state)
 
+        if (event.type, event.key) == (SDL_KEYDOWN, SDLK_z):
+            carMoveStatus = 1
+            carMoveLine = 2
+
+        elif (event.type, event.key) == (SDL_KEYUP, SDLK_z):
+            carMoveStatus = 2
+
+        if (event.type, event.key) == (SDL_KEYDOWN, SDLK_x):
+            carMoveStatus = 1
+            carMoveLine = -2
+
+        elif (event.type, event.key) == (SDL_KEYUP, SDLK_x):
+            carMoveStatus = 2
+
+
 
 def update(frame_time):
+    global roadX
+
     road.update(frame_time)
     car.update(frame_time)
 
+    if carMoveStatus == 1:
+        if (roadX < rightWall):
+            roadX = rightWall
+
+        if (roadX > leftWall):
+            roadX = leftWall
+
+        if (roadX == roadX):
+            roadX += carMoveLine
+
+    elif carMoveStatus == 2:
+        pass
+
+
+    print(roadX)
 
 
 def draw(frame_time):
