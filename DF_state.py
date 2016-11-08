@@ -37,7 +37,7 @@ class Road:
         roadY += distance
 
     def draw(self):
-        for i in range(100):
+        for i in range(10):
             self.image.draw(roadX, 75 + (i * 150) - roadY)
 
 class Car:
