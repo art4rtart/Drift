@@ -128,7 +128,6 @@ def update(frame_time):
         leftWall = 200
         rightWall = 127
 
-
 def draw(frame_time):
     global road, car, grass
     clear_canvas()
