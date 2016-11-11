@@ -32,11 +32,11 @@ carMoveStatus, carMoveLine = 0, 0
 rightWall, leftWall = 277, 350
 
 class Road:
-    road1, road2, road3 = None, None, None
+    road1, road2, road3, road4 = None, None, None, None
 
     def __init__(self):
         self.time = 0.0                         # 시간 초기화
-        self.speed = 700                        # 처음 속도 320 - 200 = 120km
+        self.speed = 1500                        # 처음 속도 320 - 200 = 120km
 
         if Road.road1 == None:
             Road.road1 = load_image('road1.png')
@@ -46,6 +46,9 @@ class Road:
 
         if Road.road3 == None:
             Road.road3 = load_image('road3.png')
+
+        if Road.road4 == None:
+            Road.road4 = load_image('road4.png')
 
     def update(self, frame_time):
         global distance, roadX, roadY, driftCount
@@ -58,6 +61,7 @@ class Road:
 
         if driftCount == 1:
             roadX -= distance
+            roadY -= 0
 
     def draw(self):
         for i in range(10):
@@ -88,19 +92,58 @@ class Road:
 
         # 4번
         Road.road2.draw(roadX + 452, 4700 - roadY)
-        Road.road3.draw(roadX + 602, 4700 - roadY)
+        Road.road4.draw(roadX + 602, 4700 - roadY)
+        Road.road3.draw(roadX + 752, 4700 - roadY)
+
+        # roadx 증가 150 roady, 150
 
 
-        for i in range(4):
-            Road.road1.draw(roadX + 601, 4850 + (i * 150) - roadY)
+        for i in range(6):
+            Road.road1.draw(roadX + 752, 4850 + (i * 150) - roadY)
 
         # 5번
-        Road.road2.draw(roadX + 602, 5450 - roadY)
-        Road.road3.draw(roadX + 752, 5450 - roadY)
+        Road.road2.draw(roadX + 752, 5700 - roadY)
+        Road.road4.draw(roadX + 902, 5700 - roadY)
+        Road.road4.draw(roadX + 1052, 5700 - roadY)
+        Road.road3.draw(roadX + 1202, 5700 - roadY)
+
+        for i in range(3):
+            Road.road1.draw(roadX + 1202, 5850 + (i * 150) - roadY)
+
+        # 6번
+        Road.road2.draw(roadX + 1202, 6300 - roadY)
+        Road.road3.draw(roadX + 1352, 6300 - roadY)
+        Road.road2.draw(roadX + 1352, 6450 - roadY)
+        Road.road3.draw(roadX + 1502, 6450 - roadY)
+
+        for i in range(5):
+            Road.road1.draw(roadX + 1502, 6600 + (i * 150) - roadY)
+
+        # 7번
+        Road.road2.draw(roadX + 1502, 7350 - roadY)
+        Road.road3.draw(roadX + 1652, 7350 - roadY)
+        Road.road2.draw(roadX + 1652, 7500 - roadY)
+        Road.road4.draw(roadX + 1802, 7500 - roadY)
+        Road.road4.draw(roadX + 1952, 7500 - roadY)
+        Road.road3.draw(roadX + 2102, 7500 - roadY)
 
 
+        for i in range(55): # feel the speed 구간
+            Road.road1.draw(roadX + 2102, 7650 + (i * 150) - roadY)
 
+        #8번 the last 구간
+        Road.road2.draw(roadX + 2102, 15900 - roadY)
+        Road.road4.draw(roadX + 2252, 15900 - roadY)
+        Road.road4.draw(roadX + 2402, 15900 - roadY)
+        Road.road3.draw(roadX + 2552, 15900 - roadY)
+        Road.road2.draw(roadX + 2552, 16050 - roadY)
+        Road.road3.draw(roadX + 2702, 16050 - roadY)
+        Road.road2.draw(roadX + 2702, 16200 - roadY)
+        Road.road4.draw(roadX + 2852, 16200 - roadY)
+        Road.road3.draw(roadX + 3002, 16200 - roadY)
 
+        for i in range(20): # finish
+            Road.road1.draw(roadX + 3002, 16350 + (i * 150) - roadY)
 
 
 
@@ -220,12 +263,12 @@ def handle_events(frame_time):
         if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):        # 드리프트
             if mouseCount % 2 == 1:
                 drift_state, driftCount = 1, 1
-                carMoveRAD = -10
+                carMoveRAD = -5
                 angle_0 = 90
 
             elif mouseCount % 2 == 0:
                 drift_state, driftCount = 2, 2
-                carMoveRAD = 5
+                carMoveRAD = 7
                 angle_1 = 270
 
         elif (event.type, event.button) == (SDL_MOUSEBUTTONUP, SDL_BUTTON_LEFT):
@@ -240,22 +283,25 @@ def update(frame_time):
     car.update(frame_time)
 
     if driftCount == 1:
-        delay(0.02)
+
         roadX += carMoveRAD * cos(-angle_0 * (PI / 180))
         roadY += carMoveRAD * sin(-angle_0 * (PI / 180))
-        angle_0 += 15
+        angle_0 += 10
 
-        if angle_0 < 180:
+        if angle_0 > 180:
             carMoveRAD = 0
 
     if driftCount == 2:
-        delay(0.02)
+
+
         roadX += carMoveRAD * sin(angle_1 * (PI / 180))
         roadY += carMoveRAD * cos(angle_1 * (PI / 180))
-        angle_1 += 15
+        angle_1 += 10
 
         if angle_1 > 360:
             carMoveRAD = 0
+
+    print(roadY) # 18000 일때 roady stop, carY go
 
 def draw(frame_time):
     global road, car
