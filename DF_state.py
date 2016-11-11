@@ -15,10 +15,13 @@ font = None
 car, road = None, None
 carMoveRAD = None           # 반지름
 distance = None             # 거리
+back = None                 #배경
+obstacle = None             #장애물
+state = None                #상태
 
 # -------------------------------------
-carX, carY = 215, 130       # 차량 초기화
-roadX, roadY = 250, 0       # 도로 초기화
+carX, carY = 245, 130       # 차량 초기화
+roadX, roadY = 280, 0       # 도로 초기화
 angle_0, angle_1 = 0, 0     # 각도 초기화
 PI = 3.14                   # 3.14 pi
 # -------------------------------------
@@ -28,6 +31,7 @@ driftCount = 0              # 드리프트 횟수 카운트
 mouseCount = 0              # 클릭 횟수 카운트
 # -------------------------------------
 life = 1
+moveBack = 0
 
 carMoveStatus, carMoveLine = 0, 0
 rightWall, leftWall = 277, 350
@@ -166,24 +170,6 @@ class Road:
         for i in range(20):
             Road.road1.draw(roadX + 3902, 18300 + (i * 150) - roadY)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         #speedup 구간
         Road.speedup.draw(roadX, 400 - roadY)
         Road.speedup.draw(roadX + 150, 2000 - roadY)
@@ -198,15 +184,13 @@ class Road:
         Road.speedup.draw(roadX + 3750, 17850 - roadY)
         Road.speedup.draw(roadX + 3900, 18500 - roadY)
 
-
-
 class Car:
     def __init__(self):
         self.image = load_image('car.png')
         self.right = load_image('moveR.png')
         self.direct = load_image('moveD.png')
-        self.right_frame = 0
-        self.direct_frame = 0
+        self.explode = load_image('explode.png')
+        self.right_frame, self.direct_frame, self.explode_frame = 0, 0, 0
 
     def update(self, frame_time):
         if carX > 400 - roadY:
@@ -231,12 +215,12 @@ class Car:
         if carX > 18500 - roadY:
             road.speed = 1000
 
-
     def draw(self):
         global drift_state, carMoveRAD, carX, carY
 
         if drift_state == 0:
-            self.image.draw(carX, carY)
+            if life >= 1:
+                self.image.draw(carX, carY)
 
         elif drift_state == 1:
             self.right.clip_draw(self.right_frame * 100, 0, 100, 100, carX, carY)
@@ -254,14 +238,47 @@ class Car:
                 self.direct_frame = 6
             self.right_frame = 0
 
-back = None
+        if life == 0:
+            self.explode.clip_draw(self.explode_frame * 100, 0, 90, 100, carX, carY)
+            self.explode_frame += 1
+            delay(0.03)
+
+
+class Obstacle:
+    cone = None
+
+    def __init__(self):
+        if Obstacle.cone == None:
+            Obstacle.cone = load_image('cone.png')
+
+        self.image = load_image('crashed.png')
+        self.ac1 = load_image('ac.png')
+        self.ac2 = load_image('ac2.png')
+
+
+    def update(self, frame_time):
+        pass
+
+    def draw(self):
+        global life
+        Obstacle.cone.draw(roadX - 35, 800 - roadY)
+        Obstacle.cone.draw(roadX + 35, 1400 - roadY)
+        self.image.draw(roadX + 100, 2500 - roadY)
+        self.ac1.draw(roadX + 300 - 60, 3200 - roadY)
+        self.ac2.draw(roadX + 300 + 60, 3500 - roadY)
+
+        if roadY >= 550:
+            life = 0
+
 def enter():
-    global car, road, font, back, state
+    global car, road, font, back, obstacle, state
     road = Road()
     car = Car()
+    obstacle = Obstacle()
     font = load_font('PWChalk.TTF', 25)
-    game_framework.reset_time()
     state = load_image('state.png')
+    back = load_image('back.png')
+    game_framework.reset_time()
 
 def exit():
     global road, car, font
@@ -329,6 +346,7 @@ def update(frame_time):
     global carX, carY
     global angle_0, angle_1, PI, carMoveRAD
     global life
+    global moveBack
 
     road.update(frame_time)
     car.update(frame_time)
@@ -349,22 +367,27 @@ def update(frame_time):
         if angle_1 > 360:
             carMoveRAD = 0
 
-    print(roadY)
-    if roadY > 20000:
+    if roadY > 20000:           #종료 조건
         carY += distance
         life = 0
 
-    # 18000 일때 roady stop, carY go
+    if life == 1:
+        moveBack += 3
 
 
 
 def draw(frame_time):
-    global road, car
-
+    global road, car, obstacle
+    global moveBack
     clear_canvas()
 
+    for i in range(100):
+        back.draw(400, 300 + (i * 600) - moveBack)
+
     road.draw()
+    obstacle.draw()
     car.draw()
+
     state.draw(875, 300)
 
     font.draw(740, 550, "SPEED", (255, 255, 255))
