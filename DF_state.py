@@ -35,12 +35,17 @@ class Road:
     road1, road2, road3 = None, None, None
 
     def __init__(self):
-        self.road1 = load_image('road1.png')
-        self.road2 = load_image('road2.png')
-        self.road3 = load_image('road3.png')
-
         self.time = 0.0                         # 시간 초기화
-        self.speed = 320                        # 처음 속도 320 - 200 = 120km
+        self.speed = 700                        # 처음 속도 320 - 200 = 120km
+
+        if Road.road1 == None:
+            Road.road1 = load_image('road1.png')
+
+        if Road.road2 == None:
+            Road.road2 = load_image('road2.png')
+
+        if Road.road3 == None:
+            Road.road3 = load_image('road3.png')
 
     def update(self, frame_time):
         global distance, roadX, roadY, driftCount
@@ -56,13 +61,81 @@ class Road:
 
     def draw(self):
         for i in range(10):
-            self.road1.draw(roadX, 75 + (i * 150) - roadY)
+            Road.road1.draw(roadX, 75 + (i * 150) - roadY)
 
-        self.road2.draw(roadX + 1, 1550 - roadY)
-        self.road3.draw(roadX + 152, 1550 - roadY)
+        # 한번
+        Road.road2.draw(roadX + 1, 1550 - roadY)
+        Road.road3.draw(roadX + 152, 1550 - roadY)
 
-        for i in range(10):
-            self.road1.draw(roadX + 151, 1700 + (i * 150) - roadY)
+        for i in range(8):
+            Road.road1.draw(roadX + 151, 1700 + (i * 150) - roadY)
+
+        # 두번
+        Road.road2.draw(roadX + 152, 2900 - roadY)
+        Road.road3.draw(roadX + 302, 2900 - roadY)
+
+
+        for i in range(5):
+            Road.road1.draw(roadX + 301, 3050 + (i * 150) - roadY)
+
+        # 3번
+        Road.road2.draw(roadX + 302, 3800 - roadY)
+        Road.road3.draw(roadX + 452, 3800 - roadY)
+
+
+        for i in range(5):
+            Road.road1.draw(roadX + 451, 3950 + (i * 150) - roadY)
+
+        # 4번
+        Road.road2.draw(roadX + 452, 4700 - roadY)
+        Road.road3.draw(roadX + 602, 4700 - roadY)
+
+
+        for i in range(4):
+            Road.road1.draw(roadX + 601, 4850 + (i * 150) - roadY)
+
+        # 5번
+        Road.road2.draw(roadX + 602, 5450 - roadY)
+        Road.road3.draw(roadX + 752, 5450 - roadY)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 class Car:
     def __init__(self):
@@ -82,9 +155,7 @@ class Car:
             self.image.draw(carX, carY)
 
         elif drift_state == 1:
-            self.right.clip_draw(self.right_frame * 100, 0, 100, 100,
-                                 carX + carMoveRAD * cos(angle_0 * (PI / 180)),
-                                 carY + carMoveRAD * sin(angle_0 * (PI/180)))
+            self.right.clip_draw(self.right_frame * 100, 0, 100, 100, carX, carY)
             if self.right_frame < 5:
                 self.right_frame += 1
             if self.right_frame > 5:
@@ -92,15 +163,12 @@ class Car:
             self.direct_frame = 0
 
         elif drift_state == 2:
-            self.direct.clip_draw(self.direct_frame * 100, 0, 100, 100,
-                                  carX + carMoveRAD * sin(-angle_1 * (PI / 180)),
-                                  carY + carMoveRAD * cos(-angle_1 * (PI / 180)))
+            self.direct.clip_draw(self.direct_frame * 100, 0, 100, 100, carX, carY)
             if self.direct_frame < 5:
                 self.direct_frame += 1
             if self.direct_frame > 5:
                 self.direct_frame = 6
             self.right_frame = 0
-
 
 def enter():
     global car, road, font
@@ -152,19 +220,19 @@ def handle_events(frame_time):
         if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):        # 드리프트
             if mouseCount % 2 == 1:
                 drift_state, driftCount = 1, 1
-                carMoveRAD = 7
+                carMoveRAD = -10
                 angle_0 = 90
 
             elif mouseCount % 2 == 0:
                 drift_state, driftCount = 2, 2
-                carMoveRAD = 7
+                carMoveRAD = 5
                 angle_1 = 270
 
         elif (event.type, event.button) == (SDL_MOUSEBUTTONUP, SDL_BUTTON_LEFT):
             mouseCount += 1
 
 def update(frame_time):
-    global roadX, rightWall, leftWall
+    global roadX, roadY, rightWall, leftWall
     global carX, carY
     global angle_0, angle_1, PI, carMoveRAD
 
@@ -172,29 +240,22 @@ def update(frame_time):
     car.update(frame_time)
 
     if driftCount == 1:
-        carX += carMoveRAD * cos(angle_0 * (PI / 180))
-        carY += carMoveRAD * sin(angle_0 * (PI / 180))
-        angle_0 -= 15
-
-        if angle_0 < 0:
-            carMoveRAD = 0
         delay(0.02)
+        roadX += carMoveRAD * cos(-angle_0 * (PI / 180))
+        roadY += carMoveRAD * sin(-angle_0 * (PI / 180))
+        angle_0 += 15
+
+        if angle_0 < 180:
+            carMoveRAD = 0
 
     if driftCount == 2:
-        carX += carMoveRAD * sin(-angle_1 * (PI / 180))
-        carY += carMoveRAD * cos(-angle_1 * (PI / 180))
+        delay(0.02)
+        roadX += carMoveRAD * sin(angle_1 * (PI / 180))
+        roadY += carMoveRAD * cos(angle_1 * (PI / 180))
         angle_1 += 15
 
         if angle_1 > 360:
             carMoveRAD = 0
-        delay(0.02)
-
-
-
-# 칼치기--------------------------------------------------------
-
-# ---------------------------------------------------------------
-
 
 def draw(frame_time):
     global road, car
