@@ -37,13 +37,18 @@ moveBack = 0
 carMoveStatus, carMoveLine = 0, 0
 rightWall, leftWall = 277, 350
 
+tempT = 0
+tempTime = 0
+mileage = 0
+
 class Road:
     road1, road2, road3, road4 = None, None, None, None
     speedup = None
 
+
     def __init__(self):
         self.time = 0.0                         # 시간 초기화
-        self.speed = 320                        # 처음 속도 320 - 200 = 120km
+        self.speed = 420                        # 처음 속도 320 - 200 = 120km
 
         if Road.road1 == None:
             Road.road1 = load_image('road1.png')
@@ -62,9 +67,16 @@ class Road:
 
     def update(self, frame_time):
         global roadX, roadY, driftCount, life, distance
+        global tempT, mileage, tempTime
 
         if stageClear == 0:
             self.time += frame_time
+
+            if carX > 9900 - roadY and carX < 15500 - roadY:
+                tempT += frame_time
+
+            if carX > 15500 - roadY and carX < 20300 - roadY:
+                tempTime += frame_time
 
         distance = self.speed * frame_time
 
@@ -73,6 +85,11 @@ class Road:
                 roadY += distance
         if driftCount == 1:
             roadX -= distance
+
+        if carX < 9900 - roadY:
+            mileage = road.speed / 5 * road.time
+
+
 
     def draw(self):
         for i in range(10):
@@ -115,7 +132,7 @@ class Road:
         Road.road3.draw(roadX + 1240, 5700 - roadY)
 
         for i in range(3):
-            Road.road1.draw(roadX + 1240, 5875 + (i * 150) - roadY)
+            Road.road1.draw(roadX + 1239, 5880 + (i * 150) - roadY)
 
         # 6번
         Road.road2.draw(roadX + 1240, 6325 - roadY)
@@ -124,7 +141,7 @@ class Road:
         Road.road3.draw(roadX + 1600, 6505 - roadY)
 
         for i in range(5):
-            Road.road1.draw(roadX + 1600, 6675 + (i * 150) - roadY)
+            Road.road1.draw(roadX + 1600, 6680 + (i * 150) - roadY)
 
         # 7번
         Road.road2.draw(roadX + 1600, 7400 - roadY)
@@ -138,38 +155,38 @@ class Road:
             Road.road1.draw(roadX + 2320, 7760 + (i * 150) - roadY)
 
         #8번
-        Road.road2.draw(roadX + 2102, 15900 - roadY)
-        Road.road4.draw(roadX + 2252, 15900 - roadY)
-        Road.road4.draw(roadX + 2402, 15900 - roadY)
-        Road.road3.draw(roadX + 2552, 15900 - roadY)
-        Road.road2.draw(roadX + 2552, 16050 - roadY)
-        Road.road3.draw(roadX + 2702, 16050 - roadY)
-        Road.road2.draw(roadX + 2702, 16200 - roadY)
-        Road.road4.draw(roadX + 2852, 16200 - roadY)
-        Road.road3.draw(roadX + 3002, 16200 - roadY)
+        Road.road2.draw(roadX + 2320, 15980 - roadY)
+        Road.road4.draw(roadX + 2500, 15980 - roadY)
+        Road.road4.draw(roadX + 2680, 15980 - roadY)
+        Road.road3.draw(roadX + 2860, 15980 - roadY)
+        Road.road2.draw(roadX + 2860, 16160 - roadY)
+        Road.road3.draw(roadX + 3040, 16160 - roadY)
+        Road.road2.draw(roadX + 3040, 16340 - roadY)
+        Road.road4.draw(roadX + 3220, 16340 - roadY)
+        Road.road3.draw(roadX + 3400, 16340 - roadY)
 
         for i in range(7):
-            Road.road1.draw(roadX + 3002, 16350 + (i * 150) - roadY)
+            Road.road1.draw(roadX + 3400, 16520 + (i * 150) - roadY)
 
-        Road.road2.draw(roadX + 3002, 17400 - roadY)
-        Road.road4.draw(roadX + 3152, 17400 - roadY)
-        Road.road3.draw(roadX + 3302, 17400 - roadY)
-        Road.road1.draw(roadX + 3302, 17550 - roadY)
+        Road.road2.draw(roadX + 3400, 17600 - roadY)
+        Road.road4.draw(roadX + 3580, 17600 - roadY)
+        Road.road3.draw(roadX + 3760, 17600 - roadY)
+        Road.road1.draw(roadX + 3760, 17780 - roadY)
 
+        Road.road2.draw(roadX + 3760, 17960 - roadY)
 
-        Road.road2.draw(roadX + 3302, 17700 - roadY)
+        Road.road4.draw(roadX + 3940, 17960 - roadY)
+        Road.road4.draw(roadX + 4120, 17960 - roadY)
+        Road.road3.draw(roadX + 4300, 17960 - roadY)
 
-        Road.road4.draw(roadX + 3452, 17700 - roadY)
-        Road.road4.draw(roadX + 3602, 17700 - roadY)
-        Road.road3.draw(roadX + 3752, 17700 - roadY)
+        Road.road1.draw(roadX + 4300, 18140 - roadY)
+        Road.road1.draw(roadX + 4300, 18320 - roadY)
+        Road.road2.draw(roadX + 4300, 18500 - roadY)
+        Road.road3.draw(roadX + 4480, 18500 - roadY)
 
-        Road.road1.draw(roadX + 3752, 17850 - roadY)
-        Road.road1.draw(roadX + 3752, 18000 - roadY)
-        Road.road2.draw(roadX + 3752, 18150 - roadY)
-        Road.road3.draw(roadX + 3902, 18150 - roadY)
 
         for i in range(20):
-            Road.road1.draw(roadX + 3902, 18300 + (i * 150) - roadY)
+            Road.road1.draw(roadX + 4480, 18680 + (i * 150) - roadY)
 
         #speedup 구간
         Road.speedup.draw(roadX, 400 - roadY)
@@ -196,7 +213,30 @@ class Car:
         self.right_frame, self.direct_frame, self.explode_frame = 0, 0, 0
 
     def update(self, frame_time):
-        pass
+        if carX > 400 - roadY:
+            road.speed = 500
+        if carX > 2000 - roadY:
+            road.speed = 600
+        if carX > 4000 - roadY:
+            road.speed = 700
+        if carX > 5000 - roadY:
+            road.speed = 800
+        if carX > 6000 - roadY:
+            road.speed = 900
+        if carX > 7900 - roadY:
+            road.speed = 1000
+
+        if carX > 9900 - roadY:
+            road.speed = 1400
+
+        if carX > 15500 - roadY:
+            road.speed = 800
+        if carX > 16450 - roadY:
+            road.speed = 900
+        if carX > 17850 - roadY:
+            road.speed = 950
+        if carX > 18500 - roadY:
+            road.speed = 1000
 
     def draw(self):
         global drift_state, carMoveRAD, carX, carY
@@ -345,7 +385,6 @@ def update(frame_time):
     global life
     global moveBack, stageClear
 
-    print(7500 - roadY)
 
     road.update(frame_time)
     car.update(frame_time)
@@ -366,24 +405,27 @@ def update(frame_time):
         if angle_1 > 360:
             carMoveRAD = 0
 
-    if roadY > 20000:           #종료 조건
+    if roadY > 20300:           # 종료 조건
         carY += distance
         stageClear = 1
 
 
-
-    if carMoveStatus == 1:
-        roadX += 5
+    if carMoveStatus == 1:      # 칼치기 조건
+        if life >= 1:
+            roadX += 5
 
     if carMoveStatus == 2:
-        roadX -= 5
+        if life >= 1:
+            roadX -= 5
 
-    if stageClear == 0:
+    if stageClear == 0:         # 배경 움직임
         moveBack += 3
 
 def draw(frame_time):
     global road, car, obstacle
     global moveBack
+    global tempT, tempTime
+    global mileage
     clear_canvas()
 
     for i in range(100):
@@ -396,7 +438,7 @@ def draw(frame_time):
     state.draw(875, 300)
 
     font.draw(740, 550, "SPEED", (255, 255, 255))
-    font.draw(880, 550, "%3.0f" % (road.speed / 3), (255, 0, 0))
+    font.draw(880, 550, "%3.0f" % (road.speed / 5), (255, 0, 0))
     font.draw(930, 550, "KM/S", (255, 255, 255))
 
     font.draw(740, 500, "TIME", (255, 255, 255))
@@ -404,10 +446,10 @@ def draw(frame_time):
     font.draw(940, 500, "SEC", (255, 255, 255))
 
     font.draw(740, 450, "MILEAGE", (255, 255, 255))
-    if carX > 15500 - roadY:
-        font.draw(880, 450, "%3.0f" % (6000 + road.speed / 3 * road.time), (255, 0, 0))
+    if carX > 9900 - roadY:
+        font.draw(880, 450, "%3.0f" % ((road.speed / 5 * tempT) + mileage + (tempTime * road.speed)), (255, 0, 0))
     else:
-        font.draw(880, 450, "%3.0f" % (road.speed / 3 * road.time), (255, 0, 0))
+        font.draw(880, 450, "%3.0f" % mileage, (255, 0, 0))
     font.draw(950, 450, "KM", (255, 255, 255))
 
     update_canvas()
