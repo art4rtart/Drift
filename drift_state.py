@@ -28,6 +28,7 @@ angle_0, angle_1 = 0, 0     # 각도 초기화
 PI = 3.14                   # 3.14 pi
 # -------------------------------------
 drift_state = 0             # 드리프트 상태 초기화
+volume_state = 0
 stageEnd = 0              # 스테이지 상태
 # -------------------------------------
 driftCount = 0              # 드리프트 횟수 카운트
@@ -211,6 +212,7 @@ class Car:
 
 
     def update(self, frame_time):
+        global questionMark
 
         if carX > 400 - roadY:
             road.speed = 420
@@ -230,10 +232,12 @@ class Car:
 
         if carX > 15500 - roadY:
             road.speed = 720
+            questionMark = 0
+
         if carX > 16450 - roadY:
-            road.speed = 820
+            road.speed = 1220
         if carX > 17850 - roadY:
-            road.speed = 920
+            road.speed = 1320
 
     def draw(self):
         global drift_state, roadMoveRAD, carX, carY
@@ -332,6 +336,7 @@ class Beer:
     def __init__(self):
         if Beer.image == None:
             Beer.image = load_image('beer.png')
+        self.beer = load_image('beer.png')
 
     def update(self, frame_time):
         global itemTime, itemDir
@@ -344,8 +349,10 @@ class Beer:
             itemDir *= -1
 
     def draw(self):
-        Beer.image.draw(800, itemY)
-        Beer.image.opacify(itemTime)
+        self.beer.draw(780, 100)
+
+        #Beer.image.draw()
+        #Beer.image.opacify(itemTime)
 
     #def draw_bb(self):
     #    draw_rectangle(*self.get_bb())
@@ -359,13 +366,16 @@ class Cell:
     def __init__(self):
         if Cell.image == None:
             Cell.image = load_image('cell.png')
+        self.cell = load_image('cell.png')
 
     def update(self, frame_time):
         pass
 
     def draw(self):
-        Cell.image.draw(800, 200)
-        Cell.image.opacify(itemTime)
+        self.cell.draw(780, 200)
+
+        #Cell.image.draw()
+        #Cell.image.opacify(itemTime)
 
     def draw_bb(self):
         draw_rectangle(*self.get_bb())
@@ -379,13 +389,15 @@ class Box:
     def __init__(self):
         if Box.image == None:
             Box.image = load_image('box.png')
+        self.box = load_image('box.png')
 
     def update(self, frame_time):
         pass
 
     def draw(self):
-        Box.image.draw(800, 300)
-        Box.image.opacify(itemTime)
+        self.box.draw(780, 300)
+        #Box.image.draw()
+        #Box.image.opacify(itemTime)
 
     def draw_bb(self):
         draw_rectangle(*self.get_bb())
@@ -398,19 +410,19 @@ class Question:
 
     def __init__(self):
         self.image = load_image('question.png')
-        self.x, self.y = 45, 500
+        self.x, self.y = 2360, 9600
     def update(self, frame_time):
         pass
 
     def draw(self):
-        self.image.draw(roadX - self.x, self.y - roadY)
+        self.image.draw(roadX + self.x, self.y - roadY)
         self.image.opacify(itemTime)
 
     def draw_bb(self):
         draw_rectangle(*self.get_bb())
 
     def get_bb(self):
-        return roadX - self.x - 30, self.y - 30 - roadY, roadX - self.x + 30, self.y + 30 - roadY
+        return roadX + self.x - 30, self.y - 30 - roadY, roadX + self.x + 30, self.y + 30 - roadY
 
 class Ufo:
     image = None
@@ -458,7 +470,38 @@ class Ufo:
     def get_bb(self):
         return itemX - 25, itemY - 25, itemX + 25, itemY + 25
 
+class Volume:
+    def __init__(self):
+        self.volume_frame = 0
+        self.image = load_image('vol.png')
 
+    def update(self,frame_time):
+        if volume_state == 1:
+            if start_state.volume > 0:
+                start_state.volume -= 1
+        else:
+            pass
+
+    def draw(self):
+        self.image.clip_draw(self.volume_frame * 60, 0, 60, 60, 50, 550)
+
+        if start_state.volume < 30:
+            self.volume_frame = 1
+        if start_state.volume < 20:
+            self.volume_frame = 2
+        if start_state.volume < 10:
+            self.volume_frame = 3
+        if start_state.volume < 0:
+            self.volume_frame = 4
+
+
+volume = None
+
+# def draw_bb(self):
+#    draw_rectangle(*self.get_bb())
+
+# def get_bb(self):
+#    return itemX - 25, itemY - 25, itemX + 25, itemY + 25
 
 
 
@@ -468,7 +511,7 @@ questionMark = 0
 
 def enter():
     global car, road, font, back, obstacle, state, frame
-    global beer, box, cell, question, ufo
+    global beer, box, cell, question, ufo, volume
     road = Road()
     car = Car()
 
@@ -477,6 +520,8 @@ def enter():
     cell = Cell()
     ufo = Ufo()
     question = Question()
+
+    volume = Volume()
 
     obstacle = Obstacle()
     font = load_font('PWChalk.TTF', 25)
@@ -505,7 +550,7 @@ def resume():
 def handle_events(frame_time):
     global roadMoveRAD, PI, angle_0, angle_1
     global carX, carY, roadX, roadY
-    global drift_state, carMoveStatus
+    global drift_state, volume_state, carMoveStatus
     global mouseCount, driftCount
     global carMoveLine, life, stageEnd
 
@@ -553,6 +598,13 @@ def handle_events(frame_time):
             if (event.type, event.key) == (SDL_KEYDOWN, SDLK_r):
                 road.speed -= 100
 
+        if(event.type, event.key) == (SDL_KEYDOWN, SDLK_v):
+            volume_state = 1
+
+
+        if (event.type, event.key) == (SDL_KEYUP, SDLK_v):
+            volume_state = 0
+
         if (event.type, event.key) == (SDL_KEYDOWN, SDLK_q):
             life = 0
             stageEnd = 1
@@ -574,6 +626,7 @@ def update(frame_time):
     cell.update(frame_time)
     box.update(frame_time)
     ufo.update(frame_time)
+    volume.update(frame_time)
     question.update(frame_time)
 
 
@@ -609,7 +662,7 @@ def update(frame_time):
 
     start_state.bgm.set_volume(start_state.volume)
 
-    if start_state.volume > 15:
+    if start_state.volume > 40:
         start_state.volume -= 1
 
 
@@ -619,7 +672,7 @@ def update(frame_time):
 
 
 def draw(frame_time):
-    global road, car, obstacle, beer, cell, box, ufo, question
+    global road, car, obstacle, beer, cell, box, ufo, question, volume
     global moveBack
     global tempT, tempTime
     global mileage
@@ -634,6 +687,8 @@ def draw(frame_time):
     road.draw()
     obstacle.draw()
 
+    car.draw()
+    car.draw_bb()
 
     if(questionMark == 0):
         question.draw()
@@ -642,8 +697,6 @@ def draw(frame_time):
     if questionMark == 1:
         ufo.draw()
 
-    car.draw()
-    car.draw_bb()
 
     #beer.draw_bb()
     #cell.draw_bb()
@@ -656,23 +709,24 @@ def draw(frame_time):
     cell.draw()
     box.draw()
 
+    volume.draw()
 
     frame.draw(500, 300)
 
     font.draw(740, 550, "SPEED", (255, 255, 255))
-    font.draw(880, 550, "%3.0f" % (road.speed / 5), (255, 0, 0))
-    font.draw(930, 550, "KM/S", (255, 255, 255))
+    font.draw(870, 550, "%3.0f" % (road.speed / 5), (255, 0, 0))
+    font.draw(920, 550, "KM/S", (255, 255, 255))
 
     font.draw(740, 500, "TIME", (255, 255, 255))
-    font.draw(890, 500, "%3.0f" % road.time, (255, 0, 0))
-    font.draw(940, 500, "SEC", (255, 255, 255))
+    font.draw(880, 500, "%3.0f" % road.time, (255, 0, 0))
+    font.draw(930, 500, "SEC", (255, 255, 255))
 
     font.draw(740, 450, "SCORE", (255, 255, 255))
     if carX > 9900 - roadY:
-        font.draw(880, 450, "%3.0f" % ((road.speed / 5 * tempT) + mileage + (tempTime * road.speed)), (255, 0, 0))
+        font.draw(860, 450, "%3.0f" % ((road.speed / 5 * tempT) + mileage + (tempTime * road.speed)), (255, 0, 0))
     else:
-        font.draw(880, 450, "%3.0f" % mileage, (255, 0, 0))
-    font.draw(950, 450, "KM", (255, 255, 255))
+        font.draw(860, 450, "%3.0f" % mileage, (255, 0, 0))
+    font.draw(940, 450, "KM", (255, 255, 255))
 
     update_canvas()
 
@@ -687,4 +741,11 @@ def collide (a,b):
 
     return True
 
+def collideRoad (a,b):
+    left_a, right_a,  = a.get_road_bb()
+    left_b, right_b,  = b.get_road_bb()
 
+    if left_a > right_b: return False
+    if right_a < left_b: return False
+
+    return True
