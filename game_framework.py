@@ -105,7 +105,7 @@ def reset_time():
 
 def test_game_framework():
     start_state = TestGameState('StartState')
-    run(z)
+    run()
 
 
 

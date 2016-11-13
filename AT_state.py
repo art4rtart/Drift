@@ -82,7 +82,7 @@ def enter():
     global boy, grass, font
     boy = Boy()
     grass = Grass()
-    font = load_font('ENCR10B.TTF')
+    font = load_font('PWChalk.TTF')
     game_framework.reset_time()
 
 

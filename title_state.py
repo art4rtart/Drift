@@ -1,7 +1,7 @@
 import game_framework
 from pico2d import *
 
-import DF_state # drift
+import drift_state # drift
 import AT_state # autobhan
 import TA_state # time attack
 
@@ -14,12 +14,14 @@ e1, e2 = None, None
 select_status = 0
 game_mode = 0
 
+back = None
+
 def enter():
+
     global image, d1, d2, a1, a2, t1, t2, e1, e2
     global back
 
     image = load_image('select_image.png')
-
     d1 = load_image('drift1.png')
     d2 = load_image('drift2.png')
 
@@ -32,8 +34,11 @@ def enter():
     e1 = load_image('e1.png')
     e2 = load_image('e2.png')
 
+
 def exit():
     global image
+    image = None
+
     del(image)
 
 
@@ -76,7 +81,7 @@ def handle_events(frame_time):
 
             if select_status == 1 and game_mode == 1:
                 if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):
-                    game_framework.push_state(DF_state)
+                    game_framework.push_state(drift_state)
 
             elif select_status == 2 and game_mode == 2:
                 if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):

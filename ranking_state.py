@@ -3,20 +3,24 @@ from pico2d import *
 
 import title_state
 import pause_state
-import DF_state # drift
+import drift_state # drift
 import AT_state # autobhan
 import TA_state # time attack
 
 name = "RankingState"
 image = None
+font = None
 
 def enter():
-    global image
+    global image, font
     image = load_image('scoreboard.png')
+    font = load_font('PWChalk.TTF', 60)
+
 
 def exit():
-    global image
+    global image, font
     del(image)
+    del(font)
 
 def pause():
     pass
@@ -43,10 +47,15 @@ def update(frame_time):
 def draw(frame_time):
     global image
     global back
+    global font
+
     clear_canvas()
 
     image.draw(500, 300)
 
+    font.draw(275, 550, "HALL OF FAME", (0, 0, 0))
+
+    font.draw
     update_canvas()
 
 
