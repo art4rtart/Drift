@@ -23,7 +23,6 @@ state = None                #상태
 beer, box, cell, question, ufo = None, None, None, None, None
 volume = None
 wasted = None
-
 # -------------------------------------
 carX, carY = 237, 130       # 차량 초기화
 roadX, roadY = 280, 0       # 도로 초기화
