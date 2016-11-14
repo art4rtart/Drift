@@ -13,6 +13,7 @@ import press_state
 
 name = "DriftState"
 
+
 font = None
 car, road = None, None
 roadMoveRAD = None           # 반지름
