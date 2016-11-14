@@ -53,7 +53,7 @@ wasted_state = 0
 boxes = None
 tempRe = 0
 boxCount = 0
-
+clear_state = 0
 # ----------------------------------------------------------------
 
 class Road:
@@ -473,8 +473,6 @@ class Ufo:
         if self.y + tempy > 600 or self.y + tempy < 0:
             ufoDirY *= -1
 
-
-
     def draw(self):
         if boxCount < 20:
             Ufo.image.draw(self.x + tempx, self.y + tempy)
@@ -540,7 +538,6 @@ def enter():
     car = Car()
 
     beer = Beer()
-    #box = Box()
 
     boxes = [Box() for i in range(20)]
 
@@ -586,8 +583,10 @@ def createWorld():
     wasted_state = 0
     tempRe = 0
     car.explode_frame = 0
+    ufo.explode_frame = 0
     # ---------------------------------------
     boxCount = 0
+    clear_state = 0
 
 def exit():
     global road, car, font, question
@@ -602,6 +601,8 @@ def pause():
 
 def resume():
     pass
+
+
 
 def handle_events(frame_time):
     global roadMoveRAD, PI, angle_0, angle_1
@@ -666,6 +667,7 @@ def handle_events(frame_time):
             stageEnd = 1
             drift_state = 0
 
+
         if wasted_state == 1:
             if event.type == SDL_MOUSEMOTION:
                 if event.x > 310 and event.x < 495 and event.y > 228 and event.y < 271:
@@ -674,7 +676,6 @@ def handle_events(frame_time):
         if tempRe == 1:
             if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):
                     createWorld()
-
 
 def update(frame_time):
     global roadX, roadY
@@ -685,6 +686,7 @@ def update(frame_time):
     global drift_state
     global questionMark
     global box, boxCount
+    global clear_state
 
     road.update(frame_time)
     car.update(frame_time)
@@ -720,6 +722,8 @@ def update(frame_time):
     if roadY > 20300:           # 종료 조건
         carY += distance
         stageEnd = 1
+        clear_state = 1
+        print(roadY, clear_state)
 
     if stageEnd == 0:
         if carMoveStatus == 1:      # 칼치기 조건
@@ -752,6 +756,10 @@ def draw(frame_time):
     global mileage
     global frame
     global questionMark
+    global stageEnd, clear
+
+    clear = load_image('clear.png')
+
 
     clear_canvas()
 
@@ -789,15 +797,19 @@ def draw(frame_time):
 
     wasted.draw()
 
+    if clear_state == 1:
+        print("ok")
+        clear.draw(400, 400)
+
     frame.draw(500, 300)
 
     font.draw(740, 550, "SPEED", (255, 255, 255))
     font.draw(870, 550, "%3.0f" % (road.speed / 5), (255, 0, 0))
-    font.draw(920, 550, "KM/S", (255, 255, 255))
+    font.draw(920, 550, "KM/H", (255, 255, 255))
 
     font.draw(740, 500, "TIME", (255, 255, 255))
     font.draw(880, 500, "%3.0f" % road.time, (255, 0, 0))
-    font.draw(930, 500, "SEC", (255, 255, 255))
+    font.draw(940, 500, "HR", (255, 255, 255))
 
     font.draw(740, 450, "SCORE", (255, 255, 255))
     if carX > 9900 - roadY:
