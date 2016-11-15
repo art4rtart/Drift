@@ -42,6 +42,8 @@ def exit():
     del(image)
 
 
+
+
 def pause():
     pass
 

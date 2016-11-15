@@ -18,19 +18,13 @@ def enter():
     game = load_image('game_credit.png')
     bgm = load_music('loveU.ogg')
 
-
-
-
 def exit():
     global image
     del(image)
 
-
-
 def update(frame_time):
     global name, status
     global logo_time
-
 
     if (logo_time > 1.5):
         status = 1

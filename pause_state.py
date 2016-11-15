@@ -83,24 +83,7 @@ def handle_events(frame_time):
         elif select_status == 3:
             if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):
                 game_framework.push_state(title_state)
-
-                drift_state.roadY = 0
-                drift_state.roadX = 280
-                drift_state.drift_state = 0
-                drift_state.mouseCount = 0
-                drift_state.driftCount = 0
-                drift_state.stageEnd = 0
-                drift_state.life = 1
-                drift_state.moveBack = 0
-                drift_state.tempT = 0
-                drift_state.tempTime = 0
-                drift_state.mileage = 0
-                drift_state.tempx = 0
-                drift_state.tempy = 0
-                drift_state.carMoveStatus = 0
-                drift_state.carMoveLine = 0
-                drift_state.carX = 237
-                drift_state.carY = 130
+                drift_state.createWorld()
 
 def update(frame_time):
     pass
