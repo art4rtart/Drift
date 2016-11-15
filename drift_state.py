@@ -53,11 +53,10 @@ itemTime, itemDir = 1, 1
 questionMark = 0
 # --------------------------------------
 wasted_state, tempRe = 0, 0
-boxCount, beerCount, cellCount, tempS = 1 = 0, 0, 0, 1
+boxCount, beerCount, cellCount, tempS, ufoCount = 0, 0, 0, 1, 0
 clear_state = 0
 soundCount = 0
 stealth_state, stealth_mode = 0, 0
-ufoCount = 0
 
 # ----------------------------------------------------------------
 class Road1:
