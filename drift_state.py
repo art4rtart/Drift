@@ -1,64 +1,56 @@
 import random
 import json
 import os
-
+# -----------------------------------------------------------------------------------
 from pico2d import *
 from math import *
-
+# -----------------------------------------------------------------------------------
 import game_framework
 import start_state
 import title_state
 import pause_state
+# -----------------------------------------------------------------------------------
 
 name = "DriftState"
 
+# -----------------------------------------------------------------------------------
 font = None
 car, road = None, None
-roadMoveRAD = None           # 반지름
-distance = None              # 거리
-back, frame = None, None    #배경
-obstacle = None             #장애물
-state = None                #상태
-question, ufo = None, None
-volume = None
-wasted = None
-box, beer, cell = None, None, None
+roadMoveRAD, distance = None, None
+back, frame = None, None
+volume, wasted, state = None, None, None
+box, beer, cell, question, ufo = None, None, None, None, None
 beers, boxes, cells = None, None, None
-cone, stick, crashed, tree = None, None, None, None
-speedup = None
-road1, road2, road3, road4 = None, None, None, None
-# -------------------------------------
+obstacle, cone, stick, crashed, tree = None, None, None, None, None
+road1, road2, road3, road4, speedup = None, None, None, None, None
+# -----------------------------------------------------------------------------------
 carX, carY = 237, 130       # 차량 초기화
 roadX, roadY = 280, 0       # 도로 초기화
 angle_0, angle_1 = 0, 0     # 각도 초기화
 PI = 3.14                   # 3.14 pi
-# -------------------------------------
-drift_state = 0             # 드리프트 상태 초기화
-volume_state = 0
-stageEnd = 0              # 스테이지 상태
-# -------------------------------------
+# -----------------------------------------------------------------------------------
+drift_state = 0             # 드리프트 상태
+volume_state = 0            # 음향 상태
+stealth_state = 0           # 스텔스 상태
+clear_state = 0             # 스테이지 클리어 상태
+carMoveStatus = 0           # 칼치기 상태
+wasted_state = 0            # 종료 상태
+# -----------------------------------------------------------------------------------
 driftCount = 0              # 드리프트 횟수 카운트
 mouseCount = 0              # 클릭 횟수 카운트
-# -------------------------------------
-life = 1
-moveBack = 0
-carMoveStatus, carMoveLine = 0, 0
-tempT, tempTime = 0, 0
-mileage = 0
-# -------------------------------------
-tempx, tempy = 0, 0
-ufoDirX = 1
-ufoDirY = 1
+soundCount = 0              # 사운드 횟수 카운트
+# -----------------------------------------------------------------------------------
+life = 1                    # 목숨
+stageEnd = 0                # 스테이지 종료
+# -----------------------------------------------------------------------------------
+ufoDirX, ufoDirY, ufoMoveX, ufoMoveY, ufoCount, questionMark = 1, 1, 0, 0, 0, 0
 itemTime, itemDir = 1, 1
-questionMark = 0
-# --------------------------------------
-wasted_state, tempRe = 0, 0
-boxCount, beerCount, cellCount, tempS, ufoCount = 0, 0, 0, 1, 0
-clear_state = 0
-soundCount = 0
-stealth_state, stealth_mode = 0, 0
-
-# ----------------------------------------------------------------
+# -----------------------------------------------------------------------------------
+boxCount, beerCount, cellCount, tempS = 0, 0, 0, 1
+# -----------------------------------------------------------------------------------
+moveBack, carMoveLine, stealth_mode, tempRe = 0, 0, 0, 0
+mileage, tempT, tempTIme = 0, 0, 0
+# -----------------------------------------------------------------------------------
 class Road1:
     road = None
 
@@ -321,7 +313,7 @@ class Car:
             return carX - 35, carY - 50, carX + 35, carY + 50
         if driftCount == 1:
             return carX - 50, carY - 35, carX + 50, carY + 35
-# ----------------------------------------------------------------
+# -----------------------------------------------------------------------------------
 class Obstacle:
     stop = None
 
@@ -414,7 +406,7 @@ class Tree:
             Tree.tree1.draw(roadX + 2190, 7850 + (i * 200) - roadY)
         for i in range(42):
             Tree.tree2.draw(roadX + 2190, 7750 + (i * 200) - roadY)
-# ----------------------------------------------------------------
+# -----------------------------------------------------------------------------------
 class Beer:
     image = None
 
@@ -509,27 +501,27 @@ class Ufo:
         self.explode_frame = 0
 
     def update(self, frame_time):
-        global tempx, tempy, ufoDirX, ufoDirY
+        global ufoMoveX, ufoMoveY, ufoDirX, ufoDirY
 
         if questionMark == 1:
             if self.ufoRand == 1:
-                tempx -= 5 * ufoDirX
-                tempy -= 5 * ufoDirY
+                ufoMoveX -= 5 * ufoDirX
+                ufoMoveY -= 5 * ufoDirY
             if self.ufoRand == 2:
-                tempx += 5 * ufoDirX
-                tempy += 5 * ufoDirY
+                ufoMoveX += 5 * ufoDirX
+                ufoMoveY += 5 * ufoDirY
             if self.ufoRand == 3:
-                tempx -= 5 * ufoDirX
-                tempy += 5 * ufoDirY
+                ufoMoveX -= 5 * ufoDirX
+                ufoMoveY += 5 * ufoDirY
             if self.ufoRand == 4:
-                tempx += 5 * ufoDirX
-                tempy -= 5 * ufoDirY
+                ufoMoveX += 5 * ufoDirX
+                ufoMoveY -= 5 * ufoDirY
 
 
-            if self.x + tempx > 700 or self.x + tempx < 0:
+            if self.x + ufoMoveX > 700 or self.x + ufoMoveX < 0:
                 ufoDirX *= -1
 
-            if self.y + tempy > 600 or self.y + tempy < 0:
+            if self.y + ufoMoveY > 600 or self.y + ufoMoveY < 0:
                 ufoDirY *= -1
 
 
@@ -537,9 +529,9 @@ class Ufo:
         global questionMark, ufoCount
 
         if boxCount < 10:
-            Ufo.image.draw(self.x + tempx, self.y + tempy)
+            Ufo.image.draw(self.x + ufoMoveX, self.y + ufoMoveY)
         else:
-            self.explode.clip_draw(self.explode_frame * 100, 0, 90, 100, self.x + tempx, self.y + tempy)
+            self.explode.clip_draw(self.explode_frame * 100, 0, 90, 100, self.x + ufoMoveX, self.y + ufoMoveY)
             self.explode_frame += 1
             if self.explode_frame < 16:
                 ufoCount += 1
@@ -550,8 +542,8 @@ class Ufo:
         draw_rectangle(*self.get_bb())
 
     def get_bb(self):
-        return self.x + tempx - 40, self.y + tempy - 40, self.x + tempx + 40, self.y + tempy + 40
-# ----------------------------------------------------------------
+        return self.x + ufoMoveX - 40, self.y + ufoMoveY - 40, self.x + ufoMoveX + 40, self.y + ufoMoveY + 40
+# -----------------------------------------------------------------------------------
 class Volume:
     def __init__(self):
         self.volume_frame = 0
@@ -588,7 +580,49 @@ class Wasted:
         if life == 0:
             self.image.draw(self.x, self.y)
             wasted_state = 1
-# ----------------------------------------------------------------
+# -----------------------------------------------------------------------------------
+def createWorld():
+    global carX, carY, roadX, roadY, drift_state, mouseCount, driftCount, stageEnd, life, moveBack
+    global tempT, tempTime, mileage, ufoMoveX, ufoMoveY, questionMark, carMoveStatus, carMoveLine, wasted_state, tempRe
+    global boxCount, clear_state, soundCount, cellCount, beerCount, beers, boxes, cells, ufoCount, stealth_state
+
+    # -------------------------------------
+    carX, carY = 237, 130  # 차량 초기화
+    roadX, roadY = 280, 0  # 도로 초기화
+    # -------------------------------------
+    drift_state = 0  # 드리프트 상태 초기화
+    stageEnd = 0  # 스테이지 상태
+    # -------------------------------------
+    driftCount = 0  # 드리프트 횟수 카운트
+    mouseCount = 0  # 클릭 횟수 카운트
+    # -------------------------------------
+    life = 1
+    moveBack = 0
+    carMoveStatus, carMoveLine = 0, 0
+    tempT, tempTime = 0, 0
+    mileage = 0
+    # -------------------------------------
+    ufoMoveX, ufoMoveY = 0, 0
+    questionMark = 0
+    # --------------------------------------
+    wasted_state = 0
+    tempRe = 0
+    car.explode_frame = 0
+    ufo.explode_frame = 0
+    # ---------------------------------------
+    boxCount = 0
+    clear_state = 0
+    soundCount = 0
+    cellCount, boxCount, beerCount = 0, 0, 0
+    road1.time = 0
+    tempTime = 0
+    tempT = 0
+    road1.speed = 320
+    stealth_state = 0
+    ufoCount = 0
+    beers = [Beer() for i in range(5)]
+    boxes = [Box() for i in range(10)]
+    cells = [Cell() for i in range(5)]
 
 def enter():
     global car, road, font, back, obstacle, state, frame
@@ -629,49 +663,6 @@ def enter():
 
     game_framework.reset_time()
 
-def createWorld():
-    global carX, carY, roadX, roadY, drift_state, mouseCount, driftCount, stageEnd, life, moveBack
-    global tempT, tempTime, mileage, tempx, tempy, questionMark, carMoveStatus, carMoveLine, wasted_state, tempRe
-    global boxCount, clear_state, soundCount, cellCount, beerCount, beers, boxes, cells, ufoCount, stealth_state
-
-    # -------------------------------------
-    carX, carY = 237, 130  # 차량 초기화
-    roadX, roadY = 280, 0  # 도로 초기화
-    # -------------------------------------
-    drift_state = 0  # 드리프트 상태 초기화
-    stageEnd = 0  # 스테이지 상태
-    # -------------------------------------
-    driftCount = 0  # 드리프트 횟수 카운트
-    mouseCount = 0  # 클릭 횟수 카운트
-    # -------------------------------------
-    life = 1
-    moveBack = 0
-    carMoveStatus, carMoveLine = 0, 0
-    tempT, tempTime = 0, 0
-    mileage = 0
-    # -------------------------------------
-    tempx, tempy = 0, 0
-    questionMark = 0
-    # --------------------------------------
-    wasted_state = 0
-    tempRe = 0
-    car.explode_frame = 0
-    ufo.explode_frame = 0
-    # ---------------------------------------
-    boxCount = 0
-    clear_state = 0
-    soundCount = 0
-    cellCount, boxCount, beerCount = 0, 0, 0
-    road1.time = 0
-    tempTime = 0
-    tempT = 0
-    road1.speed = 320
-    stealth_state = 0
-    ufoCount = 0
-    beers = [Beer() for i in range(5)]
-    boxes = [Box() for i in range(10)]
-    cells = [Cell() for i in range(5)]
-
 def exit():
     pass
 
@@ -680,7 +671,7 @@ def pause():
 
 def resume():
     pass
-
+# -----------------------------------------------------------------------------------
 def handle_events(frame_time):
     global roadMoveRAD, PI, angle_0, angle_1
     global carX, carY, roadX, roadY
@@ -966,4 +957,5 @@ def collide (a,b):
         return False
 
     return True
+# -----------------------------------------------------------------------------------
 
