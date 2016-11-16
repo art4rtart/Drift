@@ -540,10 +540,11 @@ class Ufo:
             Ufo.image.draw(self.x + tempx, self.y + tempy)
         else:
             self.explode.clip_draw(self.explode_frame * 100, 0, 90, 100, self.x + tempx, self.y + tempy)
-            self.explode_frame += 1
             if self.explode_frame < 16:
+                self.explode_frame += 1
+            if self.explode_frame > 15:
                 ufoCount += 1
-                if ufoCount > 3:
+                if ufoCount > 1:
                     questionMark = 0
 
     def draw_bb(self):
