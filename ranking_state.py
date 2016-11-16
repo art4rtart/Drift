@@ -53,7 +53,7 @@ def draw(frame_time):
 
     image.draw(500, 300)
 
-    font.draw(275, 550, "HALL OF FAME", (0, 0, 0))
+    font.draw(275, 550, "RANKING", (0, 0, 0))
 
     font.draw
     update_canvas()
