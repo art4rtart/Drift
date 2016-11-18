@@ -23,6 +23,7 @@ box, beer, cell, question, ufo, missile, stealth = None, None, None, None, None,
 beers, boxes, cells, missiles, stealthes = None, None, None, None, None
 obstacle, cone, stick, crashed, tree = None, None, None, None, None
 road1, road2, road3, road4, speedup = None, None, None, None, None
+crash, crashes = None, None
 # -----------------------------------------------------------------------------------
 carX, carY = 237, 130       # 차량 초기화
 roadX, roadY = 280, 0       # 도로 초기화
@@ -43,7 +44,7 @@ soundCount = 0              # 사운드 횟수 카운트
 life = 1                    # 목숨
 stageEnd = 0                # 스테이지 종료
 # -----------------------------------------------------------------------------------
-ufoDirX, ufoDirY, ufoMoveX, ufoMoveY, ufoCount, questionMark = 1, 1, random.randint(100, 600), random.randint(100, 600), 0, 0
+ufoDirX, ufoDirY, ufoMoveX, ufoMoveY, ufoCount, questionMark = 1, 1, random.randint(100, 600), random.randint(500, 600), 0, 0
 itemTime, itemDir = 1, 1
 # -----------------------------------------------------------------------------------
 boxCount, beerCount, cellCount, missileCount, stealthCount, tempS = 0, 0, 0, 0, 0, 1
@@ -512,7 +513,7 @@ class Stealth:
     def __init__(self):
         if Stealth.image == None:
             Stealth.image = load_image('stealth.png')
-        self.x, self.y = random.randint(400, 400), random.randint(400, 400)
+        self.x, self.y = random.randint(2370, 2370), random.randint(8250, 8650)
 
     def update(self, frame_time):
         pass
@@ -555,7 +556,6 @@ class Ufo:
                 ufoMoveX += 5 * ufoDirX
                 ufoMoveY -= 5 * ufoDirY
 
-
             if self.x + ufoMoveX > 700 or self.x + ufoMoveX < 0:
                 ufoDirX *= -1
 
@@ -566,7 +566,7 @@ class Ufo:
     def draw(self):
         global questionMark, ufoCount
 
-        if boxCount < 10:
+        if boxCount < 20:
             Ufo.image.draw(self.x + ufoMoveX, self.y + ufoMoveY)
         else:
             self.explode.clip_draw(self.explode_frame * 100, 0, 90, 100, self.x + ufoMoveX, self.y + ufoMoveY)
@@ -619,11 +619,28 @@ class Wasted:
             self.image.draw(self.x, self.y)
             wasted_state = 1
 # -----------------------------------------------------------------------------------
+class Crash:
+    def __init__(self):
+        self.x, self.y = [{120, 590}, (-120, 590)]
+
+    def update(self, frame_time):
+        pass
+
+    def draw(self):
+        pass
+
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return roadX + self.x - 30, self.y - 900 - roadY, roadX + self.x + 30, self.y + 900 - roadY
+
+# -----------------------------------------------------------------------------------
 def createWorld():
     global carX, carY, roadX, roadY, drift_state, mouseCount, driftCount, stageEnd, life, moveBack
     global tempT, tempTime, mileage, ufoMoveX, ufoMoveY, questionMark, carMoveStatus, carMoveLine, wasted_state, tempRe
     global boxCount, clear_state, soundCount, cellCount, beerCount, beers, boxes, cells, ufoCount, stealth_state
-    global missiles, missileCount, stealthes, stealthCount
+    global missiles, missileCount, stealthes, stealthCount, crashes
 
     # -------------------------------------
     carX, carY = 237, 130  # 차량 초기화
@@ -661,16 +678,17 @@ def createWorld():
     missileCount = 0
     stealthCount = 0
     beers = [Beer() for i in range(5)]
-    boxes = [Box() for i in range(10)]
+    boxes = [Box() for i in range(20)]
     cells = [Cell() for i in range(5)]
     missiles = [Missile() for i in range(5)]
     stealthes = [Stealth() for i in range(5)]
+    crashes = [Crash() for i in range(40)]
 
 def enter():
-    global car, road, font, back, obstacle, state, frame
+    global car, road, font_0, font_1, back, obstacle, state, frame
     global beer, cell, question, ufo, volume, wasted
     global cone, stick, crashed, tree
-    global boxes, beers, cells, missiles, stealthes
+    global boxes, beers, cells, missiles, stealthes, crashes
     global speedup, road1, road2, road3, road4
 
     road4 = Road4()
@@ -682,10 +700,11 @@ def enter():
     speedup = Speedup()
 
     beers = [Beer() for i in range(5)]
-    boxes = [Box() for i in range(10)]
+    boxes = [Box() for i in range(20)]
     cells = [Cell() for i in range(5)]
     missiles = [Missile() for i in range(5)]
     stealthes = [Stealth() for i in range(5)]
+    crashes = [Crash() for i in range(2)]
 
     cone = Cone()
     stick = Stick()
@@ -699,7 +718,8 @@ def enter():
     wasted = Wasted()
 
     obstacle = Obstacle()
-    font = load_font('PWChalk.TTF', 25)
+    font_0 = load_font('PWChalk.TTF', 25)
+    font_1 = load_font('PWChalk.TTF', 20)
     state = load_image('state.png')
 
     back = load_image('back.png')
@@ -811,15 +831,15 @@ def update(frame_time):
     global questionMark
     global boxCount, beerCount, cellCount, missileCount, stealthCount
     global clear_state
-    global cell, beer, box, missile, stealth
+    global cell, beer, box, missile, stealth, crash
     global roadX, roadY, driftCount, life, distance
     global tempT, mileage, tempTime, stealth_mode, tempS, stealth_state
 
-    if cellCount == 5:
+    if stealthCount == 5:
         stealth_mode = 1
 
     if stealth_state == 1:
-        cellCount = 0
+        stealthCount = 0
         if tempS > 0.5:
             tempS -= 0.1
 
@@ -854,9 +874,9 @@ def update(frame_time):
 
     if stageEnd == 0:
         if carMoveStatus == 1:      # 칼치기 조건
-            roadX += 5
+            roadX += 7
         if carMoveStatus == 2:
-            roadX -= 5
+            roadX -= 7
         moveBack += 3
 
     if collide(car, question):
@@ -887,10 +907,18 @@ def update(frame_time):
             stealthes.remove(stealth)
             stealthCount += 1
 
+    for crash in crashes:
+        if collide(car, crash):
+            life = 0
+            drift_state = 3
+
     if collide(car, ufo):
         if stealth_mode == 0:
             life = 0
             drift_state = 3
+
+    if beerCount >= 5:
+        print("drunk")
 
 
     if stageEnd == 0:
@@ -921,7 +949,7 @@ def draw(frame_time):
     global frame
     global questionMark
     global stageEnd
-    global box, cell, beer, missile, stealth
+    global box, cell, beer, missile, stealth, crash
     clear = load_image('clear.png')
 
     clear_canvas()
@@ -965,6 +993,12 @@ def draw(frame_time):
         stealth.draw()
         stealth.draw_bb()
 
+    for crash in crashes:
+        crash.draw()
+        crash.draw_bb()
+
+
+
     if questionMark == 0:
         question.draw()
         question.draw_bb()
@@ -983,27 +1017,26 @@ def draw(frame_time):
 
     frame.draw(500, 300)
 
-    font.draw(740, 550, "SPEED", (255, 255, 255))
-    font.draw(870, 550, "%3.0f" % (road1.speed / 5), (255, 0, 0))
-    font.draw(920, 550, "KM/H", (255, 255, 255))
+    font_0.draw(740, 550, "SPEED", (255, 255, 255))
+    font_0.draw(870, 550, "%3.0f" % (road1.speed / 5), (255, 0, 0))
+    font_0.draw(920, 550, "KM/H", (255, 255, 255))
 
-    font.draw(740, 500, "TIME", (255, 255, 255))
-    font.draw(880, 500, "%3.0f" % road1.time, (255, 0, 0))
-    font.draw(940, 500, "HR", (255, 255, 255))
+    font_0.draw(740, 500, "TIME", (255, 255, 255))
+    font_0.draw(880, 500, "%3.0f" % road1.time, (255, 0, 0))
+    font_0.draw(940, 500, "HR", (255, 255, 255))
 
-    font.draw(740, 450, "SCORE", (255, 255, 255))
+    font_0.draw(740, 450, "SCORE", (255, 255, 255))
     if carX > 9900 - roadY:
-        font.draw(860, 450, "%3.0f" % ((road1.speed / 5 * tempT) + mileage + (tempTime * road1.speed)), (255, 0, 0))
+        font_0.draw(860, 450, "%3.0f" % ((road1.speed / 5 * tempT) + mileage + (tempTime * road1.speed)), (255, 0, 0))
     else:
-        font.draw(860, 450, "%3.0f" % mileage, (255, 0, 0))
-    font.draw(940, 450, "KM", (255, 255, 255))
+        font_0.draw(860, 450, "%3.0f" % mileage, (255, 0, 0))
+        font_0.draw(940, 450, "KM", (255, 255, 255))
 
-
-    font.draw(830, 255, " X %d" % boxCount, (0,255,255))
-    font.draw(830, 175, " X %d" % cellCount, (0, 255, 255))
-    font.draw(830, 95, " X %d" % beerCount, (0, 255, 255))
-    font.draw(830, 330, " X %d" % missileCount, (0, 255, 255))
-    font.draw(860, 330, " X %d" % stealthCount, (0, 255, 255))
+    font_1.draw(815, 235, " X %d" % boxCount, (0,255,255))
+    font_1.draw(815, 155, " X %d" % missileCount, (0, 255, 255))
+    font_1.draw(815, 80, " X %d" % stealthCount, (0, 255, 255))
+    font_1.draw(940, 235, " X %d" % beerCount, (255, 0, 255))
+    font_1.draw(940, 150, " X %d" % cellCount, (255, 0, 255))
 
     update_canvas()
 
