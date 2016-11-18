@@ -764,10 +764,10 @@ def handle_events(frame_time):
                 mouseCount += 1
 
             if (event.type, event.key) == (SDL_KEYDOWN, SDLK_e):
-                road.speed += 100
+                road1.speed += 100
 
             if (event.type, event.key) == (SDL_KEYDOWN, SDLK_r):
-                road.speed -= 100
+                road1.speed -= 100
 
         if(event.type, event.key) == (SDL_KEYDOWN, SDLK_v):
             volume_state = 1
@@ -815,7 +815,7 @@ def update(frame_time):
     global roadX, roadY, driftCount, life, distance
     global tempT, mileage, tempTime, stealth_mode, tempS, stealth_state
 
-    roadCollide()
+    Road_Collide()
 
     if stealthCount == 5:
         stealth_mode = 1
@@ -1015,6 +1015,7 @@ def draw(frame_time):
 
     update_canvas()
 
+# -----------------------------------------------------------------------------------
 def collide (a,b):
     left_a, bottom_a, right_a, top_a = a.get_bb()
     left_b, bottom_b, right_b, top_b = b.get_bb()
@@ -1029,93 +1030,164 @@ def collide (a,b):
         return False
 
     return True
-# -----------------------------------------------------------------------------------
 
-def roadCollide():
-    global life
+def Road_Collide():
+    global life, drift_state
 
     print(roadX, roadY)
 
     if roadX > 300 and roadY < 1500 or roadX < 180 and roadY < 1390:
         life = 0
+        drift_state = 3
     if roadX < 280 and roadX > 196 and roadY > 1500:
         life = 0
+        drift_state = 3
     # --------------------------------------------------------------------
-    if roadX > 126 and roadY > 1500 or roadX < 0 and roadY < 2630:
+    if roadX > 126 and roadY > 1500 and roadY < 2700 or roadX < 0 and roadY < 2630:
         life = 0
+        drift_state = 3
     if roadX < 126 and roadX > 0 and roadY > 2850:
         life = 0
+        drift_state = 3
     # --------------------------------------------------------------------
-    if roadX > -40 and roadY > 2800 and roadX < -180 and roadY < 3500:
+    if roadY > 2800 and roadY < 3350 and roadX > -30:
         life = 0
-    if roadX < -40 and roadX > -180 and roadY > 3760:
+        drift_state = 3
+    if roadY > 2700 and roadY < 3600 and roadX < -200:
         life = 0
+        drift_state = 3
+    if roadX > -220 and roadX < -30 and roadY > 3750:
+        life = 0
+        drift_state = 3
     # --------------------------------------------------------------------
-
+    if roadY > 3800 and roadY < 2670 and roadX > -260:
+        life = 0
+        drift_state = 3
+    if roadY > 3600 and roadY < 4400 and roadX < -385:
+        life = 0
+        drift_state = 3
+    if roadX < -240 and roadX > -385 and roadY > 4640:
+        life = 0
+        drift_state = 3
     # --------------------------------------------------------------------
-
+    if roadY > 4530 and roadY < 5400 and roadX < -632:
+        life = 0
+        drift_state = 3
+    if roadY > 4710 and roadY < 5680 and roadX > -484:
+        life = 0
+        drift_state = 3
+    if roadX < -484 and roadX > -632 and roadY > 5640:
+        life = 0
+        drift_state = 3
     # --------------------------------------------------------------------
-
+    if roadY > 5530  and roadY < 6080 and roadX < -1080:
+        life = 0
+        drift_state = 3
+    if roadY > 5600 and roadY < 6250  and roadX > -920:
+        life = 0
+        drift_state = 3
+    if roadX < -920 and roadX > -1080 and roadY > 6250:
+        life = 0
+        drift_state = 3
     # --------------------------------------------------------------------
-
+    if roadY > 5600  and roadY < 6260 and roadX < -1253:
+        life = 0
+        drift_state = 3
+    if roadY > 6315 and roadY < 6445 and roadX > -1123:
+        life = 0
+        drift_state = 3
+    if roadX < -1123 and roadX > -1253 and roadY > 6445:
+        life = 0
+        drift_state = 3
     # --------------------------------------------------------------------
-
+    if roadY > 5600 and roadY < 7138 and roadX < -1435:
+        life = 0
+        drift_state = 3
+    if roadY > 6500  and roadY < 7345 and roadX > -1285 :
+        life = 0
+        drift_state = 3
+    if roadX < -1285 and roadX > -1435 and roadY > 7345:
+        life = 0
+        drift_state = 3
     # --------------------------------------------------------------------
-
+    if roadY > 7230  and roadY < 7320 and roadX < -1605:
+        life = 0
+        drift_state = 3
+    if roadY > 7320 and roadY < 7510 and roadX > -1460:
+        life = 0
+        drift_state = 3
+    if roadX < -1460 and roadX > -1605 and roadY > 7510:
+        life = 0
+        drift_state = 3
     # --------------------------------------------------------------------
-
+    if roadY > 7410   and roadY < 15715 and roadX < -2155:
+        life = 0
+        drift_state = 3
+    if roadY > 7585 and roadY < 15910 and roadX > -2000:
+        life = 0
+        drift_state = 3
+    if roadX < -2000 and roadX > -2155 and roadY > 15910:
+        life = 0
+        drift_state = 3
     # --------------------------------------------------------------------
-
+    if roadY > 15815 and roadY < 15905 and roadX < -2705:
+        life = 0
+        drift_state = 3
+    if roadY > 15910 and roadY < 16090 and roadX > -2545:
+        life = 0
+        drift_state = 3
+    if roadX < -2545 and roadX > -2705 and roadY > 16090:
+        life = 0
+        drift_state = 3
     # --------------------------------------------------------------------
-
+    if roadY > 16000  and roadY < 16090 and roadX < -2875:
+        life = 0
+        drift_state = 3
+    if roadY > 16090 and roadY < 16270 and roadX > -2715:
+        life = 0
+        drift_state = 3
+    if roadX < -2715 and roadX > -2875 and roadY > 16270:
+        life = 0
+        drift_state = 3
     # --------------------------------------------------------------------
-
+    if roadY > 16180  and roadY < 17335 and roadX < -3240:
+        life = 0
+        drift_state = 3
+    if roadY > 16340  and roadY < 17540 and roadX > -3075:
+        life = 0
+        drift_state = 3
+    if roadX < -3075  and roadX > -3240 and roadY > 17540:
+        life = 0
+        drift_state = 3
     # --------------------------------------------------------------------
-
+    if roadY > 17438  and roadY < 17690 and roadX < -3595 :  # 왼쪽
+        life = 0
+        drift_state = 3
+    if roadY > 17605  and roadY < 17895 and roadX > -3445:
+        life = 0
+        drift_state = 3
+    if roadX < -3445  and roadX > -3595 and roadY > 17895:
+        life = 0
+        drift_state = 3
     # --------------------------------------------------------------------
-
+    if roadY > 17790 and roadY < 18235 and roadX < -4135:
+        life = 0
+        drift_state = 3
+    if roadY > 17965 and roadY < 18430 and roadX > -3990:
+        life = 0
+        drift_state = 3
+    if roadX < -3990 and roadX > -4135 and roadY > 18430:
+        life = 0
+        drift_state = 3
     # --------------------------------------------------------------------
-
+    if roadY > 18330  and roadY < 20120 and roadX < -4320:
+        life = 0
+        drift_state = 3
+    if roadY > 18515 and roadY < 20120 and roadX > -4160:
+        life = 0
+        drift_state = 3
     # --------------------------------------------------------------------
-
-
-
-
-
-
-
-        # --------------------------------------------------------------------
-
-        # --------------------------------------------------------------------
-
-        # --------------------------------------------------------------------
-
-        # --------------------------------------------------------------------
-
-        # --------------------------------------------------------------------
-
-        # --------------------------------------------------------------------
-        # --------------------------------------------------------------------
-        # --------------------------------------------------------------------
-
-        # --------------------------------------------------------------------
-
-        # --------------------------------------------------------------------
-        # --------------------------------------------------------------------
-
-        # --------------------------------------------------------------------
-
-        # --------------------------------------------------------------------
-        # --------------------------------------------------------------------
-        # --------------------------------------------------------------------
-        # --------------------------------------------------------------------
-        # --------------------------------------------------------------------
-
-        # --------------------------------------------------------------------
-
-
-
-
+# -----------------------------------------------------------------------------------
 
 
 
