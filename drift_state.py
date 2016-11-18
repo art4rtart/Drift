@@ -23,7 +23,6 @@ box, beer, cell, question, ufo, missile, stealth = None, None, None, None, None,
 beers, boxes, cells, missiles, stealthes = None, None, None, None, None
 obstacle, cone, stick, crashed, tree = None, None, None, None, None
 road1, road2, road3, road4, speedup = None, None, None, None, None
-crash, crashes = None, None
 # -----------------------------------------------------------------------------------
 carX, carY = 237, 130       # 차량 초기화
 roadX, roadY = 280, 0       # 도로 초기화
@@ -619,28 +618,11 @@ class Wasted:
             self.image.draw(self.x, self.y)
             wasted_state = 1
 # -----------------------------------------------------------------------------------
-class Crash:
-    def __init__(self):
-        self.x, self.y = [{120, 590}, (-120, 590)]
-
-    def update(self, frame_time):
-        pass
-
-    def draw(self):
-        pass
-
-    def draw_bb(self):
-        draw_rectangle(*self.get_bb())
-
-    def get_bb(self):
-        return roadX + self.x - 30, self.y - 900 - roadY, roadX + self.x + 30, self.y + 900 - roadY
-
-# -----------------------------------------------------------------------------------
 def createWorld():
     global carX, carY, roadX, roadY, drift_state, mouseCount, driftCount, stageEnd, life, moveBack
     global tempT, tempTime, mileage, ufoMoveX, ufoMoveY, questionMark, carMoveStatus, carMoveLine, wasted_state, tempRe
     global boxCount, clear_state, soundCount, cellCount, beerCount, beers, boxes, cells, ufoCount, stealth_state
-    global missiles, missileCount, stealthes, stealthCount, crashes
+    global missiles, missileCount, stealthes, stealthCount
 
     # -------------------------------------
     carX, carY = 237, 130  # 차량 초기화
@@ -682,13 +664,12 @@ def createWorld():
     cells = [Cell() for i in range(5)]
     missiles = [Missile() for i in range(5)]
     stealthes = [Stealth() for i in range(5)]
-    crashes = [Crash() for i in range(40)]
 
 def enter():
     global car, road, font_0, font_1, back, obstacle, state, frame
     global beer, cell, question, ufo, volume, wasted
     global cone, stick, crashed, tree
-    global boxes, beers, cells, missiles, stealthes, crashes
+    global boxes, beers, cells, missiles, stealthes
     global speedup, road1, road2, road3, road4
 
     road4 = Road4()
@@ -704,7 +685,6 @@ def enter():
     cells = [Cell() for i in range(5)]
     missiles = [Missile() for i in range(5)]
     stealthes = [Stealth() for i in range(5)]
-    crashes = [Crash() for i in range(2)]
 
     cone = Cone()
     stick = Stick()
@@ -831,9 +811,11 @@ def update(frame_time):
     global questionMark
     global boxCount, beerCount, cellCount, missileCount, stealthCount
     global clear_state
-    global cell, beer, box, missile, stealth, crash
+    global cell, beer, box, missile, stealth
     global roadX, roadY, driftCount, life, distance
     global tempT, mileage, tempTime, stealth_mode, tempS, stealth_state
+
+    roadCollide()
 
     if stealthCount == 5:
         stealth_mode = 1
@@ -907,11 +889,6 @@ def update(frame_time):
             stealthes.remove(stealth)
             stealthCount += 1
 
-    for crash in crashes:
-        if collide(car, crash):
-            life = 0
-            drift_state = 3
-
     if collide(car, ufo):
         if stealth_mode == 0:
             life = 0
@@ -949,7 +926,7 @@ def draw(frame_time):
     global frame
     global questionMark
     global stageEnd
-    global box, cell, beer, missile, stealth, crash
+    global box, cell, beer, missile, stealth
     clear = load_image('clear.png')
 
     clear_canvas()
@@ -993,9 +970,6 @@ def draw(frame_time):
         stealth.draw()
         stealth.draw_bb()
 
-    for crash in crashes:
-        crash.draw()
-        crash.draw_bb()
 
 
 
@@ -1032,11 +1006,12 @@ def draw(frame_time):
         font_0.draw(860, 450, "%3.0f" % mileage, (255, 0, 0))
         font_0.draw(940, 450, "KM", (255, 255, 255))
 
+    font_0.draw(755, 320, "----ITEM LIST----", (255, 255, 255))
     font_1.draw(815, 235, " X %d" % boxCount, (0,255,255))
     font_1.draw(815, 155, " X %d" % missileCount, (0, 255, 255))
     font_1.draw(815, 80, " X %d" % stealthCount, (0, 255, 255))
-    font_1.draw(940, 235, " X %d" % beerCount, (255, 0, 255))
-    font_1.draw(940, 150, " X %d" % cellCount, (255, 0, 255))
+    font_1.draw(940, 235, " X %d" % beerCount, (255, 170, 255))
+    font_1.draw(940, 150, " X %d" % cellCount, (255, 170, 255))
 
     update_canvas()
 
@@ -1055,4 +1030,95 @@ def collide (a,b):
 
     return True
 # -----------------------------------------------------------------------------------
+
+def roadCollide():
+    global life
+
+    print(roadX, roadY)
+
+    if roadX > 300 and roadY < 1500 or roadX < 180 and roadY < 1390:
+        life = 0
+    if roadX < 280 and roadX > 196 and roadY > 1500:
+        life = 0
+    # --------------------------------------------------------------------
+    if roadX > 126 and roadY > 1500 or roadX < 0 and roadY < 2630:
+        life = 0
+    if roadX < 126 and roadX > 0 and roadY > 2850:
+        life = 0
+    # --------------------------------------------------------------------
+    if roadX > -40 and roadY > 2800 and roadX < -180 and roadY < 3500:
+        life = 0
+    if roadX < -40 and roadX > -180 and roadY > 3760:
+        life = 0
+    # --------------------------------------------------------------------
+
+    # --------------------------------------------------------------------
+
+    # --------------------------------------------------------------------
+
+    # --------------------------------------------------------------------
+
+    # --------------------------------------------------------------------
+
+    # --------------------------------------------------------------------
+
+    # --------------------------------------------------------------------
+
+    # --------------------------------------------------------------------
+
+    # --------------------------------------------------------------------
+
+    # --------------------------------------------------------------------
+
+    # --------------------------------------------------------------------
+
+    # --------------------------------------------------------------------
+
+    # --------------------------------------------------------------------
+
+    # --------------------------------------------------------------------
+
+
+
+
+
+
+
+        # --------------------------------------------------------------------
+
+        # --------------------------------------------------------------------
+
+        # --------------------------------------------------------------------
+
+        # --------------------------------------------------------------------
+
+        # --------------------------------------------------------------------
+
+        # --------------------------------------------------------------------
+        # --------------------------------------------------------------------
+        # --------------------------------------------------------------------
+
+        # --------------------------------------------------------------------
+
+        # --------------------------------------------------------------------
+        # --------------------------------------------------------------------
+
+        # --------------------------------------------------------------------
+
+        # --------------------------------------------------------------------
+        # --------------------------------------------------------------------
+        # --------------------------------------------------------------------
+        # --------------------------------------------------------------------
+        # --------------------------------------------------------------------
+
+        # --------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
 
