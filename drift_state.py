@@ -43,7 +43,7 @@ soundCount = 0              # 사운드 횟수 카운트
 life = 1                    # 목숨
 stageEnd = 0                # 스테이지 종료
 # -----------------------------------------------------------------------------------
-ufoDirX, ufoDirY, ufoMoveX, ufoMoveY, ufoCount, questionMark = 1, 1, 0, 0, 0, 0
+ufoDirX, ufoDirY, ufoMoveX, ufoMoveY, ufoCount, questionMark = 1, 1, random.randint(100, 600), random.randint(100, 600), 0, 0
 itemTime, itemDir = 1, 1
 # -----------------------------------------------------------------------------------
 boxCount, beerCount, cellCount, missileCount, stealthCount, tempS = 0, 0, 0, 0, 0, 1
@@ -415,7 +415,7 @@ class Beer:
             Beer.image = load_image('beer.png')
         self.beer = load_image('beer.png')
         self.x = random.randint(850, 850)
-        self.y = random.randint(4800, 5400)
+        self.y = random.randint(4700, 5600)
 
     def update(self, frame_time):
         pass
@@ -435,7 +435,7 @@ class Box:
         if Box.image == None:
             Box.image = load_image('box.png')
         self.box = load_image('box.png')
-        self.x = random.randint(2270, 2380)
+        self.x = random.randint(2290, 2310)
         self.y = random.randint(11000, 15400)
 
     def update(self, frame_time):
@@ -456,7 +456,7 @@ class Cell:
             Cell.image = load_image('cell.png')
         self.cell = load_image('cell.png')
         self.x = random.randint(220, 220)
-        self.y = random.randint(2000, 2700)
+        self.y = random.randint(1900, 2800)
 
     def update(self, frame_time):
         pass
@@ -510,9 +510,9 @@ class Missile:
 class Stealth:
     image = None
     def __init__(self):
-        if Missile.image == None:
-            Missile.image = load_image('stealth.png')
-        self.x, self.y = random.randint(590, 590), random.randint(4000, 4600)
+        if Stealth.image == None:
+            Stealth.image = load_image('stealth.png')
+        self.x, self.y = random.randint(400, 400), random.randint(400, 400)
 
     def update(self, frame_time):
         pass
@@ -526,7 +526,6 @@ class Stealth:
     def get_bb(self):
         return roadX + self.x - 30, self.y - 30 - roadY, roadX + self.x + 30, self.y + 30 - roadY
 
-
 class Ufo:
     image = None
 
@@ -534,7 +533,7 @@ class Ufo:
         if Ufo.image == None:
             Ufo.image = load_image('ufo.png')
 
-        self.x, self.y = random.randint(0, 700), 500
+        self.x, self.y = 500, 500
         self.ufoRand = random.randint(1, 4)
         self.explode = load_image('explode.png')
         self.explode_frame = 0
@@ -624,7 +623,7 @@ def createWorld():
     global carX, carY, roadX, roadY, drift_state, mouseCount, driftCount, stageEnd, life, moveBack
     global tempT, tempTime, mileage, ufoMoveX, ufoMoveY, questionMark, carMoveStatus, carMoveLine, wasted_state, tempRe
     global boxCount, clear_state, soundCount, cellCount, beerCount, beers, boxes, cells, ufoCount, stealth_state
-    global missile, missileCount
+    global missiles, missileCount, stealthes, stealthCount
 
     # -------------------------------------
     carX, carY = 237, 130  # 차량 초기화
@@ -660,10 +659,12 @@ def createWorld():
     stealth_state = 0
     ufoCount = 0
     missileCount = 0
+    stealthCount = 0
     beers = [Beer() for i in range(5)]
     boxes = [Box() for i in range(10)]
     cells = [Cell() for i in range(5)]
     missiles = [Missile() for i in range(5)]
+    stealthes = [Stealth() for i in range(5)]
 
 def enter():
     global car, road, font, back, obstacle, state, frame
