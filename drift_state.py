@@ -19,8 +19,8 @@ car, road = None, None
 roadMoveRAD, distance = None, None
 back, frame = None, None
 volume, wasted, state = None, None, None
-box, beer, cell, question, ufo = None, None, None, None, None
-beers, boxes, cells = None, None, None
+box, beer, cell, question, ufo, missile, stealth = None, None, None, None, None, None, None
+beers, boxes, cells, missiles, stealthes = None, None, None, None, None
 obstacle, cone, stick, crashed, tree = None, None, None, None, None
 road1, road2, road3, road4, speedup = None, None, None, None, None
 # -----------------------------------------------------------------------------------
@@ -46,10 +46,10 @@ stageEnd = 0                # 스테이지 종료
 ufoDirX, ufoDirY, ufoMoveX, ufoMoveY, ufoCount, questionMark = 1, 1, 0, 0, 0, 0
 itemTime, itemDir = 1, 1
 # -----------------------------------------------------------------------------------
-boxCount, beerCount, cellCount, tempS = 0, 0, 0, 1
+boxCount, beerCount, cellCount, missileCount, stealthCount, tempS = 0, 0, 0, 0, 0, 1
 # -----------------------------------------------------------------------------------
 moveBack, carMoveLine, stealth_mode, tempRe = 0, 0, 0, 0
-mileage, tempT, tempTIme = 0, 0, 0
+mileage, tempT, tempTime = 0, 0, 0
 # -----------------------------------------------------------------------------------
 class Road1:
     road = None
@@ -488,6 +488,45 @@ class Question:
     def get_bb(self):
         return roadX + self.x - 30, self.y - 30 - roadY, roadX + self.x + 30, self.y + 30 - roadY
 
+class Missile:
+    image = None
+    def __init__(self):
+        if Missile.image == None:
+            Missile.image = load_image('missile.png')
+        self.x, self.y = random.randint(590, 590), random.randint(4000, 4600)
+
+    def update(self, frame_time):
+        pass
+
+    def draw(self):
+        self.image.draw(roadX + self.x, self.y - roadY)
+
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return roadX + self.x - 30, self.y - 30 - roadY, roadX + self.x + 30, self.y + 30 - roadY
+
+class Stealth:
+    image = None
+    def __init__(self):
+        if Missile.image == None:
+            Missile.image = load_image('stealth.png')
+        self.x, self.y = random.randint(590, 590), random.randint(4000, 4600)
+
+    def update(self, frame_time):
+        pass
+
+    def draw(self):
+        self.image.draw(roadX + self.x, self.y - roadY)
+
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return roadX + self.x - 30, self.y - 30 - roadY, roadX + self.x + 30, self.y + 30 - roadY
+
+
 class Ufo:
     image = None
 
@@ -585,6 +624,7 @@ def createWorld():
     global carX, carY, roadX, roadY, drift_state, mouseCount, driftCount, stageEnd, life, moveBack
     global tempT, tempTime, mileage, ufoMoveX, ufoMoveY, questionMark, carMoveStatus, carMoveLine, wasted_state, tempRe
     global boxCount, clear_state, soundCount, cellCount, beerCount, beers, boxes, cells, ufoCount, stealth_state
+    global missile, missileCount
 
     # -------------------------------------
     carX, carY = 237, 130  # 차량 초기화
@@ -615,20 +655,21 @@ def createWorld():
     soundCount = 0
     cellCount, boxCount, beerCount = 0, 0, 0
     road1.time = 0
-    tempTime = 0
     tempT = 0
     road1.speed = 320
     stealth_state = 0
     ufoCount = 0
+    missileCount = 0
     beers = [Beer() for i in range(5)]
     boxes = [Box() for i in range(10)]
     cells = [Cell() for i in range(5)]
+    missiles = [Missile() for i in range(5)]
 
 def enter():
     global car, road, font, back, obstacle, state, frame
     global beer, cell, question, ufo, volume, wasted
     global cone, stick, crashed, tree
-    global boxes, beers, cells
+    global boxes, beers, cells, missiles, stealthes
     global speedup, road1, road2, road3, road4
 
     road4 = Road4()
@@ -642,6 +683,8 @@ def enter():
     beers = [Beer() for i in range(5)]
     boxes = [Box() for i in range(10)]
     cells = [Cell() for i in range(5)]
+    missiles = [Missile() for i in range(5)]
+    stealthes = [Stealth() for i in range(5)]
 
     cone = Cone()
     stick = Stick()
@@ -765,9 +808,9 @@ def update(frame_time):
     global moveBack, stageEnd
     global drift_state
     global questionMark
-    global boxCount, beerCount, cellCount
+    global boxCount, beerCount, cellCount, missileCount, stealthCount
     global clear_state
-    global cell, beer, box
+    global cell, beer, box, missile, stealth
     global roadX, roadY, driftCount, life, distance
     global tempT, mileage, tempTime, stealth_mode, tempS, stealth_state
 
@@ -833,6 +876,16 @@ def update(frame_time):
             cells.remove(cell)
             cellCount += 1
 
+    for missile in missiles:
+        if collide(car, missile):
+            missiles.remove(missile)
+            missileCount += 1
+
+    for stealth in stealthes:
+        if collide(car, stealth):
+            stealthes.remove(stealth)
+            stealthCount += 1
+
     if collide(car, ufo):
         if stealth_mode == 0:
             life = 0
@@ -867,7 +920,7 @@ def draw(frame_time):
     global frame
     global questionMark
     global stageEnd
-    global box, cell, beer
+    global box, cell, beer, missile, stealth
     clear = load_image('clear.png')
 
     clear_canvas()
@@ -902,6 +955,14 @@ def draw(frame_time):
     for cell in cells:
         cell.draw()
         cell.draw_bb()
+
+    for missile in missiles:
+        missile.draw()
+        missile.draw_bb()
+
+    for stealth in stealthes:
+        stealth.draw()
+        stealth.draw_bb()
 
     if questionMark == 0:
         question.draw()
@@ -940,6 +1001,8 @@ def draw(frame_time):
     font.draw(830, 255, " X %d" % boxCount, (0,255,255))
     font.draw(830, 175, " X %d" % cellCount, (0, 255, 255))
     font.draw(830, 95, " X %d" % beerCount, (0, 255, 255))
+    font.draw(830, 330, " X %d" % missileCount, (0, 255, 255))
+    font.draw(860, 330, " X %d" % stealthCount, (0, 255, 255))
 
     update_canvas()
 
