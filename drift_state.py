@@ -216,7 +216,6 @@ class Speedup:
 class Car:
     crashed = None
     drift = None
-    engine = None
 
     def __init__(self):
         self.image = load_image('car.png')
@@ -232,12 +231,6 @@ class Car:
         if Car.drift == None:
             Car.drift = load_wav('drift.wav')
             Car.drift.set_volume(50)
-
-        if Car.engine == None:
-            Car.engine = load_wav('engine.ogg')
-            Car.engine.set_volume(10)
-
-
 
     def update(self, frame_time):
         global questionMark, stealth_state, stealth_mode, tempS
@@ -302,8 +295,6 @@ class Car:
             if soundCount < 0.5:
                 Car.crashed.play()
             soundCount += 1
-
-
 
     def draw_bb(self):
         draw_rectangle(*self.get_bb())
@@ -586,24 +577,21 @@ class Volume:
         self.volume_frame = 0
         self.image = load_image('vol.png')
 
-    def update(self,frame_time):
-        if volume_state == 1:
-            if start_state.volume > 0:
-                start_state.volume -= 1
-        else:
-            pass
+    def update(self, frame_time):
+        pass
 
     def draw(self):
-        self.image.clip_draw(self.volume_frame * 60, 0, 60, 60, 50, 550)
+        self.image.clip_draw(self.volume_frame * 100, 0, 100, 100, 70, 530)
+        print(start_state.volume, self.volume_frame)
 
         if start_state.volume < 20:
-            self.volume_frame = 1
+            self.volume_frame = 0
         if start_state.volume < 15:
-            self.volume_frame = 2
+            self.volume_frame = 1
         if start_state.volume < 10:
+            self.volume_frame = 2
+        if start_state.volume < 1:
             self.volume_frame = 3
-        if start_state.volume < 0:
-            self.volume_frame = 4
 
 class Wasted:
     def __init__(self):
@@ -730,6 +718,7 @@ def handle_events(frame_time):
             game_framework.quit()
         else:
             if (event.type, event.key) == (SDL_KEYDOWN, SDLK_ESCAPE):
+                createWorld()
                 game_framework.change_state(title_state)
             elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_p):
                 game_framework.change_state(pause_state)
@@ -770,11 +759,7 @@ def handle_events(frame_time):
                 road1.speed -= 100
 
         if(event.type, event.key) == (SDL_KEYDOWN, SDLK_v):
-            volume_state = 1
-
-
-        if (event.type, event.key) == (SDL_KEYUP, SDLK_v):
-            volume_state = 0
+            start_state.volume -= 4
 
         if (event.type, event.key) == (SDL_KEYDOWN, SDLK_q):
             life = 0
@@ -894,10 +879,6 @@ def update(frame_time):
             life = 0
             drift_state = 3
 
-    if beerCount >= 5:
-        print("drunk")
-
-
     if stageEnd == 0:
         road1.time += frame_time
 
@@ -1004,7 +985,7 @@ def draw(frame_time):
         font_0.draw(860, 450, "%3.0f" % ((road1.speed / 5 * tempT) + mileage + (tempTime * road1.speed)), (255, 0, 0))
     else:
         font_0.draw(860, 450, "%3.0f" % mileage, (255, 0, 0))
-        font_0.draw(940, 450, "KM", (255, 255, 255))
+    font_0.draw(940, 450, "KM", (255, 255, 255))
 
     font_0.draw(755, 320, "----ITEM LIST----", (255, 255, 255))
     font_1.draw(815, 235, " X %d" % boxCount, (0,255,255))
@@ -1033,8 +1014,6 @@ def collide (a,b):
 
 def Road_Collide():
     global life, drift_state
-
-    print(roadX, roadY)
 
     if roadX > 300 and roadY < 1500 or roadX < 180 and roadY < 1390:
         life = 0

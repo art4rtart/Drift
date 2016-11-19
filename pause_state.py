@@ -2,9 +2,9 @@ import game_framework
 from pico2d import *
 
 import title_state
-import drift_state # drift
-import AT_state # autobhan
-import TA_state # time attack
+import drift_state
+import about_state
+import manual_state
 import ranking_state
 
 name = "PauseState"
@@ -72,9 +72,9 @@ def handle_events(frame_time):
                 if title_state.game_mode == 1:
                     game_framework.push_state(drift_state)
                 elif title_state.game_mode == 2:
-                    game_framework.push_state(AT_state)
+                    game_framework.push_state(about_state)
                 elif title_state.game_mode == 3:
-                    game_framework.push_state(TA_state)
+                    game_framework.push_state(manual_state)
 
         elif select_status == 2:
             if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):

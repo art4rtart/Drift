@@ -57,7 +57,7 @@ def draw(frame_time):
 
     if(imageTime > 0.99):
         key.draw(500, 400)
-        title.draw(500, 500)
+        title.draw(510, 500)
         key.opacify(keyTime)
 
     update_canvas()

@@ -2,8 +2,8 @@ import game_framework
 from pico2d import *
 
 import drift_state # drift
-import AT_state # autobhan
-import TA_state # time attack
+import about_state
+import manual_state
 
 name = "TitleState"
 image = None
@@ -87,11 +87,11 @@ def handle_events(frame_time):
 
             elif select_status == 2 and game_mode == 2:
                 if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):
-                    game_framework.push_state(AT_state)
+                    game_framework.push_state(manual_state)
 
             elif select_status == 3 and game_mode == 3:
                 if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):
-                    game_framework.push_state(TA_state)
+                    game_framework.push_state(about_state)
 
             elif select_status == 4:
                 if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):
@@ -109,33 +109,33 @@ def draw(frame_time):
 
     if select_status == 0:
         d1.draw(680, 500)
-        a1.draw(740, 400)
-        t1.draw(746, 315)
-        e1.draw(675, 215)
+        t1.draw(707, 415)
+        a1.draw(740, 315)
+        e1.draw(680, 225)
 
     elif select_status == 1:
         d2.draw(680, 500)
-        a1.draw(740, 400)
-        t1.draw(746, 315)
-        e1.draw(675, 215)
+        t1.draw(707, 415)
+        a1.draw(740, 315)
+        e1.draw(680, 225)
 
     elif select_status == 2:
         d1.draw(680, 500)
-        a2.draw(740, 400)
-        t1.draw(746, 315)
-        e1.draw(675, 215)
+        t2.draw(707, 415)
+        a1.draw(740, 315)
+        e1.draw(680, 225)
 
     elif select_status == 3:
         d1.draw(680, 500)
-        a1.draw(740, 400)
-        t2.draw(746, 315)
-        e1.draw(675, 215)
+        t1.draw(707, 415)
+        a2.draw(740, 315)
+        e1.draw(680, 225)
 
     elif select_status == 4:
         d1.draw(680, 500)
-        a1.draw(740, 400)
-        t1.draw(746, 315)
-        e2.draw(675, 215)
+        t1.draw(707, 415)
+        a1.draw(740, 315)
+        e2.draw(680, 225)
 
 
 
