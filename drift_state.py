@@ -23,6 +23,7 @@ box, beer, cell, question, ufo, missile, stealth = None, None, None, None, None,
 beers, boxes, cells, missiles, stealthes = None, None, None, None, None
 obstacle, cone, stick, crashed, tree = None, None, None, None, None
 road1, road2, road3, road4, speedup = None, None, None, None, None
+cones = None
 # -----------------------------------------------------------------------------------
 carX, carY = 237, 130       # 차량 초기화
 roadX, roadY = 280, 0       # 도로 초기화
@@ -335,20 +336,19 @@ class Cone:
     def __init__(self):
         if Cone.cone == None:
             Cone.cone = load_image('cone.png')
-
-        self.x, self.y = 100, 100
+        self.x, self.y = -40, random.randint(400, 1400)
 
     def update(self, frame_time):
         pass
 
-
     def draw(self):
-        Cone.cone.draw(roadX - 45, 800 - roadY)
-        Cone.cone.draw(roadX + 40, 1400 - roadY)
-        Cone.cone.draw(roadX + 1200, 5900 - roadY)
-        Cone.cone.draw(roadX + 1560, 6980 - roadY)
-        Cone.cone.draw(roadX + 1560, 7290 - roadY)
-        Cone.cone.draw(roadX + 2360, 8200 - roadY)
+        Cone.cone.draw(roadX + self.x, self.y - roadY)
+
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return roadX + self.x - 25, self.y - roadY - 40, roadX + self.x + 25, self.y - roadY + 40
 
 class Stick:
     stick = None
@@ -413,6 +413,7 @@ class Beer:
 
     def draw(self):
         Beer.image.draw(roadX + self.x, self.y - roadY)
+        Beer.image.opacify(itemTime)
 
     def draw_bb(self):
         draw_rectangle(*self.get_bb())
@@ -434,6 +435,7 @@ class Box:
 
     def draw(self):
         Box.image.draw(roadX + self.x, self.y - roadY)
+        Box.image.opacify(itemTime)
     def draw_bb(self):
         draw_rectangle(*self.get_bb())
 
@@ -454,6 +456,7 @@ class Cell:
 
     def draw(self):
         Cell.image.draw(roadX + self.x, self.y - roadY)
+        Cell.image.opacify(itemTime)
 
     def draw_bb(self):
         draw_rectangle(*self.get_bb())
@@ -472,6 +475,7 @@ class Question:
 
     def draw(self):
         self.image.draw(roadX + self.x, self.y - roadY)
+        self.image.opacify(itemTime)
 
     def draw_bb(self):
         draw_rectangle(*self.get_bb())
@@ -491,6 +495,7 @@ class Missile:
 
     def draw(self):
         self.image.draw(roadX + self.x, self.y - roadY)
+        self.image.opacify(itemTime)
 
     def draw_bb(self):
         draw_rectangle(*self.get_bb())
@@ -510,6 +515,7 @@ class Stealth:
 
     def draw(self):
         self.image.draw(roadX + self.x, self.y - roadY)
+        self.image.opacify(itemTime)
 
     def draw_bb(self):
         draw_rectangle(*self.get_bb())
@@ -582,7 +588,6 @@ class Volume:
 
     def draw(self):
         self.image.clip_draw(self.volume_frame * 100, 0, 100, 100, 70, 530)
-        print(start_state.volume, self.volume_frame)
 
         if start_state.volume < 20:
             self.volume_frame = 0
@@ -611,6 +616,7 @@ def createWorld():
     global tempT, tempTime, mileage, ufoMoveX, ufoMoveY, questionMark, carMoveStatus, carMoveLine, wasted_state, tempRe
     global boxCount, clear_state, soundCount, cellCount, beerCount, beers, boxes, cells, ufoCount, stealth_state
     global missiles, missileCount, stealthes, stealthCount
+    global cones
 
     # -------------------------------------
     carX, carY = 237, 130  # 차량 초기화
@@ -652,6 +658,7 @@ def createWorld():
     cells = [Cell() for i in range(5)]
     missiles = [Missile() for i in range(5)]
     stealthes = [Stealth() for i in range(5)]
+    cones = [Cone() for i in range(2)]
 
 def enter():
     global car, road, font_0, font_1, back, obstacle, state, frame
@@ -659,6 +666,7 @@ def enter():
     global cone, stick, crashed, tree
     global boxes, beers, cells, missiles, stealthes
     global speedup, road1, road2, road3, road4
+    global cones
 
     road4 = Road4()
     road1 = Road1()
@@ -674,7 +682,9 @@ def enter():
     missiles = [Missile() for i in range(5)]
     stealthes = [Stealth() for i in range(5)]
 
-    cone = Cone()
+    cones = [Cone() for i in range(2)]
+
+
     stick = Stick()
     crashed = Crashed()
     tree = Tree()
@@ -799,8 +809,10 @@ def update(frame_time):
     global cell, beer, box, missile, stealth
     global roadX, roadY, driftCount, life, distance
     global tempT, mileage, tempTime, stealth_mode, tempS, stealth_state
+    global itemTime, itemDir
 
     Road_Collide()
+    Obstacle_Collide()
 
     if stealthCount == 5:
         stealth_mode = 1
@@ -900,6 +912,16 @@ def update(frame_time):
 
         ufo.x, ufo.y = 0, 0
 
+    if itemTime < 1.1:
+        itemTime -= 0.05 * itemDir
+
+    if itemTime < 0:
+        itemDir *= -1
+
+    if itemTime > 1:
+        itemTime = 1
+        itemDir *= -1
+
 def draw(frame_time):
     global moveBack
     global tempT, tempTime
@@ -925,11 +947,7 @@ def draw(frame_time):
     car.draw()
     car.draw_bb()
     # --------------------------------------------
-    obstacle.draw()
-    cone.draw()
-    stick.draw()
-    crashed.draw()
-    tree.draw()
+    Obstacle_draw()
     # --------------------------------------------
     for box in boxes:
         box.draw()
@@ -1166,6 +1184,28 @@ def Road_Collide():
         life = 0
         drift_state = 3
     # --------------------------------------------------------------------
+
+def Obstacle_Collide():
+    global life, drift_state
+    global cone
+
+    for cone in cones:
+        if collide(car, cone):
+            life = 0
+            drift_state = 3
+
+def Obstacle_draw():
+    global cone, cones
+
+    for cone in cones:
+        cone.draw()
+        cone.draw_bb()
+
+    obstacle.draw()
+    stick.draw()
+    crashed.draw()
+    tree.draw()
+
 # -----------------------------------------------------------------------------------
 
 
