@@ -21,9 +21,8 @@ back, frame = None, None
 volume, wasted, state = None, None, None
 box, beer, cell, question, ufo, missile, stealth = None, None, None, None, None, None, None
 beers, boxes, cells, missiles, stealthes = None, None, None, None, None
-obstacle, cone, stick, crashed, tree = None, None, None, None, None
+obstacle, cone, stick, crashed, tree, stop = None, None, None, None, None, None
 road1, road2, road3, road4, speedup = None, None, None, None, None
-cones = None
 # -----------------------------------------------------------------------------------
 carX, carY = 237, 130       # 차량 초기화
 roadX, roadY = 280, 0       # 도로 초기화
@@ -52,6 +51,10 @@ boxCount, beerCount, cellCount, missileCount, stealthCount, tempS = 0, 0, 0, 0, 
 moveBack, carMoveLine, stealth_mode, tempRe = 0, 0, 0, 0
 mileage, tempT, tempTime = 0, 0, 0
 # -----------------------------------------------------------------------------------
+
+# -----------------------------------------------------------------------------------
+
+
 class Road1:
     road = None
 
@@ -89,6 +92,7 @@ class Road1:
         Road1.road.draw(roadX + 3760, 17780 - roadY)
         Road1.road.draw(roadX + 4300, 18140 - roadY)
         Road1.road.draw(roadX + 4300, 18320 - roadY)
+
 
 class Road2:
     road = None
@@ -130,6 +134,7 @@ class Road2:
         Road2.road.draw(roadX + 3760, 17960 - roadY)
         Road2.road.draw(roadX + 4300, 18500 - roadY)
 
+
 class Road3:
     road = None
 
@@ -156,6 +161,7 @@ class Road3:
         Road3.road.draw(roadX + 3760, 17600 - roadY)
         Road3.road.draw(roadX + 4300, 17960 - roadY)
         Road3.road.draw(roadX + 4480, 18500 - roadY)
+
 
 class Road4:
     road = None
@@ -187,6 +193,7 @@ class Road4:
         Road4.road.draw(roadX + 3940, 17960 - roadY)
         Road4.road.draw(roadX + 4120, 17960 - roadY)
 
+
 class Speedup:
     speedup = None
 
@@ -213,6 +220,7 @@ class Speedup:
 
         #slowdonw구간
         Speedup.down.draw(roadX + 2320, 15500 - roadY)  # slow down
+
 
 class Car:
     crashed = None
@@ -302,53 +310,104 @@ class Car:
 
     def get_bb(self):
         if driftCount == 0 or driftCount == 2:
-            return carX - 35, carY - 50, carX + 35, carY + 50
+            return carX - 30, carY - 50, carX + 30, carY + 50
         if driftCount == 1:
-            return carX - 50, carY - 35, carX + 50, carY + 35
+            return carX - 50, carY - 30, carX + 50, carY + 30
+
+
 # -----------------------------------------------------------------------------------
+
+
 class Obstacle:
-    stop = None
-
     def __init__(self):
-        if Obstacle.stop == None:
-            Obstacle.stop = load_image('stop.png')
-
         self.ac1 = load_image('ac1.png')
         self.ac2 = load_image('ac2.png')
         self.work = load_image('work.png')
+        self.x1, self.y1 = 270, 3200
+        self.x2, self.y2 = 430, 3500
+        self.x3, self.y3 = 500, 4320
 
     def update(self, frame_time):
         pass
 
     def draw(self):
-        Obstacle.stop.draw(roadX + 2280, 8800 - roadY)
-        Obstacle.stop.draw(roadX + 2360, 9200 - roadY)
-        Obstacle.stop.draw(roadX + 2280, 9600 - roadY)
+        self.ac1.draw(roadX + self.x1, self.y1 - roadY)
+        self.ac2.draw(roadX + self.x2, self.y2 - roadY)
+        self.work.draw(roadX + self.x3, self.y3 - roadY)
 
-        self.ac1.draw(roadX + 270, 3200 - roadY)
-        self.ac2.draw(roadX + 400, 3500 - roadY)
-        self.work.draw(roadX + 500, 4320 - roadY)
-        Obstacle.stop.draw(roadX + 758, 5150 - roadY)
-        Obstacle.stop.draw(roadX + 758, 5300 - roadY)
+    def get_bb_1(self):
+        return roadX + self.x1 - 40, self.y1 - roadY - 40, roadX + self.x1 + 40, self.y1 - roadY + 40
+
+    def get_bb_2(self):
+        return roadX + self.x2 - 40, self.y2 - roadY - 40, roadX + self.x2 + 40, self.y2 - roadY + 40
+
+    def get_bb_3(self):
+        return roadX + self.x3 - 40, self.y3 - roadY - 60, roadX + self.x3 + 40, self.y3 - roadY + 60
+
+    def draw_bb_1(self):
+        draw_rectangle(*self.get_bb_1())
+
+    def draw_bb_2(self):
+        draw_rectangle(*self.get_bb_2())
+
+    def draw_bb_3(self):
+        draw_rectangle(*self.get_bb_3())
+
 
 class Cone:
     cone = None
+
     def __init__(self):
         if Cone.cone == None:
             Cone.cone = load_image('cone.png')
-        self.x, self.y = -40, random.randint(400, 1400)
+        self.x1, self.y1 = -40, 800
+        self.x2, self.y2 = 40, 1400
+        self.x3, self.y3 = 1190, 6200
+        self.x4, self.y4 = 1560, 7140
+        self.x5, self.y5 = 4520, 7290
+        self.x6, self.y6 = 2270, 8200
 
     def update(self, frame_time):
         pass
 
     def draw(self):
-        Cone.cone.draw(roadX + self.x, self.y - roadY)
+        Cone.cone.draw(roadX + self.x1, self.y1 - roadY)
+        Cone.cone.draw(roadX + self.x2, self.y2 - roadY)
+        Cone.cone.draw(roadX + self.x3, self.y3 - roadY)
+        Cone.cone.draw(roadX + self.x4, self.y4 - roadY)
+        Cone.cone.draw(roadX + self.x5, self.y5 - roadY)
 
-    def draw_bb(self):
-        draw_rectangle(*self.get_bb())
+    def get_bb_1(self):
+        return roadX + self.x1 - 25, self.y1 - roadY - 40, roadX + self.x1 + 25, self.y1 - roadY + 40
 
-    def get_bb(self):
-        return roadX + self.x - 25, self.y - roadY - 40, roadX + self.x + 25, self.y - roadY + 40
+    def get_bb_2(self):
+        return roadX + self.x2 - 25, self.y2 - roadY - 40, roadX + self.x2 + 25, self.y2 - roadY + 40
+
+    def get_bb_3(self):
+        return roadX + self.x3 - 25, self.y3 - roadY - 40, roadX + self.x3 + 25, self.y3 - roadY + 40
+
+    def get_bb_4(self):
+        return roadX + self.x4 - 25, self.y4 - roadY - 40, roadX + self.x4 + 25, self.y4 - roadY + 40
+
+    def get_bb_5(self):
+        return roadX + self.x5 - 25, self.y5 - roadY - 40, roadX + self.x5 + 25, self.y5 - roadY + 40
+
+
+    def draw_bb_1(self):
+        draw_rectangle(*self.get_bb_1())
+
+    def draw_bb_2(self):
+        draw_rectangle(*self.get_bb_2())
+
+    def draw_bb_3(self):
+        draw_rectangle(*self.get_bb_3())
+
+    def draw_bb_4(self):
+        draw_rectangle(*self.get_bb_4())
+
+    def draw_bb_5(self):
+        draw_rectangle(*self.get_bb_5())
+
 
 class Stick:
     stick = None
@@ -356,29 +415,125 @@ class Stick:
     def __init__(self):
         if Stick.stick == None:
             Stick.stick = load_image('stick.png')
+        self.x1, self.y1 = 3440, 16900
+        self.x2, self.y2 = 3360, 17320
+        self.x3, self.y3 = 3970, 18050
+        self.x4, self.y4 = 4440, 18800
+        self.x5, self.y5 = 4520, 19270
 
     def update(self, frame_time):
         pass
 
     def draw(self):
-        Stick.stick.draw(roadX + 3440, 16900 - roadY)
-        Stick.stick.draw(roadX + 3360, 17300 - roadY)
-        Stick.stick.draw(roadX + 3970, 18050 - roadY)
-        Stick.stick.draw(roadX + 4440, 18800 - roadY)
-        Stick.stick.draw(roadX + 4520, 19270 - roadY)
+        Stick.stick.draw(roadX + self.x1, self.y1 - roadY)
+        Stick.stick.draw(roadX + self.x2, self.y2 - roadY)
+        Stick.stick.draw(roadX + self.x3, self.y3 - roadY)
+        Stick.stick.draw(roadX + self.x4, self.y4 - roadY)
+        Stick.stick.draw(roadX + self.x5, self.y5 - roadY)
+
+    def get_bb_1(self):
+        return roadX + self.x1 - 35, self.y1 - roadY - 40, roadX + self.x1 + 35, self.y1 - roadY + 40
+
+    def get_bb_2(self):
+        return roadX + self.x2 - 35, self.y2 - roadY - 40, roadX + self.x2 + 35, self.y2 - roadY + 40
+
+    def get_bb_3(self):
+        return roadX + self.x3 - 35, self.y3 - roadY - 40, roadX + self.x3 + 35, self.y3 - roadY + 40
+
+    def get_bb_4(self):
+        return roadX + self.x4 - 35, self.y4 - roadY - 40, roadX + self.x4 + 35, self.y4 - roadY + 40
+
+    def get_bb_5(self):
+        return roadX + self.x5 - 35, self.y5 - roadY - 40, roadX + self.x5 + 35, self.y5 - roadY + 40
+
+    def draw_bb_1(self):
+        draw_rectangle(*self.get_bb_1())
+
+    def draw_bb_2(self):
+        draw_rectangle(*self.get_bb_2())
+
+    def draw_bb_3(self):
+        draw_rectangle(*self.get_bb_3())
+
+    def draw_bb_4(self):
+        draw_rectangle(*self.get_bb_4())
+
+    def draw_bb_5(self):
+        draw_rectangle(*self.get_bb_5())
+
 
 class Crashed:
     crashed = None
     def __init__(self):
         if Crashed.crashed == None:
             Crashed.crashed = load_image('crashed.png')
+        self.x, self.y = 100, 2500
 
     def update(self, frame_time):
         pass
 
     def draw(self):
-        Crashed.crashed.draw(roadX + 100, 2500 - roadY)
-        Crashed.crashed.draw(roadX + 3940, 18050 - roadY)
+        Crashed.crashed.draw(roadX + self.x, self.y - roadY)
+        #Crashed.crashed.draw(roadX + 3940, 18050 - roadY)
+
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return roadX + self.x - 40, self.y - roadY - 40, roadX + self.x + 40, self.y - roadY + 40
+
+
+class Stop:
+    stop = None
+    def __init__(self):
+        if Stop.stop == None:
+            Stop.stop = load_image('stop.png')
+        self.x1, self.y1 = 2280, 8600
+        self.x2, self.y2 = 2360, 9200
+        self.x3, self.y3 = 2280, 9800
+        self.x4, self.y4 = 758, 5150
+        self.x5, self.y5 = 758, 5300
+
+    def update(self, frame_time):
+        pass
+
+    def draw(self):
+        Stop.stop.draw(roadX + self.x1, self.y1 - roadY)
+        Stop.stop.draw(roadX + self.x2, self.y2 - roadY)
+        Stop.stop.draw(roadX + self.x3, self.y3 - roadY)
+        Stop.stop.draw(roadX + self.x4, self.y4 - roadY)
+        Stop.stop.draw(roadX + self.x5, self.y5 - roadY)
+
+    def get_bb_1(self):
+        return roadX + self.x1 - 35, self.y1 - roadY - 30, roadX + self.x1 + 35, self.y1 - roadY + 30
+
+    def get_bb_2(self):
+        return roadX + self.x2 - 35, self.y2 - roadY - 30, roadX + self.x2 + 35, self.y2 - roadY + 30
+
+    def get_bb_3(self):
+        return roadX + self.x3 - 35, self.y3 - roadY - 30, roadX + self.x3 + 35, self.y3 - roadY + 30
+
+    def get_bb_4(self):
+        return roadX + self.x4 - 35, self.y4 - roadY - 30, roadX + self.x4 + 35, self.y4 - roadY + 30
+
+    def get_bb_5(self):
+        return roadX + self.x5 - 35, self.y5 - roadY - 30, roadX + self.x5 + 35, self.y5 - roadY + 30
+
+    def draw_bb_1(self):
+        draw_rectangle(*self.get_bb_1())
+
+    def draw_bb_2(self):
+        draw_rectangle(*self.get_bb_2())
+
+    def draw_bb_3(self):
+        draw_rectangle(*self.get_bb_3())
+
+    def draw_bb_4(self):
+        draw_rectangle(*self.get_bb_4())
+
+    def draw_bb_5(self):
+        draw_rectangle(*self.get_bb_5())
+
 
 class Tree:
     tree1, tree2 = None, None
@@ -397,7 +552,11 @@ class Tree:
             Tree.tree1.draw(roadX + 2190, 7850 + (i * 200) - roadY)
         for i in range(42):
             Tree.tree2.draw(roadX + 2190, 7750 + (i * 200) - roadY)
+
+
 # -----------------------------------------------------------------------------------
+
+
 class Beer:
     image = None
 
@@ -421,6 +580,7 @@ class Beer:
     def get_bb(self):
         return roadX + self.x - 25, self.y - roadY - 25, roadX + self.x + 25, self.y - roadY + 25
 
+
 class Box:
     image = None
     def __init__(self):
@@ -441,6 +601,7 @@ class Box:
 
     def get_bb(self):
         return roadX + self.x - 25, self.y - roadY - 25, roadX + self.x + 25, self.y - roadY + 25
+
 
 class Cell:
     image = None
@@ -464,6 +625,7 @@ class Cell:
     def get_bb(self):
         return roadX + self.x - 25, self.y - roadY - 25, roadX + self.x + 25, self.y - roadY + 25
 
+
 class Question:
     image = None
 
@@ -482,6 +644,7 @@ class Question:
 
     def get_bb(self):
         return roadX + self.x - 30, self.y - 30 - roadY, roadX + self.x + 30, self.y + 30 - roadY
+
 
 class Missile:
     image = None
@@ -503,6 +666,7 @@ class Missile:
     def get_bb(self):
         return roadX + self.x - 30, self.y - 30 - roadY, roadX + self.x + 30, self.y + 30 - roadY
 
+
 class Stealth:
     image = None
     def __init__(self):
@@ -522,6 +686,7 @@ class Stealth:
 
     def get_bb(self):
         return roadX + self.x - 30, self.y - 30 - roadY, roadX + self.x + 30, self.y + 30 - roadY
+
 
 class Ufo:
     image = None
@@ -577,7 +742,11 @@ class Ufo:
 
     def get_bb(self):
         return self.x + ufoMoveX - 40, self.y + ufoMoveY - 40, self.x + ufoMoveX + 40, self.y + ufoMoveY + 40
+
+
 # -----------------------------------------------------------------------------------
+
+
 class Volume:
     def __init__(self):
         self.volume_frame = 0
@@ -598,6 +767,7 @@ class Volume:
         if start_state.volume < 1:
             self.volume_frame = 3
 
+
 class Wasted:
     def __init__(self):
         self.x, self.y = 400, 400
@@ -610,13 +780,16 @@ class Wasted:
         if life == 0:
             self.image.draw(self.x, self.y)
             wasted_state = 1
+
+
 # -----------------------------------------------------------------------------------
+
+
 def createWorld():
     global carX, carY, roadX, roadY, drift_state, mouseCount, driftCount, stageEnd, life, moveBack
     global tempT, tempTime, mileage, ufoMoveX, ufoMoveY, questionMark, carMoveStatus, carMoveLine, wasted_state, tempRe
     global boxCount, clear_state, soundCount, cellCount, beerCount, beers, boxes, cells, ufoCount, stealth_state
     global missiles, missileCount, stealthes, stealthCount
-    global cones
 
     # -------------------------------------
     carX, carY = 237, 130  # 차량 초기화
@@ -658,62 +831,60 @@ def createWorld():
     cells = [Cell() for i in range(5)]
     missiles = [Missile() for i in range(5)]
     stealthes = [Stealth() for i in range(5)]
-    cones = [Cone() for i in range(2)]
+
 
 def enter():
     global car, road, font_0, font_1, back, obstacle, state, frame
     global beer, cell, question, ufo, volume, wasted
-    global cone, stick, crashed, tree
+    global cone, stick, crashed, tree, stop
     global boxes, beers, cells, missiles, stealthes
     global speedup, road1, road2, road3, road4
-    global cones
 
     road4 = Road4()
     road1 = Road1()
     road2 = Road2()
     road3 = Road3()
-
     car = Car()
     speedup = Speedup()
-
     beers = [Beer() for i in range(5)]
     boxes = [Box() for i in range(20)]
     cells = [Cell() for i in range(5)]
     missiles = [Missile() for i in range(5)]
     stealthes = [Stealth() for i in range(5)]
-
-    cones = [Cone() for i in range(2)]
-
-
+    cone = Cone()
     stick = Stick()
+    stop = Stop()
     crashed = Crashed()
     tree = Tree()
-
     ufo = Ufo()
     question = Question()
-
     volume = Volume()
     wasted = Wasted()
-
     obstacle = Obstacle()
     font_0 = load_font('PWChalk.TTF', 25)
     font_1 = load_font('PWChalk.TTF', 20)
     state = load_image('state.png')
-
     back = load_image('back.png')
     frame = load_image('frame.png')
 
     game_framework.reset_time()
 
+
 def exit():
     pass
+
 
 def pause():
     pass
 
+
 def resume():
     pass
+
+
 # -----------------------------------------------------------------------------------
+
+
 def handle_events(frame_time):
     global roadMoveRAD, PI, angle_0, angle_1
     global carX, carY, roadX, roadY
@@ -795,6 +966,7 @@ def handle_events(frame_time):
         if stealth_mode == 1:
             if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_RIGHT):
                 stealth_state = 1
+
 
 def update(frame_time):
     global roadX, roadY
@@ -922,6 +1094,7 @@ def update(frame_time):
         itemTime = 1
         itemDir *= -1
 
+
 def draw(frame_time):
     global moveBack
     global tempT, tempTime
@@ -1009,13 +1182,16 @@ def draw(frame_time):
     font_1.draw(815, 235, " X %d" % boxCount, (0,255,255))
     font_1.draw(815, 155, " X %d" % missileCount, (0, 255, 255))
     font_1.draw(815, 80, " X %d" % stealthCount, (0, 255, 255))
-    font_1.draw(940, 235, " X %d" % beerCount, (255, 170, 255))
-    font_1.draw(940, 150, " X %d" % cellCount, (255, 170, 255))
+    font_1.draw(940, 235, " X %d" % cellCount, (255, 170, 255))
+    font_1.draw(940, 150, " X %d" % beerCount, (255, 170, 255))
 
     update_canvas()
 
+
 # -----------------------------------------------------------------------------------
-def collide (a,b):
+
+
+def collide(a, b):
     left_a, bottom_a, right_a, top_a = a.get_bb()
     left_b, bottom_b, right_b, top_b = b.get_bb()
 
@@ -1029,6 +1205,7 @@ def collide (a,b):
         return False
 
     return True
+
 
 def Road_Collide():
     global life, drift_state
@@ -1185,31 +1362,201 @@ def Road_Collide():
         drift_state = 3
     # --------------------------------------------------------------------
 
+
 def Obstacle_Collide():
     global life, drift_state
-    global cone
 
-    for cone in cones:
-        if collide(car, cone):
-            life = 0
-            drift_state = 3
+    if collide_1(car, cone):
+        life = 0
+        drift_state = 3
+
+    if collide_2(car, cone):
+        life = 0
+        drift_state = 3
+
+    if collide_3(car, cone):
+        life = 0
+        drift_state = 3
+
+    if collide_4(car, cone):
+        life = 0
+        drift_state = 3
+
+    if collide_5(car, cone):
+        life = 0
+        drift_state = 3
+
+    if collide(car, crashed):
+        life = 0
+        drift_state = 3
+
+    if collide_1(car, stick):
+        life = 0
+        drift_state = 3
+
+    if collide_2(car, stick):
+        life = 0
+        drift_state = 3
+
+    if collide_3(car, stick):
+        life = 0
+        drift_state = 3
+
+    if collide_4(car, stick):
+        life = 0
+        drift_state = 3
+
+    if collide_5(car, stick):
+        life = 0
+        drift_state = 3
+
+    if collide_1(car, stop):
+        life = 0
+        drift_state = 3
+
+    if collide_2(car, stop):
+        life = 0
+        drift_state = 3
+
+    if collide_3(car, stop):
+        life = 0
+        drift_state = 3
+
+    if collide_4(car, stop):
+        life = 0
+        drift_state = 3
+
+    if collide_5(car, stop):
+        life = 0
+        drift_state = 3
+
+    if collide_1(car, obstacle):
+        life = 0
+        drift_state = 3
+
+    if collide_2(car, obstacle):
+        life = 0
+        drift_state = 3
+
+    if collide_3(car, obstacle):
+        life = 0
+        drift_state = 3
+
 
 def Obstacle_draw():
-    global cone, cones
+    global cone, stick, stop, obstacle
 
-    for cone in cones:
-        cone.draw()
-        cone.draw_bb()
+    cone.draw()
+    cone.draw_bb_1()
+    cone.draw_bb_2()
+    cone.draw_bb_3()
+    cone.draw_bb_4()
+    cone.draw_bb_5()
+
+    stick.draw()
+    stick.draw_bb_1()
+    stick.draw_bb_2()
+    stick.draw_bb_3()
+    stick.draw_bb_4()
+    stick.draw_bb_5()
+
+    stop.draw()
+    stop.draw_bb_1()
+    stop.draw_bb_2()
+    stop.draw_bb_3()
+    stop.draw_bb_4()
+    stop.draw_bb_5()
 
     obstacle.draw()
-    stick.draw()
+    obstacle.draw_bb_1()
+    obstacle.draw_bb_2()
+    obstacle.draw_bb_3()
+
     crashed.draw()
+    crashed.draw_bb()
     tree.draw()
+
 
 # -----------------------------------------------------------------------------------
 
 
+def collide_1 (a,b):
+    left_a, bottom_a, right_a, top_a = a.get_bb()
+    left_b, bottom_b, right_b, top_b = b.get_bb_1()
+
+    if left_a > right_b:
+        return False
+    if right_a < left_b:
+        return False
+    if top_a < bottom_b:
+        return False
+    if bottom_a > top_b:
+        return False
+
+    return True
 
 
+def collide_2 (a,b):
+    left_a, bottom_a, right_a, top_a = a.get_bb()
+    left_b, bottom_b, right_b, top_b = b.get_bb_2()
+
+    if left_a > right_b:
+        return False
+    if right_a < left_b:
+        return False
+    if top_a < bottom_b:
+        return False
+    if bottom_a > top_b:
+        return False
+
+    return True
+
+
+def collide_3 (a,b):
+    left_a, bottom_a, right_a, top_a = a.get_bb()
+    left_b, bottom_b, right_b, top_b = b.get_bb_3()
+
+    if left_a > right_b:
+        return False
+    if right_a < left_b:
+        return False
+    if top_a < bottom_b:
+        return False
+    if bottom_a > top_b:
+        return False
+
+    return True
+
+
+def collide_4 (a,b):
+    left_a, bottom_a, right_a, top_a = a.get_bb()
+    left_b, bottom_b, right_b, top_b = b.get_bb_4()
+
+    if left_a > right_b:
+        return False
+    if right_a < left_b:
+        return False
+    if top_a < bottom_b:
+        return False
+    if bottom_a > top_b:
+        return False
+
+    return True
+
+
+def collide_5 (a,b):
+    left_a, bottom_a, right_a, top_a = a.get_bb()
+    left_b, bottom_b, right_b, top_b = b.get_bb_5()
+
+    if left_a > right_b:
+        return False
+    if right_a < left_b:
+        return False
+    if top_a < bottom_b:
+        return False
+    if bottom_a > top_b:
+        return False
+
+    return True
 
 
