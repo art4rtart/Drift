@@ -1510,14 +1510,13 @@ class Launch():
         if Launch.image == None:
             Launch.image = load_image('launch.png')
 
-        self.x1, self.y1 = 100, 100
+        self.x, self.y = 700, 100
 
     def update(self, frame_time):
         pass
 
     def draw(self):
-        Launch.image.draw(carX + self.x1, carY + self.y1)
-
+        Launch.image.draw(self.x, self.y)
 
 
 # -----------------------------------------------------------------------------------
