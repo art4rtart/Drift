@@ -23,6 +23,7 @@ box, beer, cell, question, ufo, missile, stealth = None, None, None, None, None,
 beers, boxes, cells, missiles, stealthes = None, None, None, None, None
 obstacle, cone, stick, crashed, tree, stop = None, None, None, None, None, None
 road1, road2, road3, road4, speedup = None, None, None, None, None
+launch, launches = None, None
 # -----------------------------------------------------------------------------------
 carX, carY = 237, 130       # 차량 초기화
 roadX, roadY = 280, 0       # 도로 초기화
@@ -835,7 +836,7 @@ def createWorld():
 
 def enter():
     global car, road, font_0, font_1, back, obstacle, state, frame
-    global beer, cell, question, ufo, volume, wasted
+    global beer, cell, question, ufo, volume, wasted, launches
     global cone, stick, crashed, tree, stop
     global boxes, beers, cells, missiles, stealthes
     global speedup, road1, road2, road3, road4
@@ -857,6 +858,7 @@ def enter():
     crashed = Crashed()
     tree = Tree()
     ufo = Ufo()
+    launches = [Launch() for i in range(5)]
     question = Question()
     volume = Volume()
     wasted = Wasted()
@@ -891,7 +893,8 @@ def handle_events(frame_time):
     global drift_state, volume_state, carMoveStatus
     global mouseCount, driftCount
     global carMoveLine, life, stageEnd, tempRe
-    global tempS, stealth_state
+    global tempS, stealth_state, missileCount
+    global launch_update
 
     events = get_events()
     for event in events:
@@ -942,11 +945,8 @@ def handle_events(frame_time):
         if(event.type, event.key) == (SDL_KEYDOWN, SDLK_v):
             start_state.volume -= 4
 
-        if (event.type, event.key) == (SDL_KEYDOWN, SDLK_q):
-            life = 0
-            stageEnd = 1
-            drift_state = 0
-
+        if(event.type, event.key) == (SDL_KEYDOWN, SDLK_v):
+            start_state.volume -= 4
 
         if wasted_state == 1:
             if event.type == SDL_MOUSEMOTION:
@@ -962,10 +962,20 @@ def handle_events(frame_time):
             if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):
                     createWorld()
 
-
         if stealth_mode == 1:
             if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_RIGHT):
                 stealth_state = 1
+
+        if (event.type, event.key) == (SDL_KEYDOWN, SDLK_SPACE):
+            launch_update = 1
+            item_update()
+
+
+#       if (event.type, event.key) == (SDL_KEYDOWN, SDLK_q):
+#           life = 0
+#           stageEnd = 1
+#           drift_state = 0
+
 
 
 def update(frame_time):
@@ -983,8 +993,11 @@ def update(frame_time):
     global tempT, mileage, tempTime, stealth_mode, tempS, stealth_state
     global itemTime, itemDir
 
-    Road_Collide()
-    Obstacle_Collide()
+    road_collide()
+    obstacle_collide()
+
+    for launch in launches:
+        launch.update(frame_time)
 
     if stealthCount == 5:
         stealth_mode = 1
@@ -1102,9 +1115,7 @@ def draw(frame_time):
     global frame
     global questionMark
     global stageEnd
-    global box, cell, beer, missile, stealth
     clear = load_image('clear.png')
-
     clear_canvas()
 
     for i in range(100):
@@ -1120,38 +1131,9 @@ def draw(frame_time):
     car.draw()
     car.draw_bb()
     # --------------------------------------------
-    Obstacle_draw()
+    obstacle_draw()
+    item_draw()
     # --------------------------------------------
-    for box in boxes:
-        box.draw()
-        box.draw_bb()
-
-    for beer in beers:
-        beer.draw()
-        beer.draw_bb()
-
-    for cell in cells:
-        cell.draw()
-        cell.draw_bb()
-
-    for missile in missiles:
-        missile.draw()
-        missile.draw_bb()
-
-    for stealth in stealthes:
-        stealth.draw()
-        stealth.draw_bb()
-
-
-
-
-    if questionMark == 0:
-        question.draw()
-        question.draw_bb()
-
-    if questionMark == 1:
-        ufo.draw()
-        ufo.draw_bb()
 
     # --------------------------------------------
     volume.draw()
@@ -1207,7 +1189,7 @@ def collide(a, b):
     return True
 
 
-def Road_Collide():
+def road_collide():
     global life, drift_state
 
     if roadX > 300 and roadY < 1500 or roadX < 180 and roadY < 1390:
@@ -1363,7 +1345,7 @@ def Road_Collide():
     # --------------------------------------------------------------------
 
 
-def Obstacle_Collide():
+def obstacle_collide():
     global life, drift_state
 
     if collide_1(car, cone):
@@ -1443,7 +1425,7 @@ def Obstacle_Collide():
         drift_state = 3
 
 
-def Obstacle_draw():
+def obstacle_draw():
     global cone, stick, stop, obstacle
 
     cone.draw()
@@ -1479,8 +1461,69 @@ def Obstacle_draw():
 
 # -----------------------------------------------------------------------------------
 
+def item_update():
+    global missileCount
 
-def collide_1 (a,b):
+    if missileCount > 0:
+        missileCount -= 1
+
+
+def item_draw():
+    global box, cell, beer, missile, stealth, launch
+
+    for launch in launches:
+        launch.draw()
+
+    for box in boxes:
+        box.draw()
+        box.draw_bb()
+
+    for beer in beers:
+        beer.draw()
+        beer.draw_bb()
+
+    for cell in cells:
+        cell.draw()
+        cell.draw_bb()
+
+    for missile in missiles:
+        missile.draw()
+        missile.draw_bb()
+
+    for stealth in stealthes:
+        stealth.draw()
+        stealth.draw_bb()
+
+    if questionMark == 0:
+        question.draw()
+        question.draw_bb()
+
+    if questionMark == 1:
+        ufo.draw()
+        ufo.draw_bb()
+
+launch_update = 0
+
+class Launch():
+    image = None
+    def __init__(self):
+        if Launch.image == None:
+            Launch.image = load_image('launch.png')
+
+        self.x1, self.y1 = 100, 100
+
+    def update(self, frame_time):
+        pass
+
+    def draw(self):
+        Launch.image.draw(carX + self.x1, carY + self.y1)
+
+
+
+# -----------------------------------------------------------------------------------
+
+
+def collide_1(a,b):
     left_a, bottom_a, right_a, top_a = a.get_bb()
     left_b, bottom_b, right_b, top_b = b.get_bb_1()
 
@@ -1496,7 +1539,7 @@ def collide_1 (a,b):
     return True
 
 
-def collide_2 (a,b):
+def collide_2(a,b):
     left_a, bottom_a, right_a, top_a = a.get_bb()
     left_b, bottom_b, right_b, top_b = b.get_bb_2()
 
@@ -1512,7 +1555,7 @@ def collide_2 (a,b):
     return True
 
 
-def collide_3 (a,b):
+def collide_3(a,b):
     left_a, bottom_a, right_a, top_a = a.get_bb()
     left_b, bottom_b, right_b, top_b = b.get_bb_3()
 
@@ -1528,7 +1571,7 @@ def collide_3 (a,b):
     return True
 
 
-def collide_4 (a,b):
+def collide_4(a,b):
     left_a, bottom_a, right_a, top_a = a.get_bb()
     left_b, bottom_b, right_b, top_b = b.get_bb_4()
 
@@ -1544,7 +1587,7 @@ def collide_4 (a,b):
     return True
 
 
-def collide_5 (a,b):
+def collide_5(a,b):
     left_a, bottom_a, right_a, top_a = a.get_bb()
     left_b, bottom_b, right_b, top_b = b.get_bb_5()
 
