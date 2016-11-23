@@ -18,22 +18,25 @@ def enter():
     game = load_image('game_credit.png')
     bgm = load_music('loveU.ogg')
 
+
 def exit():
     global image
     del(image)
+
 
 def update(frame_time):
     global name, status
     global logo_time
 
-    if (logo_time > 0.1):
+    if (logo_time > 1.5):
         status = 1
 
-    if (logo_time > 0.2):
+    if (logo_time > 3.0):
         logo_time = 0
         game_framework.push_state(press_state)
 
     logo_time += frame_time
+
 
 def draw(frame_time):
     global image
@@ -50,10 +53,14 @@ def draw(frame_time):
 
     update_canvas()
 
+
 def handle_events(frame_time):
     events = get_events()
 
+
 def pause(): pass
+
+
 def resume(): pass
 
 
