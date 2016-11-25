@@ -9,8 +9,8 @@ font = None
 
 def enter():
     global image, font
-    image = load_image('scoreboard.png')
-    font = load_font('PWChalk.TTF', 60)
+    image = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\scene\\scoreboard.png")
+    font = load_font("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\font\\PWChalk.TTF", 60)
 
 
 def exit():

@@ -14,10 +14,10 @@ logo_time = 0.0
 def enter():
     global image, back, title, key
 
-    image = load_image('select_image.png')
-    back = load_image('background_image.png')
-    key = load_image('key.png')
-    title = load_image('game_title.png')
+    image = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\scene\\select_image.png")
+    back = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\scene\\background_image.png")
+    key = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\interface\\key.png")
+    title = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\interface\\game_title.png")
 
 def exit():
     global image

@@ -64,7 +64,7 @@ class Road1:
         self.speed = 320                        # 처음 속도 320 - 200 = 120km
 
         if Road1.road == None:
-            Road1.road = load_image('road1.png')
+            Road1.road = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\road\\road1.png")
 
     def update(self, frame_time):
         pass
@@ -100,7 +100,7 @@ class Road2:
 
     def __init__(self):
         if Road2.road == None:
-            Road2.road = load_image('road2.png')
+            Road2.road = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\road\\road2.png")
 
     def update(self, frame_time):
         pass
@@ -141,7 +141,7 @@ class Road3:
 
     def __init__(self):
         if Road3.road == None:
-            Road3.road = load_image('road3.png')
+            Road3.road = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\road\\road3.png")
 
     def update(self, frame_time):
         pass
@@ -169,7 +169,7 @@ class Road4:
 
     def __init__(self):
         if Road4.road == None:
-            Road4.road = load_image('road4.png')
+            Road4.road = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\road\\road4.png")
 
     def update(self, frame_time):
         pass
@@ -196,30 +196,32 @@ class Road4:
 
 
 class Speedup:
-    speedup = None
+    up = None
+    down = None
 
     def __init__(self):
-        if Speedup.speedup == None:
-            Speedup.speedup = load_image('speedup.png')
-            Speedup.down = load_image('down.png')
+        if Speedup.up == None:
+            Speedup.up = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\event\\up.png")
+
+        if Speedup.down == None:
+            Speedup.down = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\event\\down.png")
 
     def update(self, frame_time):
         pass
 
     def draw(self):
-
         #speedup 구간
-        Speedup.speedup.draw(roadX, 400 - roadY)
-        Speedup.speedup.draw(roadX + 180, 2000 - roadY)
-        Speedup.speedup.draw(roadX + 540, 4000 - roadY)
-        Speedup.speedup.draw(roadX + 800, 5000 - roadY)
-        Speedup.speedup.draw(roadX + 1235, 6000 - roadY)
-        Speedup.speedup.draw(roadX + 2320, 7900 - roadY)
-        Speedup.speedup.draw(roadX + 2320, 9900 - roadY)
-        Speedup.speedup.draw(roadX + 3400, 16500 - roadY)
-        Speedup.speedup.draw(roadX + 3760, 17800 - roadY)
+        Speedup.up.draw(roadX, 400 - roadY)
+        Speedup.up.draw(roadX + 180, 2000 - roadY)
+        Speedup.up.draw(roadX + 540, 4000 - roadY)
+        Speedup.up.draw(roadX + 800, 5000 - roadY)
+        Speedup.up.draw(roadX + 1235, 6000 - roadY)
+        Speedup.up.draw(roadX + 2320, 7900 - roadY)
+        Speedup.up.draw(roadX + 2320, 9900 - roadY)
+        Speedup.up.draw(roadX + 3400, 16500 - roadY)
+        Speedup.up.draw(roadX + 3760, 17800 - roadY)
 
-        #slowdonw구간
+        #slowdown구간
         Speedup.down.draw(roadX + 2320, 15500 - roadY)  # slow down
 
 
@@ -228,18 +230,18 @@ class Car:
     drift = None
 
     def __init__(self):
-        self.image = load_image('car.png')
-        self.right = load_image('moveR.png')
-        self.direct = load_image('moveD.png')
-        self.explode = load_image('explode.png')
+        self.image = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\car\\car.png")
+        self.right = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\car\\moveR.png")
+        self.direct = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\car\\moveD.png")
+        self.explode = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\car\\explode.png")
         self.right_frame, self.direct_frame, self.explode_frame = 0, 0, 0
 
         if Car.crashed == None:
-            Car.crashed = load_wav('crash.ogg')
+            Car.crashed = load_wav("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\sound\\crash.ogg")
             Car.crashed.set_volume(50)
 
         if Car.drift == None:
-            Car.drift = load_wav('drift.wav')
+            Car.drift = load_wav("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\sound\\drift.wav")
             Car.drift.set_volume(50)
 
     def update(self, frame_time):
@@ -321,9 +323,9 @@ class Car:
 
 class Obstacle:
     def __init__(self):
-        self.ac1 = load_image('ac1.png')
-        self.ac2 = load_image('ac2.png')
-        self.work = load_image('work.png')
+        self.ac1 = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\obstacle\\ac1.png")
+        self.ac2 = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\obstacle\\ac2.png")
+        self.work = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\obstacle\\work.png")
         self.x1, self.y1 = 270, 3200
         self.x2, self.y2 = 430, 3500
         self.x3, self.y3 = 500, 4320
@@ -360,7 +362,7 @@ class Cone:
 
     def __init__(self):
         if Cone.cone == None:
-            Cone.cone = load_image('cone.png')
+            Cone.cone = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\obstacle\\cone.png")
         self.x1, self.y1 = -40, 800
         self.x2, self.y2 = 40, 1400
         self.x3, self.y3 = 1190, 6200
@@ -415,7 +417,7 @@ class Stick:
 
     def __init__(self):
         if Stick.stick == None:
-            Stick.stick = load_image('stick.png')
+            Stick.stick = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\obstacle\\stick.png")
         self.x1, self.y1 = 3440, 16900
         self.x2, self.y2 = 3360, 17320
         self.x3, self.y3 = 3970, 18050
@@ -467,7 +469,7 @@ class Crashed:
     crashed = None
     def __init__(self):
         if Crashed.crashed == None:
-            Crashed.crashed = load_image('crashed.png')
+            Crashed.crashed = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\obstacle\\crashed.png")
         self.x, self.y = 100, 2500
 
     def update(self, frame_time):
@@ -488,7 +490,7 @@ class Stop:
     stop = None
     def __init__(self):
         if Stop.stop == None:
-            Stop.stop = load_image('stop.png')
+            Stop.stop = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\obstacle\\stop.png")
         self.x1, self.y1 = 2280, 8600
         self.x2, self.y2 = 2360, 9200
         self.x3, self.y3 = 2280, 9800
@@ -540,10 +542,10 @@ class Tree:
     tree1, tree2 = None, None
     def __init__(self):
         if Tree.tree1 == None:
-            Tree.tree1 = load_image('tree1.png')
+            Tree.tree1 = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\obstacle\\tree1.png")
 
         if Tree.tree2 == None:
-            Tree.tree2 = load_image('tree2.png')
+            Tree.tree2 = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\obstacle\\tree2.png")
 
     def update(self, frame_time):
         pass
@@ -563,8 +565,8 @@ class Beer:
 
     def __init__(self):
         if Beer.image == None:
-            Beer.image = load_image('beer.png')
-        self.beer = load_image('beer.png')
+            Beer.image = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\item\\beer.png")
+        # self.beer = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\item\\beer.png")
         self.x = random.randint(850, 850)
         self.y = random.randint(4700, 5600)
 
@@ -586,8 +588,8 @@ class Box:
     image = None
     def __init__(self):
         if Box.image == None:
-            Box.image = load_image('box.png')
-        self.box = load_image('box.png')
+            Box.image = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\item\\box.png")
+        # self.box = load_image('box.png')
         self.x = random.randint(2290, 2310)
         self.y = random.randint(11000, 15400)
 
@@ -597,6 +599,7 @@ class Box:
     def draw(self):
         Box.image.draw(roadX + self.x, self.y - roadY)
         Box.image.opacify(itemTime)
+
     def draw_bb(self):
         draw_rectangle(*self.get_bb())
 
@@ -608,8 +611,8 @@ class Cell:
     image = None
     def __init__(self):
         if Cell.image == None:
-            Cell.image = load_image('cell.png')
-        self.cell = load_image('cell.png')
+            Cell.image = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\item\\cell.png")
+        # self.cell = load_image('cell.png')
         self.x = random.randint(220, 220)
         self.y = random.randint(1900, 2800)
 
@@ -631,8 +634,9 @@ class Question:
     image = None
 
     def __init__(self):
-        self.image = load_image('question.png')
+        self.image = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\item\\question.png")
         self.x, self.y = 2360, 9600
+
     def update(self, frame_time):
         pass
 
@@ -649,9 +653,10 @@ class Question:
 
 class Missile:
     image = None
+
     def __init__(self):
         if Missile.image == None:
-            Missile.image = load_image('missile.png')
+            Missile.image = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\item\\missile.png")
         self.x, self.y = random.randint(590, 590), random.randint(4000, 4600)
 
     def update(self, frame_time):
@@ -670,9 +675,10 @@ class Missile:
 
 class Stealth:
     image = None
+
     def __init__(self):
         if Stealth.image == None:
-            Stealth.image = load_image('stealth.png')
+            Stealth.image = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\item\\stealth.png")
         self.x, self.y = random.randint(2370, 2370), random.randint(8250, 8650)
 
     def update(self, frame_time):
@@ -694,11 +700,11 @@ class Ufo:
 
     def __init__(self):
         if Ufo.image == None:
-            Ufo.image = load_image('ufo.png')
+            Ufo.image = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\event\\ufo.png")
 
         self.x, self.y = 500, 500
         self.ufoRand = random.randint(1, 4)
-        self.explode = load_image('explode.png')
+        self.explode = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\event\\explode.png")
         self.explode_frame = 0
 
     def update(self, frame_time):
@@ -751,7 +757,7 @@ class Ufo:
 class Volume:
     def __init__(self):
         self.volume_frame = 0
-        self.image = load_image('vol.png')
+        self.image = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\interface\\vol.png")
 
     def update(self, frame_time):
         pass
@@ -772,7 +778,7 @@ class Volume:
 class Wasted:
     def __init__(self):
         self.x, self.y = 400, 400
-        self.image = load_image('wasted.png')
+        self.image = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\interface\\wasted.png")
     def update(self, frame_time):
         pass
     def draw(self):
@@ -834,6 +840,7 @@ def createWorld():
     stealthes = [Stealth() for i in range(5)]
     dis = 0
 
+
 def enter():
     global car, road, font_0, font_1, back, obstacle, state, frame
     global beer, cell, question, ufo, volume, wasted, launches
@@ -863,11 +870,11 @@ def enter():
     volume = Volume()
     wasted = Wasted()
     obstacle = Obstacle()
-    font_0 = load_font('PWChalk.TTF', 25)
-    font_1 = load_font('PWChalk.TTF', 20)
-    state = load_image('state.png')
-    back = load_image('back.png')
-    frame = load_image('frame.png')
+    font_0 = load_font("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\font\\PWChalk.TTF", 25)
+    font_1 = load_font("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\font\\PWChalk.TTF", 20)
+    state = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\interface\\state.png")
+    back = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\interface\\back.png")
+    frame = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\interface\\frame.png")
 
     game_framework.reset_time()
 
@@ -991,7 +998,7 @@ def update(frame_time):
     global cell, beer, box, missile, stealth
     global roadX, roadY, driftCount, life, distance
     global tempT, mileage, tempTime, stealth_mode, tempS, stealth_state
-    global itemTime, itemDir
+    global itemTime, itemDir, launch
 
     road_collide()
     obstacle_collide()
@@ -1115,7 +1122,7 @@ def draw(frame_time):
     global frame
     global questionMark
     global stageEnd
-    clear = load_image('clear.png')
+    clear = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\interface\\clear.png")
     clear_canvas()
 
     for i in range(100):
@@ -1424,12 +1431,8 @@ def obstacle_collide():
         life = 0
         drift_state = 3
 
-    if collide_1(ufo, launch):
-        life = 0
-        drift_state = 3
-
 def obstacle_draw():
-    global cone, stick, stop, obstacle
+    global cone, stick, stop, obstacle, launch
 
     cone.draw()
     cone.draw_bb_1()
@@ -1514,7 +1517,7 @@ class Launch():
     image = None
     def __init__(self):
         if Launch.image == None:
-            Launch.image = load_image('launch.png')
+            Launch.image = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\item\\launch.png")
 
         self.x, self.y = 700, 100
 
@@ -1540,10 +1543,10 @@ class Launch():
     def draw(self):
         Launch.image.draw(self.x, self.y)
 
-    def draw_bb_1(self):
-        draw_rectangle(*self.get_bb_1())
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
 
-    def get_bb_1(self):
+    def get_bb(self):
         return self.x - 40, self.y - 40, self.x + 40, self.y + 40
 
 
