@@ -797,7 +797,7 @@ def createWorld():
     global tempT, tempTime, mileage, ufoMoveX, ufoMoveY, questionMark, carMoveStatus, carMoveLine, wasted_state, tempRe
     global boxCount, clear_state, soundCount, cellCount, beerCount, beers, boxes, cells, ufoCount, stealth_state
     global missiles, missileCount, stealthes, stealthCount
-    global dis
+    global dis, launch_update, launchX, launchY, launches
     # -------------------------------------
     carX, carY = 237, 130  # 차량 초기화
     roadX, roadY = 280, 0  # 도로 초기화
@@ -838,8 +838,11 @@ def createWorld():
     cells = [Cell() for i in range(5)]
     missiles = [Missile() for i in range(5)]
     stealthes = [Stealth() for i in range(5)]
-    dis = 0
+    launches = [Launch() for i in range(5)]
 
+    dis = 0
+    launch_update = 0
+    launchX, launchY = 800, 0
 
 def enter():
     global car, road, font_0, font_1, back, obstacle, state, frame
@@ -870,12 +873,12 @@ def enter():
     volume = Volume()
     wasted = Wasted()
     obstacle = Obstacle()
+
     font_0 = load_font("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\font\\PWChalk.TTF", 25)
     font_1 = load_font("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\font\\PWChalk.TTF", 20)
     state = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\interface\\state.png")
     back = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\interface\\back.png")
     frame = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\interface\\frame.png")
-
     game_framework.reset_time()
 
 
@@ -1509,9 +1512,9 @@ def item_draw():
 
 launch_update = 0
 
-tempX = 400
-tempY = 400
-dis = 0
+dis = None
+
+launchX, launchY = 800, 0
 
 class Launch():
     image = None
@@ -1519,29 +1522,26 @@ class Launch():
         if Launch.image == None:
             Launch.image = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\item\\launch.png")
 
-        self.x, self.y = 700, 100
-
     def update(self, frame_time):
-        global dis, launch_update
+        global dis, launch_update, launchX, launchY
 
-        print(ufoMoveX, ufoMoveY)
+        if dis != 0:
+            dis = (ufoMoveY - launchY) / (ufoMoveX - launchX)
 
-        dis = ufoMoveY - self.y / ufoMoveX - self.x
-
-        if launch_update == 1:
+        if launch_update == 1 and missileCount > 0:
             if dis != 0:
-                if ufoMoveX > self.x:
-                    self.x += 5
-                if ufoMoveX < self.x:
-                    self.x -= 5
+                if ufoMoveX > launchX:
+                    launchX += 2
+                if ufoMoveX < launchX:
+                    launchX -= 2
 
-                if ufoMoveY > self.y:
-                    self.y += 5
-                if ufoMoveY < self.y:
-                    self.y -= 5
+                if ufoMoveY > launchY:
+                    launchY += 2
+                if ufoMoveY < launchY:
+                    launchY -= 2
 
     def draw(self):
-        Launch.image.draw(self.x, self.y)
+        Launch.image.draw(launchX, launchY)
 
     def draw_bb(self):
         draw_rectangle(*self.get_bb())
