@@ -791,7 +791,7 @@ def createWorld():
     global tempT, tempTime, mileage, ufoMoveX, ufoMoveY, questionMark, carMoveStatus, carMoveLine, wasted_state, tempRe
     global boxCount, clear_state, soundCount, cellCount, beerCount, beers, boxes, cells, ufoCount, stealth_state
     global missiles, missileCount, stealthes, stealthCount
-
+    global dis
     # -------------------------------------
     carX, carY = 237, 130  # 차량 초기화
     roadX, roadY = 280, 0  # 도로 초기화
@@ -832,7 +832,7 @@ def createWorld():
     cells = [Cell() for i in range(5)]
     missiles = [Missile() for i in range(5)]
     stealthes = [Stealth() for i in range(5)]
-
+    dis = 0
 
 def enter():
     global car, road, font_0, font_1, back, obstacle, state, frame
@@ -1424,6 +1424,9 @@ def obstacle_collide():
         life = 0
         drift_state = 3
 
+    if collide_1(ufo, launch):
+        life = 0
+        drift_state = 3
 
 def obstacle_draw():
     global cone, stick, stop, obstacle
@@ -1467,7 +1470,6 @@ def item_update():
     if missileCount > 0:
         missileCount -= 1
 
-
 def item_draw():
     global box, cell, beer, missile, stealth, launch
 
@@ -1504,6 +1506,10 @@ def item_draw():
 
 launch_update = 0
 
+tempX = 400
+tempY = 400
+dis = 0
+
 class Launch():
     image = None
     def __init__(self):
@@ -1513,10 +1519,32 @@ class Launch():
         self.x, self.y = 700, 100
 
     def update(self, frame_time):
-        pass
+        global dis, launch_update
+
+        print(ufoMoveX, ufoMoveY)
+
+        dis = ufoMoveY - self.y / ufoMoveX - self.x
+
+        if launch_update == 1:
+            if dis != 0:
+                if ufoMoveX > self.x:
+                    self.x += 5
+                if ufoMoveX < self.x:
+                    self.x -= 5
+
+                if ufoMoveY > self.y:
+                    self.y += 5
+                if ufoMoveY < self.y:
+                    self.y -= 5
 
     def draw(self):
         Launch.image.draw(self.x, self.y)
+
+    def draw_bb_1(self):
+        draw_rectangle(*self.get_bb_1())
+
+    def get_bb_1(self):
+        return self.x - 40, self.y - 40, self.x + 40, self.y + 40
 
 
 # -----------------------------------------------------------------------------------
