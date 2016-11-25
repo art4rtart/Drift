@@ -2,7 +2,7 @@ import game_framework
 from pico2d import *
 
 import title_state
-import drift_state
+import drift
 import about_state
 import manual_state
 import ranking_state
@@ -18,16 +18,16 @@ def enter():
     global image
     global r1, r2, rk1, rk2, q1, q2
 
-    image = load_image('puase_image.png')
+    image = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\scene\\pause_image.png")
 
-    r1 = load_image('r1.png')
-    r2 = load_image('r2.png')
+    r1 = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\interface\\r1.png")
+    r2 = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\interface\\r2.png")
 
-    rk1 = load_image('rk1.png')
-    rk2 = load_image('rk2.png')
+    rk1 = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\interface\\rk1.png")
+    rk2 = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\interface\\rk2.png")
 
-    q1 = load_image('q1.png')
-    q2 = load_image('q2.png')
+    q1 = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\interface\\q1.png")
+    q2 = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\interface\\q2.png")
 
 
 def exit():

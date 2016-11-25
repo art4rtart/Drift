@@ -1,7 +1,7 @@
 import game_framework
 from pico2d import *
 
-import drift_state # drift
+import drift
 import about_state
 import manual_state
 
@@ -83,7 +83,7 @@ def handle_events(frame_time):
 
             if select_status == 1 and game_mode == 1:
                 if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):
-                    game_framework.push_state(drift_state)
+                    game_framework.push_state(drift)
 
             elif select_status == 2 and game_mode == 2:
                 if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):

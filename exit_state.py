@@ -11,8 +11,8 @@ def enter():
     global image
     global back
 
-    back = load_image('background_image.png')
-    image = load_image('puase_image.png')
+    back = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\scene\\background_image.png")
+    image = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\scene\\pause_image.png")
 
 def exit():
     global image

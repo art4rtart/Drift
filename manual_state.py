@@ -15,8 +15,8 @@ keyboard = None
 
 def enter():
     global back, keyboard, font
-    font = load_font('overWatch.TTF')
-    back = load_image('manual.png')
+    font = load_font("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\font\\overWatch.TTF")
+    back = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\scene\\manual.png")
 
 
 def exit():
