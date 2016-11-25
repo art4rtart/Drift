@@ -1,10 +1,10 @@
-import game_framework
+import framework
 from pico2d import *
 
 import title_state
 import drift
-import about_state
-import manual_state
+import autobhan
+import manual
 import ranking_state
 
 name = "PauseState"

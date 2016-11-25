@@ -1,9 +1,9 @@
-import game_framework
+import framework
 from pico2d import *
 
 import drift
-import about_state
-import manual_state
+import autobhan
+import manual
 
 name = "TitleState"
 image = None
@@ -83,19 +83,19 @@ def handle_events(frame_time):
 
             if select_status == 1 and game_mode == 1:
                 if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):
-                    game_framework.push_state(drift)
+                    framework.push_state(drift)
 
             elif select_status == 2 and game_mode == 2:
                 if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):
-                    game_framework.push_state(manual_state)
+                    framework.push_state(manual)
 
             elif select_status == 3 and game_mode == 3:
                 if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):
-                    game_framework.push_state(about_state)
+                    framework.push_state(autobhan)
 
             elif select_status == 4:
                 if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):
-                    game_framework.quit()
+                    framework.quit()
 
 def update(frame_time):
     pass

@@ -1,7 +1,7 @@
-import game_framework
+import framework
 from pico2d import *
 
-import press_state
+import press_any_key
 
 name = "StartState"
 image = None
@@ -33,7 +33,7 @@ def update(frame_time):
 
     if (logo_time > 0.2):
         logo_time = 0
-        game_framework.push_state(press_state)
+        framework.push_state(press_any_key)
 
     logo_time += frame_time
 

@@ -5,7 +5,7 @@ import os
 from pico2d import *
 from math import *
 # -----------------------------------------------------------------------------------
-import game_framework
+import framework
 import start_state
 import title_state
 import pause_state
@@ -879,7 +879,7 @@ def enter():
     state = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\interface\\state.png")
     back = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\interface\\back.png")
     frame = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\interface\\frame.png")
-    game_framework.reset_time()
+    framework.reset_time()
 
 
 def exit():
@@ -1530,6 +1530,7 @@ class Launch():
 
         if launch_update == 1 and missileCount > 0:
             if dis != 0:
+                print(launchX, launchY)
                 if ufoMoveX > launchX:
                     launchX += 2
                 if ufoMoveX < launchX:

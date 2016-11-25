@@ -1,4 +1,4 @@
-import game_framework
+import framework
 from pico2d import *
 
 import pause_state
