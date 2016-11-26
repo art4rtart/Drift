@@ -1,5 +1,3 @@
-import random
-import os
 # -----------------------------------------------------------------------------------
 from pico2d import *
 from math import *
@@ -20,10 +18,9 @@ from interface import Volume, Wasted
 # -----------------------------------------------------------------------------------
 name = "Drift"
 # -----------------------------------------------------------------------------------
-
 font = None
 car, road = None, None
-distance = None
+roadMoveRAD, distance = None, None
 back, frame = None, None
 volume, wasted, state = None, None, None
 box, beer, cell, question, ufo, missile, stealth = None, None, None, None, None, None, None
@@ -31,12 +28,17 @@ beers, boxes, cells, missiles, stealthes = None, None, None, None, None
 obstacle, cone, stick, crashed, tree, stop = None, None, None, None, None, None
 road1, road2, road3, road4, speedup = None, None, None, None, None
 launch, launches = None, None
+drunk = None
 font_0, font_1 = None, None
 
-def createWorld():
-    global missiles
-    global dis, launch_update, launchX, launchY, launches
-    global beers, boxes, cells, stealthes
+
+def create_world():
+    global drunk
+    global car, road, font_0, font_1, back, obstacle, state, frame
+    global beer, cell, question, ufo, volume, wasted, launches
+    global cone, stick, crashed, tree, stop
+    global boxes, beers, cells, missiles, stealthes
+    global speedup, road1, road2, road3, road4
     # -------------------------------------
     init.car_x, init.car_y = 237, 130  # 차량 초기화
     init.road_x, init.road_y = 280, 0  # 도로 초기화
@@ -74,6 +76,10 @@ def createWorld():
     init.ufoCount = 0
     init.missileCount = 0
     init.stealthCount = 0
+    init.drunk_count = 0
+    init.drunk_time = 0
+    init.drunk_dir = 1
+
     beers = [Beer() for i in range(5)]
     boxes = [Box() for i in range(20)]
     cells = [Cell() for i in range(5)]
@@ -81,9 +87,10 @@ def createWorld():
     stealthes = [Stealth() for i in range(5)]
     launches = [Launch() for i in range(5)]
 
-    dis = 0
-    launch_update = 0
-    launchX, launchY = 800, 0
+    init.dis = 0
+    init.launch_update = 0
+    init.launchX, init.launchY = 800, 0
+
 
 def enter():
     global car, road, font_0, font_1, back, obstacle, state, frame
@@ -146,13 +153,13 @@ def handle_events(frame_time):
             framework.quit()
         else:
             if (event.type, event.key) == (SDL_KEYDOWN, SDLK_ESCAPE):
-                createWorld()
+                create_world()
                 framework.change_state(title_state)
             elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_p):
                 framework.change_state(pause_state)
 
         if init.life == 1:
-            if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):        # 드리프트
+            if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):
                 car.drift.play()
                 if init.mouseCount % 2 == 1:
                     init.drift_state, init.driftCount = 1, 1
@@ -165,17 +172,16 @@ def handle_events(frame_time):
                     init.angle_1 = 270
 
             if init.drift_state == 2 or init.drift_state == 0:
-                if (event.type, event.key) == (SDL_KEYDOWN, SDLK_z):                            # 칼치기
+                if (event.type, event.key) == (SDL_KEYDOWN, SDLK_z):
                         init.carMoveStatus = 1
 
                 elif (event.type, event.key) == (SDL_KEYUP, SDLK_z):
                     init.carMoveStatus = 0
 
-                if (event.type, event.key) == (SDL_KEYDOWN, SDLK_x):                            # 칼치기
+                if (event.type, event.key) == (SDL_KEYDOWN, SDLK_x):
                     init.carMoveStatus = 2
                 elif (event.type, event.key) == (SDL_KEYUP, SDLK_x):
                     init.carMoveStatus = 0
-
 
             if (event.type, event.button) == (SDL_MOUSEBUTTONUP, SDL_BUTTON_LEFT):
                 init.mouseCount += 1
@@ -204,7 +210,7 @@ def handle_events(frame_time):
 
         if init.tempRe == 1:
             if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):
-                    createWorld()
+                create_world()
 
         if init.stealth_mode == 1:
             if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_RIGHT):
@@ -212,42 +218,186 @@ def handle_events(frame_time):
 
         if (event.type, event.key) == (SDL_KEYDOWN, SDLK_SPACE):
             init.launch_update = 1
-            item_update()
-
-
-#       if (event.type, event.key) == (SDL_KEYDOWN, SDLK_q):
-#           init.life = 0
-#           init.stageEnd = 1
-#           init.drift_state = 0
-
+            init.beerCount += 5
 
 
 def update(frame_time):
-    global cell, beer, box, missile, stealth, launch
+    # game function ---------------------------------
+    game_function(frame_time)
 
-
-    road_collide()
-    obstacle_collide()
-
-    for launch in launches:
-        launch.update(frame_time)
-
-    if init.stealthCount == 5:
-        init.stealth_mode = 1
-
-    if init.stealth_state == 1:
-        init.stealthCount = 0
-        if init.tempS > 0.5:
-            init.tempS -= 0.1
-
-    start_state.bgm.set_volume(start_state.volume)
-    if start_state.volume > 20:
-        start_state.volume -= 1
+    # object -----------------------------------------
     car.update(frame_time)
     ufo.update(frame_time)
-    volume.update(frame_time)
-    wasted.update(frame_time)
 
+    # collide ---------------------------------------
+    road_collide(frame_time)
+    item_collide(frame_time)
+    obstacle_collide(frame_time)
+    ufo_collide(frame_time)
+
+    # interface -------------------------------------
+    wasted.update(frame_time)
+    volume.update(frame_time)
+
+    start_state.bgm.set_volume(start_state.volume)
+
+    if start_state.volume > 20:
+        start_state.volume -= 1
+
+
+def draw(frame_time):
+    clear_canvas()
+
+    # background ----------------------------------------
+    for i in range(100):
+        back.draw(400, 300 + (i * 600) - init.moveBack)
+
+    # object --------------------------------------------
+    road_draw()
+    car_draw()
+    item_draw()
+    obstacle_draw()
+
+    if init.beerCount == 5 and init.drunk_count < 2:
+        Beer.drunk.opacify(init.drunk_time)
+        Beer.drunk.draw(400, 300)
+
+
+    # interface ------------------------------------------
+    interface_draw()
+
+    update_canvas()
+
+
+# -----------------------------------------------------------------------------------
+def road_draw():
+    road1.draw()
+    road2.draw()
+    road4.draw()
+    road3.draw()
+    speedup.draw()
+
+
+def car_draw():
+    car.draw()
+    car.draw_bb()
+
+
+def interface_draw():
+    clear = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\interface\\clear.png")
+
+    volume.draw()
+    wasted.draw()
+    state.draw(875, 300)
+
+    if init.clear_state == 1:
+        clear.draw(400, 380)
+
+    frame.draw(500, 300)
+    font_0.draw(740, 550, "SPEED", (255, 255, 255))
+    font_0.draw(870, 550, "%3.0f" % (road1.speed / 5), (255, 0, 0))
+    font_0.draw(920, 550, "KM/H", (255, 255, 255))
+    font_0.draw(740, 500, "TIME", (255, 255, 255))
+    font_0.draw(880, 500, "%3.0f" % road1.time, (255, 0, 0))
+    font_0.draw(940, 500, "HR", (255, 255, 255))
+    font_0.draw(740, 450, "SCORE", (255, 255, 255))
+    if init.car_x > 9900 - init.road_y:
+        font_0.draw(860, 450, "%3.0f" % ((road1.speed / 5 * init.tempT) + init.mileage + (init.tempTime * road1.speed)),
+                    (255, 0, 0))
+    else:
+        font_0.draw(860, 450, "%3.0f" % init.mileage, (255, 0, 0))
+    font_0.draw(940, 450, "KM", (255, 255, 255))
+    font_0.draw(755, 320, "----ITEM LIST----", (255, 255, 255))
+    font_1.draw(815, 235, " X %d" % init.boxCount, (0, 255, 255))
+    font_1.draw(815, 155, " X %d" % init.missileCount, (0, 255, 255))
+    font_1.draw(815, 80, " X %d" % init.stealthCount, (0, 255, 255))
+    font_1.draw(940, 235, " X %d" % init.cellCount, (255, 170, 255))
+    font_1.draw(940, 150, " X %d" % init.beerCount, (255, 170, 255))
+
+
+def item_draw():
+    global box, cell, beer, missile, stealth, launch
+
+    for launch in launches:
+        launch.draw()
+
+    for box in boxes:
+        box.draw()
+        box.draw_bb()
+
+    for beer in beers:
+        beer.draw()
+        beer.draw_bb()
+
+    for cell in cells:
+        cell.draw()
+        cell.draw_bb()
+
+    for missile in missiles:
+        missile.draw()
+        missile.draw_bb()
+
+    for stealth in stealthes:
+        stealth.draw()
+        stealth.draw_bb()
+
+    if init.questionMark == 0:
+        question.draw()
+        question.draw_bb()
+
+    if init.questionMark == 1:
+        ufo.draw()
+        ufo.draw_bb()
+
+
+def obstacle_draw():
+    global cone, stick, stop, obstacle, launch
+
+    cone.draw()
+    cone.draw_bb_1()
+    cone.draw_bb_2()
+    cone.draw_bb_3()
+    cone.draw_bb_4()
+    cone.draw_bb_5()
+
+    stick.draw()
+    stick.draw_bb_1()
+    stick.draw_bb_2()
+    stick.draw_bb_3()
+    stick.draw_bb_4()
+    stick.draw_bb_5()
+
+    stop.draw()
+    stop.draw_bb_1()
+    stop.draw_bb_2()
+    stop.draw_bb_3()
+    stop.draw_bb_4()
+    stop.draw_bb_5()
+
+    obstacle.draw()
+    obstacle.draw_bb_1()
+    obstacle.draw_bb_2()
+    obstacle.draw_bb_3()
+
+    crashed.draw()
+    crashed.draw_bb()
+
+    tree.draw()
+
+    if init.beerCount == 5:
+        if init.drunk_time < 1:
+            init.drunk_time += 0.01 * init.drunk_dir
+
+        if init.drunk_time > 0.9:
+            init.drunk_dir *= -1
+
+        if init.drunk_time < 0:
+            init.drunk_dir *= -1
+            init.drunk_count += 1
+
+
+def game_function(frame_time):
+    # rotation calculate --------------------------------------------------------------
     if init.driftCount == 1:
         init.road_x += init.roadMoveRAD * cos(-init.angle_0 * (init.PI / 180))
         init.road_y += init.roadMoveRAD * sin(-init.angle_0 * (init.PI / 180))
@@ -264,51 +414,19 @@ def update(frame_time):
         if init.angle_1 > 360:
             init.roadMoveRAD = 0
 
+    if init.stageEnd == 0:
+        if init.carMoveStatus == 1:
+            init.road_x += 7
+        if init.carMoveStatus == 2:
+            init.road_x -= 7
+        # init.moveBack += 3
+
     if init.road_y > 20300:           # 종료 조건
         init.car_y += init.distance
         init.stageEnd = 1
         init.clear_state = 1
 
-    if init.stageEnd == 0:
-        if init.carMoveStatus == 1:      # 칼치기 조건
-            init.road_x += 7
-        if init.carMoveStatus == 2:
-            init.road_x -= 7
-        init.moveBack += 3
-
-    if collide(car, question):
-        init.questionMark = 1
-
-    for box in boxes:
-        if collide(car, box):
-            boxes.remove(box)
-            init.boxCount += 1
-
-    for beer in beers:
-        if collide(car, beer):
-            beers.remove(beer)
-            init.beerCount += 1
-
-    for cell in cells:
-        if collide(car, cell):
-            cells.remove(cell)
-            init.cellCount += 1
-
-    for missile in missiles:
-        if collide(car, missile):
-            missiles.remove(missile)
-            init.missileCount += 1
-
-    for stealth in stealthes:
-        if collide(car, stealth):
-            stealthes.remove(stealth)
-            init.stealthCount += 1
-
-    if collide(car, ufo):
-        if init.stealth_mode == 0:
-            init.life = 0
-            init.drift_state = 3
-
+    # mileage calculate ----------------------------------------------------------------
     if init.stageEnd == 0:
         road1.time += frame_time
 
@@ -330,6 +448,7 @@ def update(frame_time):
 
         ufo.x, ufo.y = 0, 0
 
+    # item flicker -------------------------------------------------------------------
     if init.itemTime < 1.1:
         init.itemTime -= 0.05 * init.itemDir
 
@@ -340,84 +459,10 @@ def update(frame_time):
         init.itemTime = 1
         init.itemDir *= -1
 
-
-def draw(frame_time):
-    global frame
-    clear = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\interface\\clear.png")
-    clear_canvas()
-
-    for i in range(100):
-        back.draw(400, 300 + (i * 600) - init.moveBack)
-
-    # --------------------------------------------
-    road1.draw()
-    road2.draw()
-    road4.draw()
-    road3.draw()
-
-    speedup.draw()
-    car.draw()
-    car.draw_bb()
-    # --------------------------------------------
-    obstacle_draw()
-    item_draw()
-    # --------------------------------------------
-
-    # --------------------------------------------
-    volume.draw()
-    wasted.draw()
-    state.draw(875, 300)
-
-    if init.clear_state == 1:
-        clear.draw(400, 380)
-
-    frame.draw(500, 300)
-
-    font_0.draw(740, 550, "SPEED", (255, 255, 255))
-    font_0.draw(870, 550, "%3.0f" % (road1.speed / 5), (255, 0, 0))
-    font_0.draw(920, 550, "KM/H", (255, 255, 255))
-
-    font_0.draw(740, 500, "TIME", (255, 255, 255))
-    font_0.draw(880, 500, "%3.0f" % road1.time, (255, 0, 0))
-    font_0.draw(940, 500, "HR", (255, 255, 255))
-
-    font_0.draw(740, 450, "SCORE", (255, 255, 255))
-    if init.car_x > 9900 - init.road_y:
-        font_0.draw(860, 450, "%3.0f" % ((road1.speed / 5 * init.tempT) + init.mileage + (init.tempTime * road1.speed)), (255, 0, 0))
-    else:
-        font_0.draw(860, 450, "%3.0f" % init.mileage, (255, 0, 0))
-    font_0.draw(940, 450, "KM", (255, 255, 255))
-
-    font_0.draw(755, 320, "----ITEM LIST----", (255, 255, 255))
-    font_1.draw(815, 235, " X %d" % init.boxCount, (0,255,255))
-    font_1.draw(815, 155, " X %d" % init.missileCount, (0, 255, 255))
-    font_1.draw(815, 80, " X %d" % init.stealthCount, (0, 255, 255))
-    font_1.draw(940, 235, " X %d" % init.cellCount, (255, 170, 255))
-    font_1.draw(940, 150, " X %d" % init.beerCount, (255, 170, 255))
-
-    update_canvas()
+# ---------------------------------------------------------------------------------------
 
 
-# -----------------------------------------------------------------------------------
-
-
-def collide(a, b):
-    left_a, bottom_a, right_a, top_a = a.get_bb()
-    left_b, bottom_b, right_b, top_b = b.get_bb()
-
-    if left_a > right_b:
-        return False
-    if right_a < left_b:
-        return False
-    if top_a < bottom_b:
-        return False
-    if bottom_a > top_b:
-        return False
-
-    return True
-
-
-def road_collide():
+def road_collide(frame_time):
 
     if init.road_x > 300 and init.road_y < 1500 or init.road_x < 180 and init.road_y < 1390:
         init.life = 0
@@ -572,7 +617,56 @@ def road_collide():
     # --------------------------------------------------------------------
 
 
-def obstacle_collide():
+def item_collide(frame_time):
+    global cell, beer, box, missile, stealth, launch
+
+    if collide(car, question):
+        beer.sound.play()
+        init.questionMark = 1
+
+    for box in boxes:
+        if collide(car, box):
+            beer.sound.play()
+            boxes.remove(box)
+            init.boxCount += 1
+
+    for beer in beers:
+        if collide(car, beer):
+            beer.sound.play()
+            beers.remove(beer)
+            init.beerCount += 1
+
+    for cell in cells:
+        if collide(car, cell):
+            beer.sound.play()
+            cells.remove(cell)
+            init.cellCount += 1
+
+    for missile in missiles:
+        if collide(car, missile):
+            beer.sound.play()
+            missiles.remove(missile)
+            init.missileCount += 1
+
+    for stealth in stealthes:
+        if collide(car, stealth):
+            beer.sound.play()
+            stealthes.remove(stealth)
+            init.stealthCount += 1
+
+    if init.stealthCount == 5:
+        init.stealth_mode = 1
+
+    if init.stealth_state == 1:
+        init.stealthCount = 0
+        if init.tempS > 0.5:
+            init.tempS -= 0.1
+
+    for stealth in stealthes:
+        stealth.update(frame_time)
+
+
+def obstacle_collide(frame_time):
 
     if collide_1(car, cone):
         init.life = 0
@@ -650,83 +744,31 @@ def obstacle_collide():
         init.life = 0
         init.drift_state = 3
 
-def obstacle_draw():
-    global cone, stick, stop, obstacle, launch
 
-    cone.draw()
-    cone.draw_bb_1()
-    cone.draw_bb_2()
-    cone.draw_bb_3()
-    cone.draw_bb_4()
-    cone.draw_bb_5()
-
-    stick.draw()
-    stick.draw_bb_1()
-    stick.draw_bb_2()
-    stick.draw_bb_3()
-    stick.draw_bb_4()
-    stick.draw_bb_5()
-
-    stop.draw()
-    stop.draw_bb_1()
-    stop.draw_bb_2()
-    stop.draw_bb_3()
-    stop.draw_bb_4()
-    stop.draw_bb_5()
-
-    obstacle.draw()
-    obstacle.draw_bb_1()
-    obstacle.draw_bb_2()
-    obstacle.draw_bb_3()
-
-    crashed.draw()
-    crashed.draw_bb()
-    tree.draw()
+def ufo_collide(frame_time):
+    if collide(car, ufo):
+        if init.stealth_mode == 0:
+            init.life = 0
+            init.drift_state = 3
 
 
-# -----------------------------------------------------------------------------------
-
-def item_update():
-
-    if init.missileCount > 0:
-        init.missileCount -= 1
-
-def item_draw():
-    global box, cell, beer, missile, stealth, launch
-
-    for launch in launches:
-        launch.draw()
-
-    for box in boxes:
-        box.draw()
-        box.draw_bb()
-
-    for beer in beers:
-        beer.draw()
-        beer.draw_bb()
-
-    for cell in cells:
-        cell.draw()
-        cell.draw_bb()
-
-    for missile in missiles:
-        missile.draw()
-        missile.draw_bb()
-
-    for stealth in stealthes:
-        stealth.draw()
-        stealth.draw_bb()
-
-    if init.questionMark == 0:
-        question.draw()
-        question.draw_bb()
-
-    if init.questionMark == 1:
-        ufo.draw()
-        ufo.draw_bb()
+# ---------------------------------------------------------------------------------------
 
 
-# -----------------------------------------------------------------------------------
+def collide(a, b):
+    left_a, bottom_a, right_a, top_a = a.get_bb()
+    left_b, bottom_b, right_b, top_b = b.get_bb()
+
+    if left_a > right_b:
+        return False
+    if right_a < left_b:
+        return False
+    if top_a < bottom_b:
+        return False
+    if bottom_a > top_b:
+        return False
+
+    return True
 
 
 def collide_1(a,b):

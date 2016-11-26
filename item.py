@@ -1,17 +1,24 @@
 from pico2d import *
 import random
 import init
+import drift
 
 
 class Beer:
     image = None
+    drunk = None
+    sound = None
 
     def __init__(self):
         if Beer.image == None:
             Beer.image = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\item\\beer.png")
-
+            Beer.drunk = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\item\\drunk.png")
         self.x = random.randint(850, 850)
         self.y = random.randint(4700, 5600)
+
+        if Beer.sound == None:
+            Beer.sound = load_wav("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\sound\\item.wav")
+            Beer.sound.set_volume(30)
 
     def update(self, frame_time):
         pass
@@ -29,11 +36,12 @@ class Beer:
 
 class Box:
     image = None
+    sound = None
 
     def __init__(self):
         if Box.image == None:
             Box.image = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\item\\box.png")
-        # self.box = load_image('box.png')
+
         self.x = random.randint(2290, 2310)
         self.y = random.randint(11000, 15400)
 
@@ -58,7 +66,7 @@ class Cell:
         if Cell.image == None:
             Cell.image = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\item\\cell.png")
         # self.cell = load_image('cell.png')
-        self.x = random.randint(220, 220)
+        self.x = random.randint(140, 140)
         self.y = random.randint(1900, 2800)
 
     def update(self, frame_time):
@@ -105,7 +113,8 @@ class Missile:
         self.x, self.y = random.randint(590, 590), random.randint(4000, 4600)
 
     def update(self, frame_time):
-        pass
+        if init.missileCount > 0:
+            init.missileCount -= 1
 
     def draw(self):
         self.image.draw(init.road_x + self.x, self.y - init.road_y)
@@ -155,7 +164,6 @@ class Speedup:
         pass
 
     def draw(self):
-        #speedup 구간
         Speedup.up.draw(init.road_x, 400 - init.road_y)
         Speedup.up.draw(init.road_x + 180, 2000 - init.road_y)
         Speedup.up.draw(init.road_x + 540, 4000 - init.road_y)
@@ -169,6 +177,7 @@ class Speedup:
         #slowdown구간
         Speedup.down.draw(init.road_x + 2320, 15500 - init.road_y)  # slow down
 
+
 class Launch():
     image = None
     
@@ -177,7 +186,6 @@ class Launch():
             Launch.image = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\item\\launch.png")
 
     def update(self, frame_time):
-
         if init.dis != 0:
             init.dis = (init.ufoMoveY - init.launchY) / (init.ufoMoveX - init.launchX)
 

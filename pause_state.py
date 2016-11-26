@@ -83,7 +83,7 @@ def handle_events(frame_time):
         elif select_status == 3:
             if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):
                 framework.push_state(title_state)
-                drift.createWorld()
+                drift.create_world()
 
 def update(frame_time):
     pass

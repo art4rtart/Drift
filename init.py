@@ -1,15 +1,5 @@
 import random
 
-font = None
-car, road = None, None
-roadMoveRAD, distance = None, None
-back, frame = None, None
-volume, wasted, state = None, None, None
-box, beer, cell, question, ufo, missile, stealth = None, None, None, None, None, None, None
-beers, boxes, cells, missiles, stealthes = None, None, None, None, None
-obstacle, cone, stick, crashed, tree, stop = None, None, None, None, None, None
-road1, road2, road3, road4, speedup = None, None, None, None, None
-launch, launches = None, None
 # -----------------------------------------------------------------------------------
 car_x, car_y = 237, 130       # 차량 초기화
 road_x, road_y = 280, 0       # 도로 초기화
@@ -37,6 +27,9 @@ boxCount, beerCount, cellCount, missileCount, stealthCount, tempS = 0, 0, 0, 0, 
 # -----------------------------------------------------------------------------------
 moveBack, carMoveLine, stealth_mode, tempRe = 0, 0, 0, 0
 mileage, tempT, tempTime = 0, 0, 0
+drunk_time = 0
+drunk_dir = 1
+drunk_count = 0
 
 launch_update = 0
 launchX, launchY = 800, 0
