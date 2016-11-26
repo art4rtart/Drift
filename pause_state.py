@@ -48,10 +48,10 @@ def handle_events(frame_time):
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
-            game_framework.quit()
+            framework.quit()
         else:
             if (event.type, event.key) == (SDL_KEYDOWN, SDLK_ESCAPE):
-                game_framework.quit()
+                framework.quit()
 
         if event.type == SDL_MOUSEMOTION:
 
@@ -70,20 +70,20 @@ def handle_events(frame_time):
         if select_status == 1:
             if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):
                 if title_state.game_mode == 1:
-                    game_framework.push_state(drift_state)
+                    framework.push_state(drift)
                 elif title_state.game_mode == 2:
-                    game_framework.push_state(about_state)
+                    framework.push_state(autobhan)
                 elif title_state.game_mode == 3:
-                    game_framework.push_state(manual_state)
+                    framework.push_state(manual)
 
         elif select_status == 2:
             if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):
-                game_framework.push_state(ranking_state)
+                framework.push_state(ranking_state)
 
         elif select_status == 3:
             if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):
-                game_framework.push_state(title_state)
-                drift_state.createWorld()
+                framework.push_state(title_state)
+                drift.createWorld()
 
 def update(frame_time):
     pass

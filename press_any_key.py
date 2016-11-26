@@ -59,8 +59,8 @@ def draw(frame_time):
         key.draw(500, 400)
         title.draw(510, 500)
         key.opacify(keyTime)
-    update_canvas()
 
+    update_canvas()
 
 def handle_events(frame_time):
     events = get_events()
@@ -72,6 +72,11 @@ def handle_events(frame_time):
                 framework.quit()
             if event.type == SDL_KEYDOWN and event.key != SDLK_ESCAPE:
                 framework.push_state(title_state)
+
+def pause(): pass
+
+
+def resume(): pass
 
 
 
