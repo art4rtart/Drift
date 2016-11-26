@@ -161,15 +161,16 @@ def handle_events(frame_time):
         if init.life == 1:
             if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):
                 car.drift.play()
-                if init.mouseCount % 2 == 1:
-                    init.drift_state, init.driftCount = 1, 1
-                    init.roadMoveRAD = -5
-                    init.angle_0 = 90
+                if init.cellCount < 5:
+                    if init.mouseCount % 2 == 1:
+                        init.drift_state, init.driftCount = 1, 1
+                        init.roadMoveRAD = -5
+                        init.angle_0 = 90
 
-                elif init.mouseCount % 2 == 0:
-                    init.drift_state, init.driftCount = 2, 2
-                    init.roadMoveRAD = 6
-                    init.angle_1 = 270
+                    elif init.mouseCount % 2 == 0:
+                        init.drift_state, init.driftCount = 2, 2
+                        init.roadMoveRAD = 6
+                        init.angle_1 = 270
 
             if init.drift_state == 2 or init.drift_state == 0:
                 if (event.type, event.key) == (SDL_KEYDOWN, SDLK_z):
@@ -217,8 +218,9 @@ def handle_events(frame_time):
                 init.stealth_state = 1
 
         if (event.type, event.key) == (SDL_KEYDOWN, SDLK_SPACE):
-            init.launch_update = 1
-            init.beerCount += 5
+            if init.missileCount > 0 and init.questionMark == 1:
+                init.launch_update = 1
+                init.missileCount = 0
 
 
 def update(frame_time):
@@ -265,6 +267,9 @@ def draw(frame_time):
 
     # interface ------------------------------------------
     interface_draw()
+
+    for launch in launches:
+        launch.update(frame_time)
 
     update_canvas()
 
@@ -320,6 +325,7 @@ def item_draw():
 
     for launch in launches:
         launch.draw()
+        launch.draw_bb()
 
     for box in boxes:
         box.draw()
@@ -746,10 +752,22 @@ def obstacle_collide(frame_time):
 
 
 def ufo_collide(frame_time):
+    print(init.ufoMoveX, init.ufoMoveY)
     if collide(car, ufo):
         if init.stealth_mode == 0:
             init.life = 0
             init.drift_state = 3
+            init.ufoDirX = 0
+            init.ufoDirY = 0
+
+    for launch in launches:
+        if collide(ufo, launch):
+            init.questionMark = 0
+            init.launchX, init.launchY = -100, -100
+            init.missile_crash = 1
+            init.ufoDirX = 0
+            init.ufoDirY = 0
+            car.crashed.play()
 
 
 # ---------------------------------------------------------------------------------------

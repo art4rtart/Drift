@@ -1,7 +1,6 @@
 from pico2d import *
 import random
 import init
-import drift
 
 
 class Beer:
@@ -178,7 +177,7 @@ class Speedup:
         Speedup.down.draw(init.road_x + 2320, 15500 - init.road_y)  # slow down
 
 
-class Launch():
+class Launch:
     image = None
     
     def __init__(self):
@@ -186,21 +185,21 @@ class Launch():
             Launch.image = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\item\\launch.png")
 
     def update(self, frame_time):
-        if init.dis != 0:
-            init.dis = (init.ufoMoveY - init.launchY) / (init.ufoMoveX - init.launchX)
+        if init.launch_update == 1:
+            if init.questionMark == 1:
+                init.disY = init.ufoMoveY - init.launchY
+                init.disX = init.ufoMoveX - init.launchX
 
-        if init.launch_update == 1 and init.missileCount > 0:
-            if init.dis != 0:
-                print(init.launchX, init.launchY)
-                if init.ufoMoveX > init.launchX:
-                    init.launchX += 2
-                if init.ufoMoveX < init.launchX:
-                    init.launchX -= 2
+                if init.disX != 0 or init.disY != 0:
+                    if init.ufoMoveX > init.launchX:
+                        init.launchX += 2
+                    if init.ufoMoveX < init.launchX:
+                        init.launchX -= 2
 
-                if init.ufoMoveY > init.launchY:
-                    init.launchY += 2
-                if init.ufoMoveY < init.launchY:
-                    init.launchY -= 2
+                    if init.ufoMoveY > init.launchY:
+                        init.launchY += 2
+                    if init.ufoMoveY < init.launchY:
+                        init.launchY -= 2
 
     def draw(self):
         Launch.image.draw(init.launchX, init.launchY)
@@ -209,4 +208,4 @@ class Launch():
         draw_rectangle(*self.get_bb())
 
     def get_bb(self):
-        return self.x - 40, self.y - 40, self.x + 40, self.y + 40
+        return init.launchX - 40, init.launchY - 40, init.launchX + 40, init.launchY + 40

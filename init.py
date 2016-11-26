@@ -33,4 +33,6 @@ drunk_count = 0
 
 launch_update = 0
 launchX, launchY = 800, 0
-dis = None
+disX, disY = None, None
+
+missile_crash = 0

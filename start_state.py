@@ -28,10 +28,10 @@ def update(frame_time):
     global name, status
     global logo_time
 
-    if (logo_time > 0.1):
+    if (logo_time > 1.5):
         status = 1
 
-    if (logo_time > 0.2):
+    if (logo_time > 3.0):
         logo_time = 0
         framework.push_state(press_any_key)
 
