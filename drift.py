@@ -91,6 +91,9 @@ def create_world():
     init.launch_update = 0
     init.launchX, init.launchY = 800, 0
 
+    init.ufoDirX = 1
+    init.ufoDirY = 1
+
 
 def enter():
     global car, road, font_0, font_1, back, obstacle, state, frame

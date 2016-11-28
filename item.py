@@ -17,7 +17,7 @@ class Beer:
 
         if Beer.sound == None:
             Beer.sound = load_wav("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\sound\\item.wav")
-            Beer.sound.set_volume(30)
+            Beer.sound.set_volume(60)
 
     def update(self, frame_time):
         pass
