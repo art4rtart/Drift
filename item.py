@@ -41,7 +41,7 @@ class Box:
         if Box.image == None:
             Box.image = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\item\\box.png")
 
-        self.x = random.randint(2290, 2310)
+        self.x = random.randint(2260, 2340)
         self.y = random.randint(11000, 15400)
 
     def update(self, frame_time):

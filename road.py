@@ -1,6 +1,7 @@
 from pico2d import*
 import init
 
+count = 0
 
 class Road1:
     road = None
@@ -13,29 +14,42 @@ class Road1:
             Road1.road = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\road\\road1.png")
 
     def update(self, frame_time):
-        pass
+        global count
+        count += 1
+
+        print(count)
 
     def draw(self):
         for i in range(10):
             Road1.road.draw(init.road_x, 75 + (i * 150) - init.road_y)
+
         for i in range(8):
             Road1.road.draw(init.road_x + 181, 1755 + (i * 150) - init.road_y)
+
         for i in range(5):
             Road1.road.draw(init.road_x + 362, 3075 + (i * 150) - init.road_y)
+
         for i in range(5):
             Road1.road.draw(init.road_x + 542, 3975 + (i * 150) - init.road_y)
+
         for i in range(6):
             Road1.road.draw(init.road_x + 800, 4875 + (i * 150) - init.road_y)
+
         for i in range(3):
             Road1.road.draw(init.road_x + 1239, 5880 + (i * 150) - init.road_y)
+
         for i in range(5):
             Road1.road.draw(init.road_x + 1600, 6680 + (i * 150) - init.road_y)
+
         for i in range(55): # feel the speed 구간
             Road1.road.draw(init.road_x + 2320, 7760 + (i * 150) - init.road_y)
+
         for i in range(7):
             Road1.road.draw(init.road_x + 3400, 16520 + (i * 150) - init.road_y)
+
         for i in range(20):
             Road1.road.draw(init.road_x + 4480, 18680 + (i * 150) - init.road_y)
+
         Road1.road.draw(init.road_x + 3760, 17780 - init.road_y)
         Road1.road.draw(init.road_x + 4300, 18140 - init.road_y)
         Road1.road.draw(init.road_x + 4300, 18320 - init.road_y)

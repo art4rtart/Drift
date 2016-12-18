@@ -755,7 +755,6 @@ def obstacle_collide(frame_time):
 
 
 def ufo_collide(frame_time):
-    print(init.ufoMoveX, init.ufoMoveY)
     if collide(car, ufo):
         if init.stealth_mode == 0:
             init.life = 0
