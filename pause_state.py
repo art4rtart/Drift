@@ -6,6 +6,7 @@ import drift
 import autobhan
 import manual
 import ranking_state
+import init
 
 name = "PauseState"
 image = None
@@ -32,7 +33,6 @@ def enter():
 
 def exit():
     global image
-    del(image)
 
 
 def pause():
@@ -54,7 +54,6 @@ def handle_events(frame_time):
                 framework.quit()
 
         if event.type == SDL_MOUSEMOTION:
-
             if event.x > 102 and event.x < 237 and event.y > 63 and event.y < 125:
                 select_status = 1
 
@@ -69,6 +68,7 @@ def handle_events(frame_time):
 
         if select_status == 1:
             if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):
+                init.mouseCount = 0
                 if title_state.game_mode == 1:
                     framework.push_state(drift)
                 elif title_state.game_mode == 2:
@@ -78,10 +78,12 @@ def handle_events(frame_time):
 
         elif select_status == 2:
             if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):
+                init.mouseCount = 0
                 framework.push_state(ranking_state)
 
         elif select_status == 3:
             if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):
+                init.mouseCount = 0
                 framework.push_state(title_state)
                 drift.create_world()
 

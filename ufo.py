@@ -37,9 +37,10 @@ class Ufo:
                 init.ufoDirY *= -1
 
     def draw(self):
-        if init.boxCount < 20:
+        if init.missile_crash != 1:
             Ufo.image.draw(self.x + init.ufoMoveX, self.y + init.ufoMoveY)
-        elif init.boxCount == 20 or init.missile_crash == 1:
+
+        elif init.missile_crash == 1:
             delay(0.01)
             self.explode.clip_draw(self.explode_frame * 100, 0, 90, 100, self.x + init.ufoMoveX, self.y + init.ufoMoveY)
             self.explode_frame += 1

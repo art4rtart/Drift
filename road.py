@@ -1,7 +1,6 @@
 from pico2d import*
 import init
 
-count = 0
 
 class Road1:
     road = None
@@ -13,11 +12,10 @@ class Road1:
         if Road1.road == None:
             Road1.road = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\road\\road1.png")
 
-    def update(self, frame_time):
-        global count
-        count += 1
 
-        print(count)
+    def update(self, frame_time):
+        pass
+
 
     def draw(self):
         for i in range(10):
@@ -69,8 +67,10 @@ class Road2:
         # 1번
         Road2.road.draw(init.road_x + 1, 1575 - init.road_y)
 
+
         # 2번
         Road2.road.draw(init.road_x + 182, 2901 - init.road_y)
+
 
         # 3번
         Road2.road.draw(init.road_x + 362, 3800 - init.road_y)
@@ -87,6 +87,7 @@ class Road2:
         Road2.road.draw(init.road_x + 1600, 7400 - init.road_y)
         Road2.road.draw(init.road_x + 1780, 7580 - init.road_y)
 
+
         #8번
         Road2.road.draw(init.road_x + 2320, 15980 - init.road_y)
         Road2.road.draw(init.road_x + 2860, 16160 - init.road_y)
@@ -98,6 +99,7 @@ class Road2:
 
 class Road3:
     road = None
+
 
     def __init__(self):
         if Road3.road == None:
@@ -134,6 +136,7 @@ class Road4:
     def update(self, frame_time):
         pass
 
+
     def draw(self):
         # 4번
         Road4.road.draw(init.road_x + 720, 4700 - init.road_y)
@@ -146,6 +149,7 @@ class Road4:
         Road4.road.draw(init.road_x + 1960, 7580 - init.road_y)
         Road4.road.draw(init.road_x + 2140, 7580 - init.road_y)
 
+
         #8번
         Road4.road.draw(init.road_x + 2500, 15980 - init.road_y)
         Road4.road.draw(init.road_x + 2680, 15980 - init.road_y)
@@ -153,6 +157,3 @@ class Road4:
         Road4.road.draw(init.road_x + 3580, 17600 - init.road_y)
         Road4.road.draw(init.road_x + 3940, 17960 - init.road_y)
         Road4.road.draw(init.road_x + 4120, 17960 - init.road_y)
-
-
-# road_x, road_y

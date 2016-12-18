@@ -65,10 +65,9 @@ def create_world():
     car.explode_frame = 0
     ufo.explode_frame = 0
     # ---------------------------------------
-    init.boxCount = 0
     init.clear_state = 0
     init.soundCount = 0
-    init.cellCount, init.boxCount, init.beerCount = 0, 0, 0
+    init.cellCount, init.beerCount = 0, 0
     road1.time = 0
     init.tempT = 0
     road1.speed = 320
@@ -81,7 +80,7 @@ def create_world():
     init.drunk_dir = 1
 
     beers = [Beer() for i in range(5)]
-    boxes = [Box() for i in range(20)]
+    boxes = [Box() for i in range(50)]
     cells = [Cell() for i in range(5)]
     missiles = [Missile() for i in range(5)]
     stealthes = [Stealth() for i in range(5)]
@@ -110,7 +109,7 @@ def enter():
     car = Car()
     speedup = Speedup()
     beers = [Beer() for i in range(5)]
-    boxes = [Box() for i in range(20)]
+    boxes = [Box() for i in range(50)]
     cells = [Cell() for i in range(5)]
     missiles = [Missile() for i in range(5)]
     stealthes = [Stealth() for i in range(5)]
@@ -148,7 +147,6 @@ def resume():
 
 # -----------------------------------------------------------------------------------
 
-
 def handle_events(frame_time):
     events = get_events()
     for event in events:
@@ -160,6 +158,7 @@ def handle_events(frame_time):
                 framework.change_state(title_state)
             elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_p):
                 framework.change_state(pause_state)
+                init.playgame = 0
 
         if init.life == 1:
             if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):
@@ -190,11 +189,12 @@ def handle_events(frame_time):
             if (event.type, event.button) == (SDL_MOUSEBUTTONUP, SDL_BUTTON_LEFT):
                 init.mouseCount += 1
 
-            if (event.type, event.key) == (SDL_KEYDOWN, SDLK_e):
-                road1.speed += 100
+            # custom mode
+            # if (event.type, event.key) == (SDL_KEYDOWN, SDLK_e):
+            #    road1.speed += 100
 
-            if (event.type, event.key) == (SDL_KEYDOWN, SDLK_r):
-                road1.speed -= 100
+            # if (event.type, event.key) == (SDL_KEYDOWN, SDLK_r):
+            #    road1.speed -= 100
 
         if(event.type, event.key) == (SDL_KEYDOWN, SDLK_v):
             start_state.volume -= 4
@@ -395,7 +395,7 @@ def obstacle_draw():
 
     if init.beerCount == 5:
         if init.drunk_time < 1:
-            init.drunk_time += 0.01 * init.drunk_dir
+            init.drunk_time += 0.02 * init.drunk_dir
 
         if init.drunk_time > 0.9:
             init.drunk_dir *= -1
