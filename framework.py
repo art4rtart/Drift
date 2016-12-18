@@ -52,7 +52,6 @@ def change_state(state):
     state.enter()
 
 
-
 def push_state(state):
     global stack
     if (len(stack) > 0):

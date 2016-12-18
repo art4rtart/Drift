@@ -10,6 +10,7 @@ key = None
 title = None
 
 logo_time = 0.0
+enterLobby = 0
 
 def enter():
     global image, back, title, key
@@ -46,8 +47,7 @@ def update(frame_time):
 
 
 def draw(frame_time):
-    global image, back
-
+    global image, back, enterLobby
     clear_canvas()
 
     back.draw(500, 300)
@@ -56,6 +56,7 @@ def draw(frame_time):
     image.opacify(imageTime)
 
     if(imageTime > 0.99):
+        enterLobby = 1
         key.draw(500, 400)
         title.draw(520, 500)
         key.opacify(keyTime)
@@ -70,7 +71,7 @@ def handle_events(frame_time):
         else:
             if (event.type, event.key) == (SDL_KEYDOWN, SDLK_ESCAPE):
                 framework.quit()
-            if event.type == SDL_KEYDOWN and event.key != SDLK_ESCAPE:
+            if event.type == SDL_KEYDOWN and event.key != SDLK_ESCAPE and enterLobby == 1:
                 framework.push_state(title_state)
 
 def pause(): pass
