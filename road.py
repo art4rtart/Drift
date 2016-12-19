@@ -10,7 +10,7 @@ class Road1:
         self.speed = 320                        # 처음 속도 320 - 200 = 120km
 
         if Road1.road == None:
-            Road1.road = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\road\\road1.png")
+            Road1.road = load_image("road1.png")
 
 
     def update(self, frame_time):
@@ -58,7 +58,7 @@ class Road2:
 
     def __init__(self):
         if Road2.road == None:
-            Road2.road = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\road\\road2.png")
+            Road2.road = load_image("road2.png")
 
     def update(self, frame_time):
         pass
@@ -103,7 +103,7 @@ class Road3:
 
     def __init__(self):
         if Road3.road == None:
-            Road3.road = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\road\\road3.png")
+            Road3.road = load_image("road3.png")
 
     def update(self, frame_time):
         pass
@@ -131,7 +131,7 @@ class Road4:
 
     def __init__(self):
         if Road4.road == None:
-            Road4.road = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\road\\road4.png")
+            Road4.road = load_image("road4.png")
 
     def update(self, frame_time):
         pass

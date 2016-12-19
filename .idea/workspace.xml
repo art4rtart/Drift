@@ -2,8 +2,215 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1bc84efb-d317-4786-be6b-523483abb25c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/play.py" afterPath="$PROJECT_DIR$/play.py" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/adf.iss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/play/base_library.zip" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/play/out00-Analysis.toc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/play/out00-EXE.toc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/play/out00-PKG.pkg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/play/out00-PKG.toc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/play/out00-PYZ.pyz" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/play/out00-PYZ.toc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/play/play.exe.manifest" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/play/warnplay.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/SDL2/x64/LICENSE.FLAC.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/SDL2/x64/LICENSE.freetype.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/SDL2/x64/LICENSE.jpeg.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/SDL2/x64/LICENSE.mikmod.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/SDL2/x64/LICENSE.modplug.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/SDL2/x64/LICENSE.ogg-vorbis.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/SDL2/x64/LICENSE.png.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/SDL2/x64/LICENSE.smpeg.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/SDL2/x64/LICENSE.tiff.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/SDL2/x64/LICENSE.webp.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/SDL2/x64/LICENSE.zlib.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/SDL2/x64/README.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/SDL2/x64/SDL2.dll" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/SDL2/x64/SDL2_image.dll" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/SDL2/x64/SDL2_mixer.dll" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/SDL2/x64/SDL2_ttf.dll" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/SDL2/x64/libFLAC-8.dll" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/SDL2/x64/libfreetype-6.dll" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/SDL2/x64/libjpeg-9.dll" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/SDL2/x64/libmikmod-2.dll" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/SDL2/x64/libmodplug-1.dll" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/SDL2/x64/libogg-0.dll" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/SDL2/x64/libpng16-16.dll" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/SDL2/x64/libtiff-5.dll" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/SDL2/x64/libvorbis-0.dll" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/SDL2/x64/libvorbisfile-3.dll" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/SDL2/x64/libwebp-4.dll" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/SDL2/x64/smpeg2.dll" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/SDL2/x64/zlib1.dll" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/SDL2/x86/SDL2.dll" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/SDL2/x86/SDL2_image.dll" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/SDL2/x86/SDL2_mixer.dll" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/SDL2/x86/SDL2_ttf.dll" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/SDL2/x86/libFLAC-8.dll" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/SDL2/x86/libfreetype-6.dll" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/SDL2/x86/libjpeg-9.dll" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/SDL2/x86/libmikmod-2.dll" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/SDL2/x86/libmodplug-1.dll" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/SDL2/x86/libogg-0.dll" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/SDL2/x86/libpng16-16.dll" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/SDL2/x86/libtiff-5.dll" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/SDL2/x86/libvorbis-0.dll" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/SDL2/x86/libvorbisfile-3.dll" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/SDL2/x86/libwebp-4.dll" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/SDL2/x86/smpeg2.dll" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/SDL2/x86/zlib1.dll" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/car/car.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/car/explode.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/car/moveD.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/car/moveR.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/event/down.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/event/explode.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/event/ufo.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/event/up.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/font/ENCR10B.TTF" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/font/NANUMBARUNGOTHICBOLD.TTF" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/font/PWChalk.ttf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/font/overWatch.ttf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/interface/a1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/interface/a2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/interface/back.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/interface/clear.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/interface/drift1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/interface/drift2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/interface/e1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/interface/e2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/interface/frame.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/interface/game_title.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/interface/key.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/interface/q1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/interface/q2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/interface/r1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/interface/r2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/interface/rk1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/interface/rk2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/interface/state.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/interface/t1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/interface/t2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/interface/vol.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/interface/wasted.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/item/beer.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/item/box.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/item/cell.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/item/drunk.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/item/launch.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/item/missile.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/item/question.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/item/stealth.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/obstacle/ac1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/obstacle/ac2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/obstacle/cone.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/obstacle/crashed.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/obstacle/stick.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/obstacle/stop.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/obstacle/tree1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/obstacle/tree2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/obstacle/work.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/road/road1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/road/road2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/road/road3.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/road/road4.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/scene/autobhan.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/scene/background_image.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/scene/game_credit.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/scene/kpu_credit.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/scene/manual.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/scene/pause_image.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/scene/scoreboard.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/image/scene/select_image.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/play.exe" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/sound/crash.ogg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/sound/drift.wav" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/sound/item.wav" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/sound/loveU.ogg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/car/car.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/car/explode.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/car/moveD.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/car/moveR.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/event/down.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/event/explode.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/event/ufo.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/event/up.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/font/ENCR10B.TTF" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/font/NANUMBARUNGOTHICBOLD.TTF" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/font/PWChalk.ttf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/font/overWatch.ttf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/interface/a1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/interface/a2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/interface/back.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/interface/clear.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/interface/drift1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/interface/drift2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/interface/e1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/interface/e2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/interface/frame.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/interface/game_title.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/interface/key.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/interface/q1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/interface/q2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/interface/r1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/interface/r2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/interface/rk1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/interface/rk2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/interface/state.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/interface/t1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/interface/t2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/interface/vol.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/interface/wasted.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/item/beer.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/item/box.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/item/cell.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/item/drunk.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/item/launch.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/item/missile.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/item/question.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/item/stealth.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/obstacle/ac1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/obstacle/ac2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/obstacle/cone.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/obstacle/crashed.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/obstacle/stick.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/obstacle/stop.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/obstacle/tree1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/obstacle/tree2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/obstacle/work.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/road/road1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/road/road2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/road/road3.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/road/road4.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/scene/autobhan.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/scene/background_image.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/scene/game_credit.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/scene/kpu_credit.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/scene/manual.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/scene/pause_image.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/scene/scoreboard.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/image/scene/select_image.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/innosetup-5.5.9-unicode.exe" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/pefile-master.zip" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/play.spec" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sound/crash.ogg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sound/drift.wav" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sound/item.wav" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sound/loveU.ogg" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/autobhan.py" afterPath="$PROJECT_DIR$/autobhan.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/car.py" afterPath="$PROJECT_DIR$/car.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/drift.py" afterPath="$PROJECT_DIR$/drift.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/exit_state.py" afterPath="$PROJECT_DIR$/exit_state.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/interface.py" afterPath="$PROJECT_DIR$/interface.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/item.py" afterPath="$PROJECT_DIR$/item.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/manual.py" afterPath="$PROJECT_DIR$/manual.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/obstacle.py" afterPath="$PROJECT_DIR$/obstacle.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pause_state.py" afterPath="$PROJECT_DIR$/pause_state.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/press_any_key.py" afterPath="$PROJECT_DIR$/press_any_key.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ranking_state.py" afterPath="$PROJECT_DIR$/ranking_state.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/road.py" afterPath="$PROJECT_DIR$/road.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/start_state.py" afterPath="$PROJECT_DIR$/start_state.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/title_state.py" afterPath="$PROJECT_DIR$/title_state.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ufo.py" afterPath="$PROJECT_DIR$/ufo.py" />
     </list>
     <ignored path="2DGP_2016.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -23,37 +230,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="item.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/item.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="650">
-              <caret line="179" column="13" selection-start-line="179" selection-start-column="13" selection-end-line="179" selection-end-column="13" />
-              <folding>
-                <element signature="e#0#20#0" expanded="true" />
-                <element signature="e#65#1021#0" expanded="false" />
-                <element signature="e#1039#1703#0" expanded="false" />
-                <element signature="e#1722#2414#0" expanded="false" />
-                <element signature="e#2437#3003#0" expanded="false" />
-                <element signature="e#3025#3729#0" expanded="false" />
-                <element signature="e#3751#4401#0" expanded="false" />
-                <element signature="e#4423#5489#0" expanded="false" />
-                <element signature="e#5510#6604#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="interface.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/interface.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="350">
-              <caret line="17" column="6" selection-start-line="17" selection-start-column="6" selection-end-line="17" selection-end-column="6" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="play.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="play.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/play.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="175">
@@ -65,51 +242,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Project.py" pinned="false" current-in-tab="false">
-        <entry file="file://C:/TEST/pro/2DGP_Project/Project.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="6" selection-end-column="48" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="framework.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/framework.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1325">
-              <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="exit_state.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/exit_state.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="975">
-              <caret line="40" column="16" selection-start-line="40" selection-start-column="16" selection-end-line="40" selection-end-column="16" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="init.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/init.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="925">
-              <caret line="37" column="17" selection-start-line="37" selection-start-column="17" selection-end-line="37" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="manual.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/manual.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+            <state relative-caret-position="-197">
+              <caret line="16" column="22" selection-start-line="16" selection-start-column="22" selection-end-line="16" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -118,16 +255,21 @@
       <file leaf-file-name="obstacle.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/obstacle.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="25">
-              <caret line="1" column="3" selection-start-line="1" selection-start-column="2" selection-end-line="1" selection-end-column="3" />
+            <state relative-caret-position="428">
+              <caret line="224" column="37" selection-start-line="224" selection-start-column="37" selection-end-line="224" selection-end-column="37" />
               <folding>
-                <element signature="e#55#1424#0" expanded="false" />
-                <element signature="e#1443#3347#0" expanded="false" />
-                <element signature="e#3367#5257#0" expanded="false" />
-                <element signature="e#5279#5856#0" expanded="false" />
-                <element signature="e#5875#7741#0" expanded="false" />
-                <element signature="e#7760#8379#0" expanded="false" />
+                <element signature="e#0#20#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pause_state.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pause_state.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1847">
+              <caret line="21" column="24" selection-start-line="21" selection-start-column="24" selection-end-line="21" selection-end-column="24" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -135,8 +277,58 @@
       <file leaf-file-name="press_any_key.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/press_any_key.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1675">
-              <caret line="70" column="13" selection-start-line="70" selection-start-column="13" selection-end-line="70" selection-end-column="13" />
+            <state relative-caret-position="-872">
+              <caret line="20" column="24" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ranking_state.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ranking_state.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-447">
+              <caret line="11" column="24" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="road.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/road.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="103">
+              <caret line="133" column="37" selection-start-line="133" selection-start-column="37" selection-end-line="133" selection-end-column="37" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="start_state.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/start_state.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-572">
+              <caret line="16" column="23" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ufo.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ufo.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="200">
+              <caret line="10" column="36" selection-start-line="10" selection-start-column="36" selection-end-line="10" selection-end-column="36" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="title_state.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/title_state.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="300">
+              <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -156,33 +348,33 @@
         <option value="$PROJECT_DIR$/drift_state.py" />
         <option value="$PROJECT_DIR$/manual_state.py" />
         <option value="$PROJECT_DIR$/mygame.py" />
-        <option value="$PROJECT_DIR$/autobhan.py" />
-        <option value="$PROJECT_DIR$/exit_state.py" />
-        <option value="$PROJECT_DIR$/ranking_state.py" />
         <option value="$PROJECT_DIR$/init_state.py" />
-        <option value="$PROJECT_DIR$/obstacle.py" />
-        <option value="$PROJECT_DIR$/interface.py" />
-        <option value="$PROJECT_DIR$/title_state.py" />
-        <option value="$PROJECT_DIR$/car.py" />
-        <option value="$PROJECT_DIR$/start_state.py" />
-        <option value="$PROJECT_DIR$/manual.py" />
-        <option value="$PROJECT_DIR$/road.py" />
-        <option value="$PROJECT_DIR$/pause_state.py" />
         <option value="$PROJECT_DIR$/init.py" />
-        <option value="$PROJECT_DIR$/item.py" />
-        <option value="$PROJECT_DIR$/drift.py" />
-        <option value="$PROJECT_DIR$/ufo.py" />
         <option value="$PROJECT_DIR$/shop_state.py" />
         <option value="$PROJECT_DIR$/framework.py" />
-        <option value="$PROJECT_DIR$/press_any_key.py" />
         <option value="$PROJECT_DIR$/play.py" />
+        <option value="$PROJECT_DIR$/item.py" />
+        <option value="$PROJECT_DIR$/autobhan.py" />
+        <option value="$PROJECT_DIR$/car.py" />
+        <option value="$PROJECT_DIR$/drift.py" />
+        <option value="$PROJECT_DIR$/exit_state.py" />
+        <option value="$PROJECT_DIR$/interface.py" />
+        <option value="$PROJECT_DIR$/manual.py" />
+        <option value="$PROJECT_DIR$/obstacle.py" />
+        <option value="$PROJECT_DIR$/pause_state.py" />
+        <option value="$PROJECT_DIR$/press_any_key.py" />
+        <option value="$PROJECT_DIR$/ranking_state.py" />
+        <option value="$PROJECT_DIR$/road.py" />
+        <option value="$PROJECT_DIR$/start_state.py" />
+        <option value="$PROJECT_DIR$/ufo.py" />
+        <option value="$PROJECT_DIR$/title_state.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-9" />
     <option name="y" value="-9" />
-    <option name="width" value="1938" />
+    <option name="width" value="1932" />
     <option name="height" value="1048" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
@@ -196,7 +388,7 @@
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectView">
-    <navigator proportions="" version="1">
+    <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -209,7 +401,30 @@
       <manualOrder />
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes />
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="2DGP_2016" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="2DGP_2016" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="2DGP_2016" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scratches" />
+    </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -413,46 +628,27 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="1938" height="1048" extended-state="7" />
+    <frame x="-9" y="-9" width="1932" height="1048" extended-state="1" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13740857" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33040616" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33040616" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32930845" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
-    <layout-to-restore>
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32741398" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32930845" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-    </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -507,157 +703,105 @@
     <entry file="file://D:/Avantgardist/study/2D_Game_Programming/2016-2DGP-master/Labs/Lab09 - Collision Handling/collision.py" />
     <entry file="file://D:/Avantgardist/study/2D_Game_Programming/2016-2DGP-master/Labs/Lab09 - Collision Handling/boy.py" />
     <entry file="file://$PROJECT_DIR$/drunk.png" />
-    <entry file="file://$PROJECT_DIR$/autobhan.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="16" column="42" selection-start-line="16" selection-start-column="40" selection-end-line="16" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mygame.py" />
-    <entry file="file://$PROJECT_DIR$/car.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1900">
-          <caret line="79" column="0" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ㅇ.txt" />
-    <entry file="file://$PROJECT_DIR$/drift.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="410">
-          <caret line="402" column="30" selection-start-line="402" selection-start-column="30" selection-end-line="402" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ufo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="55" column="129" selection-start-line="55" selection-start-column="129" selection-end-line="55" selection-end-column="129" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/title_state.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="54" column="20" selection-start-line="54" selection-start-column="20" selection-end-line="54" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/start_state.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="496">
-          <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/shop_state.py" />
-    <entry file="file://$PROJECT_DIR$/pause_state.py">
+    <entry file="file://C:/TEST/pro/2DGP_Project/Project.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="80" column="35" selection-start-line="80" selection-start-column="35" selection-end-line="80" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ranking_state.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="523">
-          <caret line="34" column="20" selection-start-line="34" selection-start-column="20" selection-end-line="34" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/road.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="50">
-          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/item.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="650">
-          <caret line="179" column="13" selection-start-line="179" selection-start-column="13" selection-end-line="179" selection-end-column="13" />
-          <folding>
-            <element signature="e#0#20#0" expanded="true" />
-            <element signature="e#65#1021#0" expanded="false" />
-            <element signature="e#1039#1703#0" expanded="false" />
-            <element signature="e#1722#2414#0" expanded="false" />
-            <element signature="e#2437#3003#0" expanded="false" />
-            <element signature="e#3025#3729#0" expanded="false" />
-            <element signature="e#3751#4401#0" expanded="false" />
-            <element signature="e#4423#5489#0" expanded="false" />
-            <element signature="e#5510#6604#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/interface.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="17" column="6" selection-start-line="17" selection-start-column="6" selection-end-line="17" selection-end-column="6" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="6" selection-end-column="48" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/init.py">
+    <entry file="file://$PROJECT_DIR$/autobhan.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="925">
-          <caret line="37" column="17" selection-start-line="37" selection-start-column="17" selection-end-line="37" selection-end-column="17" />
+        <state relative-caret-position="-147">
+          <caret line="16" column="24" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/car.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1072">
+          <caret line="24" column="34" selection-start-line="24" selection-start-column="34" selection-end-line="24" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/drift.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="294" column="25" selection-start-line="294" selection-start-column="24" selection-end-line="294" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/exit_state.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="975">
-          <caret line="40" column="16" selection-start-line="40" selection-start-column="16" selection-end-line="40" selection-end-column="16" />
+        <state relative-caret-position="275">
+          <caret line="12" column="24" selection-start-line="12" selection-start-column="24" selection-end-line="12" selection-end-column="24" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/framework.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1325">
-          <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
+        <state relative-caret-position="280">
+          <caret line="44" column="4" selection-start-line="44" selection-start-column="3" selection-end-line="44" selection-end-column="4" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/init.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="703">
+          <caret line="37" column="17" selection-start-line="37" selection-start-column="17" selection-end-line="37" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/interface.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="503">
+          <caret line="30" column="33" selection-start-line="30" selection-start-column="33" selection-end-line="30" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/item.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="53">
+          <caret line="184" column="39" selection-start-line="184" selection-start-column="39" selection-end-line="184" selection-end-column="39" />
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/manual.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+        <state relative-caret-position="-197">
+          <caret line="16" column="22" selection-start-line="16" selection-start-column="22" selection-end-line="16" selection-end-column="22" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/obstacle.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="25">
-          <caret line="1" column="3" selection-start-line="1" selection-start-column="2" selection-end-line="1" selection-end-column="3" />
+        <state relative-caret-position="428">
+          <caret line="224" column="37" selection-start-line="224" selection-start-column="37" selection-end-line="224" selection-end-column="37" />
           <folding>
-            <element signature="e#55#1424#0" expanded="false" />
-            <element signature="e#1443#3347#0" expanded="false" />
-            <element signature="e#3367#5257#0" expanded="false" />
-            <element signature="e#5279#5856#0" expanded="false" />
-            <element signature="e#5875#7741#0" expanded="false" />
-            <element signature="e#7760#8379#0" expanded="false" />
+            <element signature="e#0#20#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/press_any_key.py">
+    <entry file="file://$PROJECT_DIR$/pause_state.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1675">
-          <caret line="70" column="13" selection-start-line="70" selection-start-column="13" selection-end-line="70" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/TEST/pro/2DGP_Project/Project.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="6" selection-end-column="48" />
+        <state relative-caret-position="-1847">
+          <caret line="21" column="24" selection-start-line="21" selection-start-column="24" selection-end-line="21" selection-end-column="24" />
           <folding />
         </state>
       </provider>
@@ -669,6 +813,54 @@
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/press_any_key.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-872">
+          <caret line="20" column="24" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ranking_state.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-447">
+          <caret line="11" column="24" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/road.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="103">
+          <caret line="133" column="37" selection-start-line="133" selection-start-column="37" selection-end-line="133" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/start_state.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-572">
+          <caret line="16" column="23" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ufo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="10" column="36" selection-start-line="10" selection-start-column="36" selection-end-line="10" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/title_state.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

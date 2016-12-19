@@ -21,18 +21,18 @@ def enter():
     global image, d1, d2, a1, a2, t1, t2, e1, e2
     global back
 
-    image = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\scene\\select_image.png")
-    d1 = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\interface\\drift1.png")
-    d2 = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\interface\\drift2.png")
+    image = load_image("select_image.png")
+    d1 = load_image("drift1.png")
+    d2 = load_image("drift2.png")
 
-    a1 = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\interface\\a1.png")
-    a2 = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\interface\\a2.png")
+    a1 = load_image("a1.png")
+    a2 = load_image("a2.png")
 
-    t1 = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\interface\\t1.png")
-    t2 = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\interface\\t2.png")
+    t1 = load_image("t1.png")
+    t2 = load_image("t2.png")
 
-    e1 = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\interface\\e1.png")
-    e2 = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\interface\\e2.png")
+    e1 = load_image("e1.png")
+    e2 = load_image("e2.png")
 
 
 def exit():

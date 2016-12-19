@@ -14,7 +14,7 @@ image = None
 
 def enter():
     global image
-    image = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\scene\\autobhan.png")
+    image = load_image("autobhan.png")
 
 def exit():
     pass

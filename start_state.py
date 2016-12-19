@@ -14,9 +14,9 @@ logo_time = 0.0
 def enter():
     global kpu, game, bgm
     open_canvas(1000, 600, sync=True)
-    kpu = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\scene\\kpu_credit.png")
-    game = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\scene\\game_credit.png")
-    bgm = load_music("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\sound\\loveU.ogg")
+    kpu = load_image("kpu_credit.png")
+    game = load_image("game_credit.png")
+    bgm = load_music("loveU.ogg")
 
 
 def exit():

@@ -8,11 +8,11 @@ class Ufo:
 
     def __init__(self):
         if Ufo.image == None:
-            Ufo.image = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\event\\ufo.png")
+            Ufo.image = load_image("ufo.png")
 
         self.x, self.y = 500, 500
         self.ufoRand = random.randint(1, 4)
-        self.explode = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\event\\explode.png")
+        self.explode = load_image("explode.png")
         self.explode_frame = 0
 
     def update(self, frame_time):

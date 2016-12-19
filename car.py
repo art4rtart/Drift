@@ -11,18 +11,18 @@ class Car:
     init = None
 
     def __init__(self):
-        self.image = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\car\\car.png")
-        self.right = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\car\\moveR.png")
-        self.direct = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\car\\moveD.png")
-        self.explode = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\car\\explode.png")
+        self.image = load_image("car.png")
+        self.right = load_image("moveR.png")
+        self.direct = load_image("moveD.png")
+        self.explode = load_image("explode.png")
         self.right_frame, self.direct_frame, self.explode_frame = 0, 0, 0
 
         if Car.crashed == None:
-            Car.crashed = load_wav("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\sound\\crash.ogg")
+            Car.crashed = load_wav("crash.ogg")
             Car.crashed.set_volume(50)
 
         if Car.init == None:
-            Car.drift = load_wav("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\sound\\drift.wav")
+            Car.drift = load_wav("drift.wav")
             Car.drift.set_volume(50)
 
     def update(self, frame_time):

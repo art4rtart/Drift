@@ -4,9 +4,9 @@ import init
 
 class Obstacle:
     def __init__(self):
-        self.ac1 = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\obstacle\\ac1.png")
-        self.ac2 = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\obstacle\\ac2.png")
-        self.work = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\obstacle\\work.png")
+        self.ac1 = load_image("ac1.png")
+        self.ac2 = load_image("ac2.png")
+        self.work = load_image("work.png")
         self.x1, self.y1 = 270, 3200
         self.x2, self.y2 = 430, 3500
         self.x3, self.y3 = 500, 4320
@@ -43,7 +43,7 @@ class Cone:
 
     def __init__(self):
         if Cone.cone == None:
-            Cone.cone = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\obstacle\\cone.png")
+            Cone.cone = load_image("cone.png")
         self.x1, self.y1 = -40, 800
         self.x2, self.y2 = 40, 1400
         self.x3, self.y3 = 1190, 6200
@@ -98,7 +98,7 @@ class Stick:
 
     def __init__(self):
         if Stick.stick == None:
-            Stick.stick = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\obstacle\\stick.png")
+            Stick.stick = load_image("stick.png")
         self.x1, self.y1 = 3440, 16900
         self.x2, self.y2 = 3360, 17320
         self.x3, self.y3 = 3970, 18050
@@ -150,7 +150,7 @@ class Crashed:
     crashed = None
     def __init__(self):
         if Crashed.crashed == None:
-            Crashed.crashed = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\obstacle\\crashed.png")
+            Crashed.crashed = load_image("crashed.png")
         self.x, self.y = 100, 2500
 
     def update(self, frame_time):
@@ -170,7 +170,7 @@ class Stop:
     stop = None
     def __init__(self):
         if Stop.stop == None:
-            Stop.stop = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\obstacle\\stop.png")
+            Stop.stop = load_image("stop.png")
         self.x1, self.y1 = 2280, 8600
         self.x2, self.y2 = 2360, 9200
         self.x3, self.y3 = 2280, 9800
@@ -222,10 +222,10 @@ class Tree:
     tree1, tree2 = None, None
     def __init__(self):
         if Tree.tree1 == None:
-            Tree.tree1 = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\obstacle\\tree1.png")
+            Tree.tree1 = load_image("tree1.png")
 
         if Tree.tree2 == None:
-            Tree.tree2 = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\obstacle\\tree2.png")
+            Tree.tree2 = load_image("tree2.png")
 
     def update(self, frame_time):
         pass

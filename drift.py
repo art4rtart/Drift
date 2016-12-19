@@ -125,11 +125,11 @@ def enter():
     wasted = Wasted()
     obstacle = Obstacle()
 
-    font_0 = load_font("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\font\\PWChalk.TTF", 25)
-    font_1 = load_font("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\font\\PWChalk.TTF", 20)
-    state = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\interface\\state.png")
-    back = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\interface\\back.png")
-    frame = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\interface\\frame.png")
+    font_0 = load_font("PWChalk.TTF", 25)
+    font_1 = load_font("PWChalk.TTF", 20)
+    state = load_image("state.png")
+    back = load_image("back.png")
+    frame = load_image("frame.png")
     framework.reset_time()
 
 
@@ -292,7 +292,7 @@ def car_draw():
 
 
 def interface_draw():
-    clear = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\interface\\clear.png")
+    clear = load_image("clear.png")
 
     volume.draw()
     wasted.draw()

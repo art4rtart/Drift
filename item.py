@@ -10,13 +10,13 @@ class Beer:
 
     def __init__(self):
         if Beer.image == None:
-            Beer.image = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\item\\beer.png")
-            Beer.drunk = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\item\\drunk.png")
+            Beer.image = load_image("beer.png")
+            Beer.drunk = load_image("drunk.png")
         self.x = random.randint(850, 850)
         self.y = random.randint(4700, 5600)
 
         if Beer.sound == None:
-            Beer.sound = load_wav("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\sound\\item.wav")
+            Beer.sound = load_wav("item.wav")
             Beer.sound.set_volume(60)
 
     def update(self, frame_time):
@@ -39,7 +39,7 @@ class Box:
 
     def __init__(self):
         if Box.image == None:
-            Box.image = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\item\\box.png")
+            Box.image = load_image("box.png")
 
         self.x = random.randint(2290, 2310)
         self.y = random.randint(11000, 15400)
@@ -63,7 +63,7 @@ class Cell:
 
     def __init__(self):
         if Cell.image == None:
-            Cell.image = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\item\\cell.png")
+            Cell.image = load_image("cell.png")
         # self.cell = load_image('cell.png')
         self.x = random.randint(140, 140)
         self.y = random.randint(1900, 2800)
@@ -86,7 +86,7 @@ class Question:
     image = None
 
     def __init__(self):
-        self.image = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\item\\question.png")
+        self.image = load_image("question.png")
         self.x, self.y = 2360, 9600
 
     def update(self, frame_time):
@@ -108,7 +108,7 @@ class Missile:
 
     def __init__(self):
         if Missile.image == None:
-            Missile.image = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\item\\missile.png")
+            Missile.image = load_image("missile.png")
         self.x, self.y = random.randint(590, 590), random.randint(4000, 4600)
 
     def update(self, frame_time):
@@ -131,7 +131,7 @@ class Stealth:
 
     def __init__(self):
         if Stealth.image == None:
-            Stealth.image = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\item\\stealth.png")
+            Stealth.image = load_image("stealth.png")
         self.x, self.y = random.randint(2370, 2370), random.randint(8250, 8650)
 
     def update(self, frame_time):
@@ -154,10 +154,10 @@ class Speedup:
 
     def __init__(self):
         if Speedup.up == None:
-            Speedup.up = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\event\\up.png")
+            Speedup.up = load_image("up.png")
 
         if Speedup.down == None:
-            Speedup.down = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\event\\down.png")
+            Speedup.down = load_image("down.png")
 
     def update(self, frame_time):
         pass
@@ -182,7 +182,7 @@ class Launch:
     
     def __init__(self):
         if Launch.image == None:
-            Launch.image = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\item\\launch.png")
+            Launch.image = load_image("launch.png")
 
     def update(self, frame_time):
         if init.launch_update == 1:

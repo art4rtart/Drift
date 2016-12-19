@@ -7,7 +7,7 @@ import start_state
 class Volume:
     def __init__(self):
         self.volume_frame = 0
-        self.image = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\interface\\vol.png")
+        self.image = load_image("vol.png")
 
     def update(self, frame_time):
         pass
@@ -28,7 +28,7 @@ class Volume:
 class Wasted:
     def __init__(self):
         self.x, self.y = 400, 400
-        self.image = load_image("C:\\Users\\Avantgardist\\Desktop\\2DGP_2016\\image\\interface\\wasted.png")
+        self.image = load_image("wasted.png")
 
     def update(self, frame_time):
         pass
