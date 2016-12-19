@@ -34,7 +34,6 @@ def enter():
 def exit():
     global image
 
-
 def pause():
     pass
 
