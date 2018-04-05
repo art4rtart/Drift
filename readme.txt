@@ -4,7 +4,7 @@
 
 -------------------------------------------------------
 
- - PROGRAMMER : Avantgardist ( CHOI - WOO - JIN )
+ - PROGRAMMER : CHOI - WOO - JIN
 
  - TOOL : Python & Pico2d library
 
